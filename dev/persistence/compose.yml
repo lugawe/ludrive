@@ -1,0 +1,57 @@
+services:
+  ludrive-dev-database:
+    image: postgres:16-alpine
+    container_name: ludrive-dev-database
+    restart: unless-stopped
+    networks:
+      - ludrive-dev-net
+    ports:
+      - "5432:5432"
+    volumes:
+      - ludrive-dev-database:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=ludrive-dev
+      - POSTGRES_USER=ludrive-dev
+      - POSTGRES_PASSWORD=ludrive-dev
+
+  ludrive-dev-pgadmin4:
+    image: dpage/pgadmin4:9.6
+    container_name: ludrive-dev-pgadmin4
+    restart: unless-stopped
+    depends_on:
+      - ludrive-dev-database
+    networks:
+      - ludrive-dev-net
+    ports:
+      - "8000:80"
+    volumes:
+      - ludrive-dev-pgadmin4:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123456
+
+  ludrive-dev-minio:
+    image: minio/minio:latest
+    container_name: ludrive-dev-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    networks:
+      - ludrive-dev-net
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ludrive-dev-minio:/data
+    environment:
+      - MINIO_ROOT_USER=admin@example.com
+      - MINIO_ROOT_PASSWORD=admin123456
+
+volumes:
+  ludrive-dev-database:
+  ludrive-dev-pgadmin4:
+  ludrive-dev-minio:
+
+networks:
+  ludrive-dev-net:
+    name: ludrive-dev-net
+    external: false

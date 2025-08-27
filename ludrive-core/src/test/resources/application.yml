@@ -1,0 +1,50 @@
+quarkus:
+
+  # APPLICATION
+
+  application:
+    name: ludrive
+
+  # IN REST
+
+  http:
+    port: 9080
+
+  # IN GRPC
+
+  grpc:
+    server:
+      use-separate-server: false
+      port: 9090
+
+  # OUT JPA
+
+  datasource:
+    db-kind: h2
+    jdbc:
+      driver: org.h2.Driver
+      url: jdbc:h2:mem:h2-db
+    username: h2
+    password: h2
+
+  hibernate-orm:
+    schema-management:
+      strategy: drop-and-create
+
+  liquibase:
+    migrate-at-start: false
+
+  # TELEMETRY
+
+  otel:
+    traces:
+      enabled: false
+    metrics:
+      enabled: false
+    logs:
+      enabled: false
+
+  # DEVELOPMENT
+
+  devservices:
+    enabled: false

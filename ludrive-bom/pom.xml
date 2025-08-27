@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>app.ludrive</groupId>
+        <artifactId>ludrive-project</artifactId>
+        <version>0.1</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>ludrive-bom</artifactId>
+    <version>0.1</version>
+
+    <packaging>pom</packaging>
+
+    <name>ludrive-bom</name>
+
+    <properties>
+        <!-- ludrive -->
+        <ludrive.version>0.1</ludrive.version>
+        <!-- dependency versions -->
+        <quarkus.version>3.26.0</quarkus.version>
+        <google-guava.version>33.4.8-jre</google-guava.version>
+        <google-tink.version>1.18.0</google-tink.version>
+        <apache-commons-vfs2.version>2.10.0</apache-commons-vfs2.version>
+        <!-- plugin versions -->
+        <exec-maven-plugin.version>3.5.1</exec-maven-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <jandex-maven-plugin.version>3.4.0</jandex-maven-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-core</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-crypto</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-api-rest</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-api-grpc</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-cli</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-persistence</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-persistence-management</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-persistence-vfs</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-server</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-bom</artifactId>
+                <version>${quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${google-guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.crypto.tink</groupId>
+                <artifactId>tink</artifactId>
+                <version>${google-tink.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-vfs2</artifactId>
+                <version>${apache-commons-vfs2.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>${exec-maven-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.smallrye</groupId>
+                    <artifactId>jandex-maven-plugin</artifactId>
+                    <version>${jandex-maven-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-maven-plugin</artifactId>
+                    <version>${quarkus.version}</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

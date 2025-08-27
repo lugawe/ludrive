@@ -1,0 +1,33 @@
+package app.ludrive.adapters.out.persistence.jpa;
+
+import java.util.Objects;
+
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+
+public class JpaFactory {
+
+    public static final String BEAN_PERSISTENCE_MANAGEMENT = "BEAN_PERSISTENCE_MANAGEMENT";
+    public static final String BEAN_PERSISTENCE_VFS = "BEAN_PERSISTENCE_VFS";
+
+    private final EntityManagerFactory entityManagerFactory;
+    private final Provider<EntityManager> entityManagerProvider;
+
+    public JpaFactory(EntityManagerFactory entityManagerFactory, Provider<EntityManager> entityManagerProvider) {
+        this.entityManagerFactory = Objects.requireNonNull(entityManagerFactory);
+        this.entityManagerProvider = Objects.requireNonNull(entityManagerProvider);
+    }
+
+    public JpaFactory(EntityManagerFactory entityManagerFactory) {
+        this(entityManagerFactory, entityManagerFactory::createEntityManager);
+    }
+
+    public final EntityManagerFactory getEntityManagerFactory() {
+        return entityManagerFactory;
+    }
+
+    public final Provider<EntityManager> getEntityManagerProvider() {
+        return entityManagerProvider;
+    }
+}

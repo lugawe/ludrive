@@ -1,0 +1,14 @@
+# Maven
+target/
+*.versionsBackup
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+
+# Eclipse
+.classpath
+.project
+.settings/
+
