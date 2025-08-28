@@ -18,6 +18,7 @@ import app.ludrive.core.service.event.TelemetryEventManager;
 import app.ludrive.core.service.telemetry.OpenTelemetryService;
 import app.ludrive.core.service.telemetry.TelemetryService;
 import app.ludrive.core.service.validation.Validator;
+import app.ludrive.server.cdi.core.logging.Slf4jLoggerFactory;
 
 @ApplicationScoped
 public class ProducerFactory {
