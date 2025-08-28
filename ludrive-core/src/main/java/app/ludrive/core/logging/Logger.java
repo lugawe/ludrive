@@ -2,8 +2,6 @@ package app.ludrive.core.logging;
 
 public interface Logger {
 
-    Class<?> getDeclaringClass();
-
     String getName();
 
     void debug(String message);
