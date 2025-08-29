@@ -1,8 +1,7 @@
 package app.ludrive.core.domain.management;
 
 import java.io.Serializable;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -14,10 +13,10 @@ public class DriveUser implements AuthIdentity, Serializable {
 
     private UUID id;
     private String name;
+
     private Set<Roles.Role> roles;
 
-    private PrivateKey privateKey;
-    private PublicKey publicKey;
+    private List<KeyPair> keys;
 
     public DriveUser() {}
 
@@ -26,12 +25,17 @@ public class DriveUser implements AuthIdentity, Serializable {
         this.name = name;
     }
 
-    public DriveUser(UUID id, String name, Set<Roles.Role> roles, PrivateKey privateKey, PublicKey publicKey) {
+    public DriveUser(UUID id, String name, Set<Roles.Role> roles) {
         this.id = id;
         this.name = name;
         this.roles = roles;
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
+    }
+
+    public DriveUser(UUID id, String name, Set<Roles.Role> roles, List<KeyPair> keys) {
+        this.id = id;
+        this.name = name;
+        this.roles = roles;
+        this.keys = keys;
     }
 
     @Override
@@ -76,19 +80,11 @@ public class DriveUser implements AuthIdentity, Serializable {
         this.roles = roles;
     }
 
-    public PrivateKey getPrivateKey() {
-        return privateKey;
+    public List<KeyPair> getKeys() {
+        return keys;
     }
 
-    public void setPrivateKey(PrivateKey privateKey) {
-        this.privateKey = privateKey;
-    }
-
-    public PublicKey getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(PublicKey publicKey) {
-        this.publicKey = publicKey;
+    public void setKeys(List<KeyPair> keys) {
+        this.keys = keys;
     }
 }
