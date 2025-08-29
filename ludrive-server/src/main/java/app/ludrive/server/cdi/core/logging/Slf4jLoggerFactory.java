@@ -10,6 +10,6 @@ public final class Slf4jLoggerFactory {
 
     public static Logger getLogger(Class<?> declaringClass) {
         org.slf4j.Logger logger = LoggerFactory.getLogger(declaringClass);
-        return new Slf4jLogger(declaringClass.getName(), logger);
+        return new Slf4jLogger(logger);
     }
 }
