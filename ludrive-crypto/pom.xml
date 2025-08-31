@@ -22,6 +22,11 @@
         <!-- dependencies -->
 
         <dependency>
+            <groupId>app.ludrive</groupId>
+            <artifactId>ludrive-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.crypto.tink</groupId>
             <artifactId>tink</artifactId>
         </dependency>
