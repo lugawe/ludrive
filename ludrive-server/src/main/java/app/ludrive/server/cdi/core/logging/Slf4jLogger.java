@@ -2,11 +2,11 @@ package app.ludrive.server.cdi.core.logging;
 
 import app.ludrive.core.logging.Logger;
 
-public record Slf4jLogger(String name, org.slf4j.Logger logger) implements Logger {
+public record Slf4jLogger(org.slf4j.Logger logger) implements Logger {
 
     @Override
     public String getName() {
-        return name();
+        return logger.getName();
     }
 
     @Override

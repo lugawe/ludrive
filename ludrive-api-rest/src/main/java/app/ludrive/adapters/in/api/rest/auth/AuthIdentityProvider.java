@@ -6,26 +6,14 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 
-import app.ludrive.core.domain.management.DriveUser;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.ports.out.repository.DriveUserRepository;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
-// TODO
+// TODO Rewrite in modular and cached strategy
 @ApplicationScoped
 public class AuthIdentityProvider implements Provider<AuthIdentity> {
-
-    private final LoadingCache<UUID, DriveUser> userLoadingCache = CacheBuilder.newBuilder()
-            .build(new CacheLoader<>() {
-                @Override
-                public DriveUser load(UUID driveUserId) throws Exception {
-                    return driveUserRepository.getDriveUser(driveUserId);
-                }
-            });
 
     private final DriveUserRepository driveUserRepository;
     private final JsonWebToken jsonWebToken;
@@ -39,6 +27,6 @@ public class AuthIdentityProvider implements Provider<AuthIdentity> {
     @Override
     public AuthIdentity get() {
         UUID driveUserId = UUID.fromString(jsonWebToken.getClaim(Jwts.IDENTITY_ID_CLAIM));
-        return userLoadingCache.getUnchecked(driveUserId);
+        return driveUserRepository.getDriveUser(driveUserId);
     }
 }

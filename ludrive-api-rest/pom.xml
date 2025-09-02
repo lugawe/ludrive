@@ -32,8 +32,8 @@
         </dependency>
 
         <dependency>
-            <groupId>jakarta.ws.rs</groupId>
-            <artifactId>jakarta.ws.rs-api</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-rest</artifactId>
         </dependency>
 
         <dependency>
@@ -44,11 +44,6 @@
         <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-jwt-build</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
         </dependency>
 
         <!-- testing dependencies -->

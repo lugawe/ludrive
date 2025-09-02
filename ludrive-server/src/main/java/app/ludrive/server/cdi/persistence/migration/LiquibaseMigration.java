@@ -30,6 +30,13 @@ public final class LiquibaseMigration {
 
     public static void migrate(DataSource dataSource, Type type) {
 
+        if (dataSource == null) {
+            throw new NullPointerException("dataSource");
+        }
+        if (type == null) {
+            throw new NullPointerException("type");
+        }
+
         try (Connection connection = dataSource.getConnection()) {
 
             Database database =
