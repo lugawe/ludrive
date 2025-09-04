@@ -1,8 +1,6 @@
 package app.ludrive.core.service.event;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,8 +25,10 @@ public class AsyncEventManager implements EventManager {
     }
 
     protected void runAsync(Consumer<EventManager> consumer) {
+        logger.debug("runAsync on {} event managers", eventManagers.size());
         for (EventManager eventManager : eventManagers) {
-            CompletableFuture.runAsync(() -> consumer.accept(eventManager), executorService);
+            CompletableFuture.runAsync(() -> consumer.accept(eventManager), executorService)
+                    .thenRun(() -> logger.debug("runAsync {} finished", eventManager));
         }
     }
 
