@@ -61,11 +61,11 @@ quarkus:
 
   otel:
     traces:
-      enabled: false
+      enabled: true
     metrics:
       enabled: true
     logs:
-      enabled: false
+      enabled: true
 
   # DEVELOPMENT
 
