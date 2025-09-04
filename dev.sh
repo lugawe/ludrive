@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-docker compose --file dev/persistence/compose.yml up
+docker compose --file dev/container/compose.yml up
 
