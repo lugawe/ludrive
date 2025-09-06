@@ -6,7 +6,7 @@ import java.net.URI;
 import app.ludrive.adapters.out.persistence.vfs.fs.provider.FileProviders;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.vfs.Directory;
-import app.ludrive.core.exception.VFSAccessException;
+import app.ludrive.core.exception.VFSException;
 
 import org.apache.commons.vfs2.*;
 import org.apache.commons.vfs2.impl.DefaultFileSystemManager;
@@ -43,7 +43,7 @@ public class VFSManager implements Closeable {
             URI uri = new URI(String.format("%s://%s", scheme, path));
             return fileSystemManager.resolveFile(uri);
         } catch (Exception e) {
-            throw new VFSAccessException("resolve", e);
+            throw new VFSException("resolve", e);
         }
     }
 
@@ -60,7 +60,7 @@ public class VFSManager implements Closeable {
             }
             return convertToDirectory(dir);
         } catch (FileSystemException e) {
-            throw new VFSAccessException("createDirectory", e);
+            throw new VFSException("createDirectory", e);
         }
     }
 }
