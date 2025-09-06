@@ -1,6 +1,6 @@
 package app.ludrive.adapters.in.api.rest.service;
 
-import java.io.InputStream;
+import java.nio.channels.Channel;
 import java.util.UUID;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -8,7 +8,6 @@ import jakarta.inject.Inject;
 
 import app.ludrive.adapters.in.api.rest.converter.JsonConverter;
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
-import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
@@ -33,20 +32,21 @@ public class RestStorageService {
         this.fileServicePortIn = fileServicePortIn;
     }
 
-    public JsonEntryItem createEntryItem(AuthIdentity identity, UUID entryId, JsonEntryItem jsonEntryItem) {
+    public JsonDirectory createDirectory(AuthIdentity identity, UUID entryId, JsonDirectory jsonDirectory) {
 
-        return switch (jsonEntryItem) {
-            case JsonDirectory jsonDirectory -> {
-                Directory directory = jsonConverter.toDirectory(jsonDirectory);
-                Directory result = directoryServicePortIn.createDirectory(identity, entryId, directory);
-                yield jsonConverter.toJsonDirectory(result);
-            }
-            case JsonFile jsonFile -> {
-                File file = jsonConverter.toFile(jsonFile);
-                File result = fileServicePortIn.createFile(identity, entryId, file, InputStream.nullInputStream());
-                yield jsonConverter.toJsonFile(result);
-            }
-            default -> throw new IllegalStateException();
-        };
+        Directory directory = jsonConverter.toDirectory(jsonDirectory);
+
+        Directory result = directoryServicePortIn.createDirectory(identity, entryId, directory);
+
+        return jsonConverter.toJsonDirectory(result);
+    }
+
+    public JsonFile createFile(AuthIdentity identity, UUID entryId, JsonFile jsonFile, Channel fileContent) {
+
+        File file = jsonConverter.toFile(jsonFile);
+
+        File result = fileServicePortIn.createFile(identity, entryId, file, fileContent);
+
+        return jsonConverter.toJsonFile(result);
     }
 }

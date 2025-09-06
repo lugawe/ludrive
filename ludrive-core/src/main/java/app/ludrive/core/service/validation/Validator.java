@@ -1,6 +1,6 @@
 package app.ludrive.core.service.validation;
 
-import java.io.InputStream;
+import java.nio.channels.Channel;
 import java.util.regex.Pattern;
 
 import app.ludrive.core.domain.management.Entry;
@@ -38,7 +38,7 @@ public class Validator {
         validatePath(directory.getPath());
     }
 
-    public void validateFile(File file, InputStream fileContent) throws ValidationException {
+    public void validateFile(File file, Channel fileContent) throws ValidationException {
         validatePath(file.getPath());
     }
 
