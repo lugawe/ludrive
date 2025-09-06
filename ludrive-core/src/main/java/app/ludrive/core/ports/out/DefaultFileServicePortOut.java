@@ -1,6 +1,6 @@
 package app.ludrive.core.ports.out;
 
-import java.io.InputStream;
+import java.nio.channels.Channel;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -21,7 +21,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file, InputStream fileContent) {
+    public File createFile(AuthIdentity identity, UUID entryId, File file, Channel fileContent) {
 
         return fileRepository.createFile(identity, entryId, file);
     }
@@ -39,15 +39,21 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file, InputStream fileContent) {
+    public Channel getFileContent(AuthIdentity identity, UUID entryId, String path) {
 
-        return fileRepository.updateFile(identity, entryId, path, file);
+        return null;
     }
 
     @Override
     public File updateFile(AuthIdentity identity, UUID entryId, String path, File file) {
 
         return fileRepository.updateFile(identity, entryId, path, file);
+    }
+
+    @Override
+    public File updateFileContent(AuthIdentity identity, UUID entryId, String path, File file, Channel fileContent) {
+
+        return null;
     }
 
     @Override

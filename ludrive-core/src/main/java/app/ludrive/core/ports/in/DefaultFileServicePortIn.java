@@ -1,6 +1,6 @@
 package app.ludrive.core.ports.in;
 
-import java.io.InputStream;
+import java.nio.channels.Channel;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -37,7 +37,7 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file, InputStream fileContent) {
+    public File createFile(AuthIdentity identity, UUID entryId, File file, Channel fileContent) {
 
         authService.checkEntryAccess(identity, entryId);
         validator.validateFile(file, fileContent);
@@ -77,15 +77,14 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     }
 
     @Override
-    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file, InputStream fileContent) {
+    public Channel getFileContent(AuthIdentity identity, UUID entryId, String path) {
 
         authService.checkEntryAccess(identity, entryId);
         validator.validatePath(path);
-        validator.validateFile(file, fileContent);
 
-        File result = fileServicePortOut.updateFile(identity, entryId, path, file, fileContent);
+        Channel result = fileServicePortOut.getFileContent(identity, entryId, path);
 
-        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result.getId()));
+        eventManager.onFileRead(new Events.FileReadProps(identity, entryId, new EntryItemId(entryId, path)));
 
         return result;
     }
@@ -98,6 +97,20 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
         validator.validateFile(file);
 
         File result = fileServicePortOut.updateFile(identity, entryId, path, file);
+
+        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result.getId()));
+
+        return result;
+    }
+
+    @Override
+    public File updateFileContent(AuthIdentity identity, UUID entryId, String path, File file, Channel fileContent) {
+
+        authService.checkEntryAccess(identity, entryId);
+        validator.validatePath(path);
+        validator.validateFile(file, fileContent);
+
+        File result = fileServicePortOut.updateFileContent(identity, entryId, path, file, fileContent);
 
         eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result.getId()));
 
