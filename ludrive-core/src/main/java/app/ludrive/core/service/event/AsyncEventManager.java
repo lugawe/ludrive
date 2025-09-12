@@ -38,97 +38,97 @@ public class AsyncEventManager implements EventManager {
 
     @Override
     public void onDriveUserCreated(Events.DriveUserCreatedProps props) {
-        logger.info("onDriveUserCreated {}", props);
+        logger.debug("onDriveUserCreated {}", props);
         runAsync((eventManager) -> eventManager.onDriveUserCreated(props));
     }
 
     @Override
     public void onDriveUserRead(Events.DriveUserReadProps props) {
-        logger.info("onDriveUserRead {}", props);
+        logger.debug("onDriveUserRead {}", props);
         runAsync((eventManager) -> eventManager.onDriveUserRead(props));
     }
 
     @Override
     public void onDriveUserUpdated(Events.DriveUserUpdatedProps props) {
-        logger.info("onDriveUserUpdated {}", props);
+        logger.debug("onDriveUserUpdated {}", props);
         runAsync((eventManager) -> eventManager.onDriveUserUpdated(props));
     }
 
     @Override
     public void onDriveUserDeleted(Events.DriveUserDeletedProps props) {
-        logger.info("onDriveUserDeleted {}", props);
+        logger.debug("onDriveUserDeleted {}", props);
         runAsync((eventManager) -> eventManager.onDriveUserDeleted(props));
     }
 
     @Override
     public void onEntryCreated(Events.EntryCreatedProps props) {
-        logger.info("onEntryCreated {}", props);
+        logger.debug("onEntryCreated {}", props);
         runAsync((eventManager) -> eventManager.onEntryCreated(props));
     }
 
     @Override
     public void onEntryRead(Events.EntryReadProps props) {
-        logger.info("onEntryRead {}", props);
+        logger.debug("onEntryRead {}", props);
         runAsync((eventManager) -> eventManager.onEntryRead(props));
     }
 
     @Override
     public void onEntryUpdated(Events.EntryUpdatedProps props) {
-        logger.info("onEntryUpdated {}", props);
+        logger.debug("onEntryUpdated {}", props);
         runAsync((eventManager) -> eventManager.onEntryUpdated(props));
     }
 
     @Override
     public void onEntryDeleted(Events.EntryDeletedProps props) {
-        logger.info("onEntryDeleted {}", props);
+        logger.debug("onEntryDeleted {}", props);
         runAsync((eventManager) -> eventManager.onEntryDeleted(props));
     }
 
     @Override
     public void onDirectoryCreated(Events.DirectoryCreatedProps props) {
-        logger.info("onDirectoryCreated {}", props);
+        logger.debug("onDirectoryCreated {}", props);
         runAsync((eventManager) -> eventManager.onDirectoryCreated(props));
     }
 
     @Override
     public void onDirectoryRead(Events.DirectoryReadProps props) {
-        logger.info("onDirectoryRead {}", props);
+        logger.debug("onDirectoryRead {}", props);
         runAsync((eventManager) -> eventManager.onDirectoryRead(props));
     }
 
     @Override
     public void onDirectoryUpdated(Events.DirectoryUpdatedProps props) {
-        logger.info("onDirectoryUpdated {}", props);
+        logger.debug("onDirectoryUpdated {}", props);
         runAsync((eventManager) -> eventManager.onDirectoryUpdated(props));
     }
 
     @Override
     public void onDirectoryDeleted(Events.DirectoryDeletedProps props) {
-        logger.info("onDirectoryDeleted {}", props);
+        logger.debug("onDirectoryDeleted {}", props);
         runAsync((eventManager) -> eventManager.onDirectoryDeleted(props));
     }
 
     @Override
     public void onFileCreated(Events.FileCreatedProps props) {
-        logger.info("onFileCreated {}", props);
+        logger.debug("onFileCreated {}", props);
         runAsync((eventManager) -> eventManager.onFileCreated(props));
     }
 
     @Override
     public void onFileRead(Events.FileReadProps props) {
-        logger.info("onFileRead {}", props);
+        logger.debug("onFileRead {}", props);
         runAsync((eventManager) -> eventManager.onFileRead(props));
     }
 
     @Override
     public void onFileUpdated(Events.FileUpdatedProps props) {
-        logger.info("onFileUpdated {}", props);
+        logger.debug("onFileUpdated {}", props);
         runAsync((eventManager) -> eventManager.onFileUpdated(props));
     }
 
     @Override
     public void onFileDeleted(Events.FileDeletedProps props) {
-        logger.info("onFileDeleted {}", props);
+        logger.debug("onFileDeleted {}", props);
         runAsync((eventManager) -> eventManager.onFileDeleted(props));
     }
 }
