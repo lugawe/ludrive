@@ -46,11 +46,14 @@ public class ProducerFactory {
 
     @Produces
     public DriveUserServicePortIn produceDriveUserServicePortIn(
-            AuthService authService, Validator validator, DriveUserServicePortOut driveUserServicePortOut) {
+            AuthService authService,
+            Validator validator,
+            EventManager eventManager,
+            DriveUserServicePortOut driveUserServicePortOut) {
 
         Logger logger = Slf4jLoggerFactory.getLogger(DefaultDriveUserServicePortIn.class);
 
-        return new DefaultDriveUserServicePortIn(logger, authService, validator, driveUserServicePortOut);
+        return new DefaultDriveUserServicePortIn(logger, authService, validator, eventManager, driveUserServicePortOut);
     }
 
     @Produces
