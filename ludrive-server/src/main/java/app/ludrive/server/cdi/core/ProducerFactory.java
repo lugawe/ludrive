@@ -15,10 +15,11 @@ import app.ludrive.core.service.auth.DefaultAuthService;
 import app.ludrive.core.service.event.AsyncEventManager;
 import app.ludrive.core.service.event.EventManager;
 import app.ludrive.core.service.event.TelemetryEventManager;
-import app.ludrive.core.service.telemetry.OpenTelemetryService;
-import app.ludrive.core.service.telemetry.TelemetryService;
 import app.ludrive.core.service.validation.Validator;
 import app.ludrive.server.cdi.core.logging.Slf4jLoggerFactory;
+import app.ludrive.server.otel.OpenTelemetryService;
+
+import io.opentelemetry.api.metrics.Meter;
 
 @ApplicationScoped
 public class ProducerFactory {
@@ -36,12 +37,13 @@ public class ProducerFactory {
     }
 
     @Produces
-    public EventManager produceEventManager() {
+    public EventManager produceEventManager(Meter meter) {
 
         Logger logger = Slf4jLoggerFactory.getLogger(AsyncEventManager.class);
 
-        TelemetryService telemetryService = new OpenTelemetryService();
-        return new AsyncEventManager(logger, new TelemetryEventManager(telemetryService));
+        TelemetryEventManager telemetryEventManager = new TelemetryEventManager(new OpenTelemetryService(meter));
+
+        return new AsyncEventManager(logger, telemetryEventManager);
     }
 
     @Produces
