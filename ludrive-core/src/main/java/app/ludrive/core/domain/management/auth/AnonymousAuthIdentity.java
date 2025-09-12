@@ -11,13 +11,18 @@ public final class AnonymousAuthIdentity implements AuthIdentity {
     private AnonymousAuthIdentity() {}
 
     @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
     public UUID getId() {
-        throw new IllegalStateException("AnonymousAuthIdentity has no id");
+        throw new RuntimeException("anonymous auth identity has no id");
     }
 
     @Override
     public String getName() {
-        return "AnonymousAuthIdentity";
+        return "anonymous auth identity";
     }
 
     public static AuthIdentity getInstance() {
