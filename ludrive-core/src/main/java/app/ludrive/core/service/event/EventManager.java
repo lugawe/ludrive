@@ -2,6 +2,14 @@ package app.ludrive.core.service.event;
 
 public interface EventManager {
 
+    void onDriveUserCreated(Events.DriveUserCreatedProps props);
+
+    void onDriveUserRead(Events.DriveUserReadProps props);
+
+    void onDriveUserUpdated(Events.DriveUserUpdatedProps props);
+
+    void onDriveUserDeleted(Events.DriveUserDeletedProps props);
+
     void onEntryCreated(Events.EntryCreatedProps props);
 
     void onEntryRead(Events.EntryReadProps props);

@@ -33,6 +33,30 @@ public class AsyncEventManager implements EventManager {
     }
 
     @Override
+    public void onDriveUserCreated(Events.DriveUserCreatedProps props) {
+        logger.info("onDriveUserCreated {}", props);
+        runAsync((eventManager) -> eventManager.onDriveUserCreated(props));
+    }
+
+    @Override
+    public void onDriveUserRead(Events.DriveUserReadProps props) {
+        logger.info("onDriveUserRead {}", props);
+        runAsync((eventManager) -> eventManager.onDriveUserRead(props));
+    }
+
+    @Override
+    public void onDriveUserUpdated(Events.DriveUserUpdatedProps props) {
+        logger.info("onDriveUserUpdated {}", props);
+        runAsync((eventManager) -> eventManager.onDriveUserUpdated(props));
+    }
+
+    @Override
+    public void onDriveUserDeleted(Events.DriveUserDeletedProps props) {
+        logger.info("onDriveUserDeleted {}", props);
+        runAsync((eventManager) -> eventManager.onDriveUserDeleted(props));
+    }
+
+    @Override
     public void onEntryCreated(Events.EntryCreatedProps props) {
         logger.info("onEntryCreated {}", props);
         runAsync((eventManager) -> eventManager.onEntryCreated(props));

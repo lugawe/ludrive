@@ -14,6 +14,30 @@ public final class Events {
         AuthIdentity identity();
     }
 
+    public record DriveUserCreatedProps(AuthIdentity identity, Collection<UUID> driveUserIds) implements EventProps {
+        public DriveUserCreatedProps(AuthIdentity identity, UUID driveUserId) {
+            this(identity, Collections.singleton(driveUserId));
+        }
+    }
+
+    public record DriveUserReadProps(AuthIdentity identity, Collection<UUID> driveUserIds) implements EventProps {
+        public DriveUserReadProps(AuthIdentity identity, UUID driveUserId) {
+            this(identity, Collections.singleton(driveUserId));
+        }
+    }
+
+    public record DriveUserUpdatedProps(AuthIdentity identity, Collection<UUID> driveUserIds) implements EventProps {
+        public DriveUserUpdatedProps(AuthIdentity identity, UUID driveUserId) {
+            this(identity, Collections.singleton(driveUserId));
+        }
+    }
+
+    public record DriveUserDeletedProps(AuthIdentity identity, Collection<UUID> driveUserIds) implements EventProps {
+        public DriveUserDeletedProps(AuthIdentity identity, UUID driveUserId) {
+            this(identity, Collections.singleton(driveUserId));
+        }
+    }
+
     public record EntryCreatedProps(AuthIdentity identity, Collection<UUID> entryIds) implements EventProps {
         public EntryCreatedProps(AuthIdentity identity, UUID entryId) {
             this(identity, Collections.singleton(entryId));
