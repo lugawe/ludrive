@@ -1,7 +1,12 @@
 package app.ludrive.server.cdi.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
 
 import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.in.*;
@@ -14,6 +19,7 @@ import app.ludrive.core.service.auth.AuthService;
 import app.ludrive.core.service.auth.DefaultAuthService;
 import app.ludrive.core.service.event.AsyncEventManager;
 import app.ludrive.core.service.event.EventManager;
+import app.ludrive.core.service.event.LoggingEventManager;
 import app.ludrive.core.service.event.TelemetryEventManager;
 import app.ludrive.core.service.validation.Validator;
 import app.ludrive.server.cdi.core.logging.Slf4jLoggerFactory;
@@ -23,6 +29,9 @@ import io.opentelemetry.api.metrics.Meter;
 
 @ApplicationScoped
 public class ProducerFactory {
+
+    @Inject
+    private Instance<Meter> meter;
 
     public ProducerFactory() {}
 
@@ -37,13 +46,23 @@ public class ProducerFactory {
     }
 
     @Produces
-    public EventManager produceEventManager(Meter meter) {
+    public EventManager produceEventManager() {
 
-        Logger logger = Slf4jLoggerFactory.getLogger(AsyncEventManager.class);
+        Logger logger1 = Slf4jLoggerFactory.getLogger(AsyncEventManager.class);
+        Logger logger2 = Slf4jLoggerFactory.getLogger(LoggingEventManager.class);
 
-        TelemetryEventManager telemetryEventManager = new TelemetryEventManager(new OpenTelemetryService(meter));
+        List<EventManager> eventManagers = new ArrayList<>();
 
-        return new AsyncEventManager(logger, telemetryEventManager);
+        LoggingEventManager loggingEventManager = new LoggingEventManager(logger2);
+        eventManagers.add(loggingEventManager);
+
+        if (meter.isResolvable()) {
+            TelemetryEventManager telemetryEventManager =
+                    new TelemetryEventManager(new OpenTelemetryService(meter.get()));
+            eventManagers.add(telemetryEventManager);
+        }
+
+        return new AsyncEventManager(logger1, eventManagers);
     }
 
     @Produces
