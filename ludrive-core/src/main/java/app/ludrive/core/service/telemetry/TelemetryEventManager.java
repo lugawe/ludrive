@@ -1,6 +1,7 @@
-package app.ludrive.core.service.event;
+package app.ludrive.core.service.telemetry;
 
-import app.ludrive.core.service.telemetry.TelemetryService;
+import app.ludrive.core.service.event.EventManager;
+import app.ludrive.core.service.event.Events;
 
 public class TelemetryEventManager implements EventManager {
 
