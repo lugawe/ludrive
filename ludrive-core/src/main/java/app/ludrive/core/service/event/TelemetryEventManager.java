@@ -11,6 +11,26 @@ public class TelemetryEventManager implements EventManager {
     }
 
     @Override
+    public void onDriveUserCreated(Events.DriveUserCreatedProps props) {
+        telemetryService.countSuccess(props.identity());
+    }
+
+    @Override
+    public void onDriveUserRead(Events.DriveUserReadProps props) {
+        telemetryService.countSuccess(props.identity());
+    }
+
+    @Override
+    public void onDriveUserUpdated(Events.DriveUserUpdatedProps props) {
+        telemetryService.countSuccess(props.identity());
+    }
+
+    @Override
+    public void onDriveUserDeleted(Events.DriveUserDeletedProps props) {
+        telemetryService.countSuccess(props.identity());
+    }
+
+    @Override
     public void onEntryCreated(Events.EntryCreatedProps props) {
         telemetryService.countSuccess(props.identity());
     }
