@@ -20,8 +20,12 @@ public class AsyncEventManager implements EventManager {
         this.eventManagers = Collections.unmodifiableCollection(eventManagers);
     }
 
+    public AsyncEventManager(Logger logger, EventManager... eventManagers) {
+        this(logger, Arrays.asList(eventManagers));
+    }
+
     public AsyncEventManager(Logger logger, EventManager eventManager) {
-        this(logger, Collections.singleton(eventManager));
+        this(logger, Collections.singletonList(eventManager));
     }
 
     protected void runAsync(Consumer<EventManager> consumer) {
