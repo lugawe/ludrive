@@ -32,7 +32,7 @@ public class AsyncEventManager implements EventManager {
         logger.debug("runAsync on {} event managers", eventManagers.size());
         for (EventManager eventManager : eventManagers) {
             CompletableFuture.runAsync(() -> consumer.accept(eventManager), executorService)
-                    .thenRun(() -> logger.debug("runAsync {} finished", eventManager));
+                    .thenRun(() -> logger.debug("runAsync on {} finished", eventManager));
         }
     }
 
