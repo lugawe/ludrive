@@ -20,7 +20,7 @@ import app.ludrive.core.service.auth.DefaultAuthService;
 import app.ludrive.core.service.event.AsyncEventManager;
 import app.ludrive.core.service.event.EventManager;
 import app.ludrive.core.service.event.LoggingEventManager;
-import app.ludrive.core.service.event.TelemetryEventManager;
+import app.ludrive.core.service.telemetry.TelemetryEventManager;
 import app.ludrive.core.service.validation.Validator;
 import app.ludrive.server.cdi.core.logging.Slf4jLoggerFactory;
 import app.ludrive.server.otel.OpenTelemetryService;
