@@ -9,15 +9,18 @@ import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.repository.FileRepository;
+import app.ludrive.core.service.vfs.VirtualFSService;
 
 public class DefaultFileServicePortOut implements FileServicePortOut {
 
     protected final Logger logger;
     protected final FileRepository fileRepository;
+    protected final VirtualFSService virtualFSService;
 
-    public DefaultFileServicePortOut(Logger logger, FileRepository fileRepository) {
+    public DefaultFileServicePortOut(Logger logger, FileRepository fileRepository, VirtualFSService virtualFSService) {
         this.logger = logger;
         this.fileRepository = fileRepository;
+        this.virtualFSService = virtualFSService;
     }
 
     @Override
