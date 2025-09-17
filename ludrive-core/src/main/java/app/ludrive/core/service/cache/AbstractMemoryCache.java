@@ -1,5 +1,6 @@
 package app.ludrive.core.service.cache;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,6 +34,11 @@ public abstract class AbstractMemoryCache<T, ID> implements Cache<T, ID> {
     @Override
     public void evict(ID id) {
         cache.remove(id);
+    }
+
+    @Override
+    public void evict(Collection<? extends ID> ids) {
+        cache.keySet().removeAll(ids);
     }
 
     @Override
