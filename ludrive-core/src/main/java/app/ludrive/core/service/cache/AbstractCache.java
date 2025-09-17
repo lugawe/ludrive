@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import app.ludrive.core.exception.CacheException;
-import app.ludrive.core.service.event.AbstractEventManager;
 
-public abstract class AbstractCache<T, ID> extends AbstractEventManager implements Cache<T, ID> {
+public abstract class AbstractCache<T, ID> implements Cache<T, ID> {
 
     protected final Map<ID, T> cache = new ConcurrentHashMap<>();
 
