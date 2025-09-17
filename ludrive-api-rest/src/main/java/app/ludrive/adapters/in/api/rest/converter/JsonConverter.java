@@ -1,5 +1,7 @@
 package app.ludrive.adapters.in.api.rest.converter;
 
+import java.util.UUID;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -40,20 +42,18 @@ public class JsonConverter {
 
         JsonEntryItemId result = new JsonEntryItemId();
 
-        result.setEntryId(entryItemId.getEntryId());
-        result.setPath(entryItemId.getPath());
+        result.setEntryId(entryItemId.entryId());
+        result.setPath(entryItemId.path());
 
         return result;
     }
 
     public EntryItemId toEntryItemId(JsonEntryItemId entryItemId) {
 
-        EntryItemId result = new EntryItemId();
+        UUID entryId = entryItemId.getEntryId();
+        String path = entryItemId.getPath();
 
-        result.setEntryId(entryItemId.getEntryId());
-        result.setPath(entryItemId.getPath());
-
-        return result;
+        return new EntryItemId(entryId, path);
     }
 
     public JsonEntry toJsonEntry(Entry entry) {
@@ -89,11 +89,9 @@ public class JsonConverter {
 
     public Directory toDirectory(JsonDirectory directory) {
 
-        Directory result = new Directory();
+        EntryItemId entryItemId = toEntryItemId(directory.getId());
 
-        result.setId(toEntryItemId(directory.getId()));
-
-        return result;
+        return new Directory(entryItemId);
     }
 
     public JsonFile toJsonFile(File file) {
@@ -107,10 +105,8 @@ public class JsonConverter {
 
     public File toFile(JsonFile file) {
 
-        File result = new File();
+        EntryItemId entryItemId = toEntryItemId(file.getId());
 
-        result.setId(toEntryItemId(file.getId()));
-
-        return result;
+        return new File(entryItemId);
     }
 }

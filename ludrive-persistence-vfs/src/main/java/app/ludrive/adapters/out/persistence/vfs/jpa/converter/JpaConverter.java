@@ -1,5 +1,7 @@
 package app.ludrive.adapters.out.persistence.vfs.jpa.converter;
 
+import java.util.UUID;
+
 import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaDirectory;
 import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaEntryItemId;
 import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaFile;
@@ -15,20 +17,18 @@ public final class JpaConverter {
 
         JpaEntryItemId result = new JpaEntryItemId();
 
-        result.setEntryId(entryItemId.getEntryId());
-        result.setPath(entryItemId.getPath());
+        result.setEntryId(entryItemId.entryId());
+        result.setPath(entryItemId.path());
 
         return result;
     }
 
     public static EntryItemId toEntryItemId(JpaEntryItemId entryItemId) {
 
-        EntryItemId result = new EntryItemId();
+        UUID entryId = entryItemId.getEntryId();
+        String path = entryItemId.getPath();
 
-        result.setEntryId(entryItemId.getEntryId());
-        result.setPath(entryItemId.getPath());
-
-        return result;
+        return new EntryItemId(entryId, path);
     }
 
     public static JpaDirectory toJpaDirectory(Directory directory) {
@@ -42,11 +42,9 @@ public final class JpaConverter {
 
     public static Directory toDirectory(JpaDirectory directory) {
 
-        Directory result = new Directory();
+        EntryItemId entryItemId = toEntryItemId(directory.getId());
 
-        result.setId(toEntryItemId(directory.getId()));
-
-        return result;
+        return new Directory(entryItemId);
     }
 
     public static void updateJpaDirectory(JpaDirectory jpaDirectory, Directory directory) {}
@@ -62,11 +60,9 @@ public final class JpaConverter {
 
     public static File toFile(JpaFile file) {
 
-        File result = new File();
+        EntryItemId entryItemId = toEntryItemId(file.getId());
 
-        result.setId(toEntryItemId(file.getId()));
-
-        return result;
+        return new File(entryItemId);
     }
 
     public static void updateJpaFile(JpaFile jpaFile, File file) {}
