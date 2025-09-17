@@ -1,4 +1,4 @@
-package app.ludrive.core.domain.management;
+package app.ludrive.core.domain.management.auth;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,10 +6,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-import app.ludrive.core.domain.management.auth.AuthIdentity;
-import app.ludrive.core.domain.management.auth.Roles;
+import app.ludrive.core.domain.management.KeyPair;
 
-public class DriveUser implements AuthIdentity, Serializable {
+public final class DriveUser implements AuthIdentity, Serializable {
 
     private UUID id;
     private String name;
@@ -40,20 +39,16 @@ public class DriveUser implements AuthIdentity, Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof DriveUser that)) return false;
-        return Objects.equals(getId(), that.getId());
+        if (!(o instanceof DriveUser driveUser)) return false;
+        return Objects.equals(id, driveUser.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
-    public String toString() {
-        return getName();
-    }
-
     public UUID getId() {
         return id;
     }

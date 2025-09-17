@@ -3,7 +3,7 @@ package app.ludrive.core.domain.management;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class KeyPair implements Serializable {
+public final class KeyPair implements Serializable {
 
     private UUID id;
     private String name;

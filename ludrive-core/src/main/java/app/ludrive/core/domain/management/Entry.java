@@ -4,31 +4,19 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Entry implements Serializable {
-
-    public enum Protocol {
-        MEMORY(""),
-        FILE(""),
-        S3("");
-
-        private final String urlScheme;
-
-        Protocol(String urlScheme) {
-            this.urlScheme = urlScheme;
-        }
-
-        public String getUrlScheme() {
-            return urlScheme;
-        }
-    }
+public final class Entry implements Serializable {
 
     private UUID id;
     private String name;
     private String description;
 
-    private Protocol protocol;
-
     public Entry() {}
+
+    public Entry(UUID id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -63,13 +51,5 @@ public class Entry implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Protocol getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(Protocol protocol) {
-        this.protocol = protocol;
     }
 }
