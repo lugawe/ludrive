@@ -1,12 +1,18 @@
 package app.ludrive.server.cdi.core.logging;
 
-import app.ludrive.core.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.MDC;
 
-public record Slf4jLogger(org.slf4j.Logger logger) implements Logger {
+public record Slf4jLogger(Logger logger) implements app.ludrive.core.logging.Logger {
 
     @Override
     public String getName() {
         return logger.getName();
+    }
+
+    @Override
+    public void putContext(String key, String context) {
+        MDC.put(key, context);
     }
 
     @Override

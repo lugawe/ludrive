@@ -5,6 +5,9 @@ public abstract class AbstractLogger implements Logger {
     public AbstractLogger() {}
 
     @Override
+    public void putContext(String key, String context) {}
+
+    @Override
     public void debug(String message) {}
 
     @Override

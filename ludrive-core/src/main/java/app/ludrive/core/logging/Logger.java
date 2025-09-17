@@ -4,6 +4,8 @@ public interface Logger {
 
     String getName();
 
+    void putContext(String key, String context);
+
     void debug(String message);
 
     void debug(String message, Object... args);
