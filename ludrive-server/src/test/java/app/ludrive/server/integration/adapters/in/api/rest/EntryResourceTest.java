@@ -7,7 +7,7 @@ import jakarta.inject.Inject;
 import app.ludrive.adapters.in.api.rest.EntryResource;
 import app.ludrive.adapters.in.api.rest.auth.Jwts;
 import app.ludrive.adapters.in.api.rest.json.JsonEntry;
-import app.ludrive.core.domain.management.DriveUser;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
 
 import io.quarkus.test.common.http.TestHTTPEndpoint;

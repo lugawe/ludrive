@@ -7,8 +7,8 @@ import jakarta.inject.Inject;
 
 import app.ludrive.adapters.in.api.rest.converter.JsonConverter;
 import app.ludrive.adapters.in.api.rest.json.JsonDriveUser;
-import app.ludrive.core.domain.management.DriveUser;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.in.DriveUserServicePortIn;
 
 @ApplicationScoped

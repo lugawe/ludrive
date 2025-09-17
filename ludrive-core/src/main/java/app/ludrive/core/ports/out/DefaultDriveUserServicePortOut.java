@@ -2,8 +2,8 @@ package app.ludrive.core.ports.out;
 
 import java.util.UUID;
 
-import app.ludrive.core.domain.management.DriveUser;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.repository.DriveUserRepository;
 

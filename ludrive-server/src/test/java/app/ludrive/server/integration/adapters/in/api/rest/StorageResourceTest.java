@@ -8,8 +8,8 @@ import app.ludrive.adapters.in.api.rest.StorageResource;
 import app.ludrive.adapters.in.api.rest.auth.Jwts;
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
 import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
-import app.ludrive.core.domain.management.DriveUser;
 import app.ludrive.core.domain.management.Entry;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
 import app.ludrive.core.ports.out.EntryServicePortOut;
 

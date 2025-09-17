@@ -6,8 +6,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import app.ludrive.adapters.in.api.rest.json.*;
-import app.ludrive.core.domain.management.DriveUser;
 import app.ludrive.core.domain.management.Entry;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.domain.vfs.File;

@@ -11,7 +11,7 @@ import app.ludrive.adapters.out.persistence.jpa.JpaFactory;
 import app.ludrive.adapters.out.persistence.jpa.JpaRepository;
 import app.ludrive.adapters.out.persistence.management.jpa.converter.JpaConverter;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaDriveUser;
-import app.ludrive.core.domain.management.DriveUser;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.exception.NotFoundException;
 import app.ludrive.core.ports.out.repository.DriveUserRepository;
 

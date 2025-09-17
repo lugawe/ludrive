@@ -2,7 +2,7 @@ package app.ludrive.core.ports.out.repository;
 
 import java.util.UUID;
 
-import app.ludrive.core.domain.management.DriveUser;
+import app.ludrive.core.domain.management.auth.DriveUser;
 
 public interface DriveUserRepository {
 

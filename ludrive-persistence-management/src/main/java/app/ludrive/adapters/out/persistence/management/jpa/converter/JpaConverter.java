@@ -2,9 +2,9 @@ package app.ludrive.adapters.out.persistence.management.jpa.converter;
 
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaDriveUser;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntry;
-import app.ludrive.core.domain.management.DriveUser;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 
 public final class JpaConverter {
 

@@ -5,7 +5,7 @@ import java.util.UUID;
 import app.ludrive.adapters.in.api.rest.DriveUserResource;
 import app.ludrive.adapters.in.api.rest.auth.Jwts;
 import app.ludrive.adapters.in.api.rest.json.JsonDriveUser;
-import app.ludrive.core.domain.management.DriveUser;
+import app.ludrive.core.domain.management.auth.DriveUser;
 
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
