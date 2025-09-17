@@ -6,7 +6,7 @@ import java.util.UUID;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.service.event.Events;
 
-public class DefaultDriveUserCache extends AbstractMemoryCache<DriveUser, UUID> implements DriveUserCache {
+public class DefaultDriveUserCache extends AbstractCache<DriveUser, UUID> implements DriveUserCache {
 
     public DefaultDriveUserCache() {}
 
