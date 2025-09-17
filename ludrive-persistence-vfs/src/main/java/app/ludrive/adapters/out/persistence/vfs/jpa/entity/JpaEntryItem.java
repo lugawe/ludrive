@@ -13,7 +13,7 @@ import jakarta.persistence.*;
             @Index(name = "idx_entry_item_parent_path", columnList = "parent_path"),
             @Index(name = "idx_entry_item_entry_parent_path", columnList = "entry_id, parent_path")
         })
-public abstract class JpaEntryItem {
+public class JpaEntryItem {
 
     @EmbeddedId
     private JpaEntryItemId id;
