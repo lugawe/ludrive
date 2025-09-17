@@ -9,7 +9,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import app.ludrive.adapters.in.api.rest.auth.AuthIdentityProvider;
+import app.ludrive.adapters.in.api.rest.auth.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonEntry;
 import app.ludrive.adapters.in.api.rest.service.RestEntryService;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
@@ -21,19 +21,19 @@ import app.ludrive.core.domain.management.auth.Roles;
 @Produces(MediaType.APPLICATION_JSON)
 public class EntryResource {
 
-    private final AuthIdentityProvider authIdentityProvider;
+    private final RestContextService restContextService;
     private final RestEntryService restEntryService;
 
     @Inject
-    public EntryResource(AuthIdentityProvider authIdentityProvider, RestEntryService restEntryService) {
-        this.authIdentityProvider = authIdentityProvider;
+    public EntryResource(RestContextService restContextService, RestEntryService restEntryService) {
+        this.restContextService = restContextService;
         this.restEntryService = restEntryService;
     }
 
     @POST
     public Response createEntry(JsonEntry jsonEntry) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         JsonEntry result = restEntryService.createEntry(identity, jsonEntry);
 
@@ -43,7 +43,7 @@ public class EntryResource {
     @GET
     public Response getEntries() {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         Stream<JsonEntry> result = restEntryService.getEntries(identity);
 
@@ -54,7 +54,7 @@ public class EntryResource {
     @Path("/{entryId}")
     public Response getEntry(@PathParam("entryId") UUID entryId) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         JsonEntry result = restEntryService.getEntry(identity, entryId);
 
@@ -65,7 +65,7 @@ public class EntryResource {
     @Path("/{entryId}")
     public Response updateEntry(@PathParam("entryId") UUID entryId, JsonEntry jsonEntry) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         JsonEntry result = restEntryService.updateEntry(identity, entryId, jsonEntry);
 
@@ -76,7 +76,7 @@ public class EntryResource {
     @Path("/{entryId}")
     public Response deleteEntry(@PathParam("entryId") UUID entryId) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         UUID result = restEntryService.deleteEntry(identity, entryId);
         if (result == null) {

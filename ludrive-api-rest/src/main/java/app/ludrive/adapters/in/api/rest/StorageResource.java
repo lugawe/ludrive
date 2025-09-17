@@ -8,7 +8,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import app.ludrive.adapters.in.api.rest.auth.AuthIdentityProvider;
+import app.ludrive.adapters.in.api.rest.auth.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
 import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
@@ -22,12 +22,12 @@ import app.ludrive.core.domain.management.auth.Roles;
 @Produces(MediaType.APPLICATION_JSON)
 public class StorageResource {
 
-    private final AuthIdentityProvider authIdentityProvider;
+    private final RestContextService restContextService;
     private final RestStorageService restStorageService;
 
     @Inject
-    public StorageResource(AuthIdentityProvider authIdentityProvider, RestStorageService restStorageService) {
-        this.authIdentityProvider = authIdentityProvider;
+    public StorageResource(RestContextService restContextService, RestStorageService restStorageService) {
+        this.restContextService = restContextService;
         this.restStorageService = restStorageService;
     }
 
@@ -35,7 +35,7 @@ public class StorageResource {
     @Path("/{entryId}/directories")
     public Response createDirectory(@PathParam("entryId") UUID entryId, JsonDirectory jsonDirectory) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         JsonEntryItem result = restStorageService.createDirectory(identity, entryId, jsonDirectory);
 
@@ -46,7 +46,7 @@ public class StorageResource {
     @Path("/{entryId}/files")
     public Response createFile(@PathParam("entryId") UUID entryId, JsonFile jsonFile) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         JsonEntryItem result = restStorageService.createFile(identity, entryId, jsonFile, null);
 

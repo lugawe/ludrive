@@ -7,7 +7,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import app.ludrive.adapters.in.api.rest.auth.AuthIdentityProvider;
+import app.ludrive.adapters.in.api.rest.auth.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonDriveUser;
 import app.ludrive.adapters.in.api.rest.service.RestDriveUserService;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
@@ -17,12 +17,12 @@ import app.ludrive.core.domain.management.auth.AuthIdentity;
 @Produces(MediaType.APPLICATION_JSON)
 public class DriveUserResource {
 
-    private final AuthIdentityProvider authIdentityProvider;
+    private final RestContextService restContextService;
     private final RestDriveUserService restDriveUserService;
 
     @Inject
-    public DriveUserResource(AuthIdentityProvider authIdentityProvider, RestDriveUserService restDriveUserService) {
-        this.authIdentityProvider = authIdentityProvider;
+    public DriveUserResource(RestContextService restContextService, RestDriveUserService restDriveUserService) {
+        this.restContextService = restContextService;
         this.restDriveUserService = restDriveUserService;
     }
 
@@ -38,7 +38,7 @@ public class DriveUserResource {
     @Path("/{driveUserId}")
     public Response getDriveUser(@PathParam("driveUserId") UUID driveUserId) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         JsonDriveUser result = restDriveUserService.getDriveUser(identity, driveUserId);
 
@@ -49,7 +49,7 @@ public class DriveUserResource {
     @Path("/{driveUserId}")
     public Response updateDriveUser(@PathParam("driveUserId") UUID driveUserId, JsonDriveUser jsonDriveUser) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         JsonDriveUser result = restDriveUserService.updateDriveUser(identity, driveUserId, jsonDriveUser);
 
@@ -60,7 +60,7 @@ public class DriveUserResource {
     @Path("/{driveUserId}")
     public Response deleteDriveUser(@PathParam("driveUserId") UUID driveUserId) {
 
-        AuthIdentity identity = authIdentityProvider.get();
+        AuthIdentity identity = restContextService.getAuthIdentity();
 
         UUID result = restDriveUserService.deleteDriveUser(identity, driveUserId);
         if (result == null) {
