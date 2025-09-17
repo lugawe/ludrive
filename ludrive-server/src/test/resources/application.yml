@@ -30,6 +30,9 @@ quarkus:
       username: h2
       password: h2
 
+    vfs:
+      db-kind: h2
+
   hibernate-orm:
 
     management:
@@ -38,9 +41,21 @@ quarkus:
       schema-management:
         strategy: drop-and-create
 
+    vfs:
+      datasource: vfs
+      packages: app.ludrive.adapters.out.persistence.vfs.jpa.entity
+      multitenant: DATABASE
+      schema-management:
+        strategy: none
+
   liquibase:
 
     management:
+      change-log: db/management/managementChangeLog.xml
+      migrate-at-start: false
+
+    vfs:
+      change-log: db/vfs/vfsChangeLog.xml
       migrate-at-start: false
 
   # TELEMETRY
