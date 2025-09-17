@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 
 import app.ludrive.core.logging.Logger;
 
-public class AsyncEventManager implements EventManager {
+public class AsyncEventManager extends AbstractEventManager {
 
     protected final ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
 

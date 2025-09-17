@@ -2,7 +2,7 @@ package app.ludrive.core.service.event;
 
 import app.ludrive.core.logging.Logger;
 
-public class LoggingEventManager implements EventManager {
+public class LoggingEventManager extends AbstractEventManager {
 
     protected final Logger logger;
 
