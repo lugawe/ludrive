@@ -3,7 +3,7 @@ package app.ludrive.server.cdi.persistence.tenant;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-import app.ludrive.server.cdi.persistence.migration.LiquibaseMigration;
+import app.ludrive.server.tooling.migration.LiquibaseMigration;
 
 import io.agroal.pool.DataSource;
 import io.quarkus.hibernate.orm.PersistenceUnitExtension;
