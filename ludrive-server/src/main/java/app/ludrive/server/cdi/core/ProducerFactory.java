@@ -22,6 +22,7 @@ import app.ludrive.core.service.event.EventManager;
 import app.ludrive.core.service.event.LoggingEventManager;
 import app.ludrive.core.service.telemetry.TelemetryEventManager;
 import app.ludrive.core.service.validation.Validator;
+import app.ludrive.core.service.vfs.VirtualFSService;
 import app.ludrive.server.cdi.core.logging.Slf4jLoggerFactory;
 import app.ludrive.server.otel.OpenTelemetryService;
 
@@ -130,18 +131,20 @@ public class ProducerFactory {
     }
 
     @Produces
-    public DirectoryServicePortOut produceDirectoryServicePortOut(DirectoryRepository directoryRepository) {
+    public DirectoryServicePortOut produceDirectoryServicePortOut(
+            DirectoryRepository directoryRepository, VirtualFSService virtualFSService) {
 
         Logger logger = Slf4jLoggerFactory.getLogger(DefaultDirectoryServicePortOut.class);
 
-        return new DefaultDirectoryServicePortOut(logger, directoryRepository);
+        return new DefaultDirectoryServicePortOut(logger, directoryRepository, virtualFSService);
     }
 
     @Produces
-    public FileServicePortOut produceFileServicePortOut(FileRepository fileRepository) {
+    public FileServicePortOut produceFileServicePortOut(
+            FileRepository fileRepository, VirtualFSService virtualFSService) {
 
         Logger logger = Slf4jLoggerFactory.getLogger(DefaultFileServicePortOut.class);
 
-        return new DefaultFileServicePortOut(logger, fileRepository);
+        return new DefaultFileServicePortOut(logger, fileRepository, virtualFSService);
     }
 }
