@@ -6,8 +6,6 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-import app.ludrive.core.domain.vfs.EntryItemId;
-
 @Embeddable
 public class JpaEntryItemId {
 
@@ -26,7 +24,7 @@ public class JpaEntryItemId {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof EntryItemId that)) return false;
+        if (!(o instanceof JpaEntryItemId that)) return false;
         return Objects.equals(getEntryId(), that.getEntryId()) && Objects.equals(getPath(), that.getPath());
     }
 
