@@ -3,11 +3,13 @@ package app.ludrive.core.domain.vfs;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class File extends EntryItem implements Serializable {
+public final class File extends EntryItem implements Serializable {
 
-    public File() {}
+    public File(EntryItemId entryItemId) {
+        super(entryItemId);
+    }
 
     public File(UUID entryId, String path) {
-        super(new EntryItemId(entryId, path));
+        this(new EntryItemId(entryId, path));
     }
 }
