@@ -1,4 +1,4 @@
-package app.ludrive.server.cdi.persistence.migration;
+package app.ludrive.server.tooling.migration;
 
 import java.sql.Connection;
 import javax.sql.DataSource;
@@ -8,8 +8,12 @@ import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.resource.ClassLoaderResourceAccessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class LiquibaseMigration {
+
+    private static final Logger log = LoggerFactory.getLogger(LiquibaseMigration.class);
 
     public enum Type {
         MANAGEMENT("db/management/managementChangeLog.xml"),
@@ -38,6 +42,8 @@ public final class LiquibaseMigration {
         }
 
         try (Connection connection = dataSource.getConnection()) {
+
+            log.info("got connection - start migration");
 
             Database database =
                     DatabaseFactory.getInstance().findCorrectDatabaseImplementation(new JdbcConnection(connection));
