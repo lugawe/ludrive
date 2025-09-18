@@ -3,12 +3,12 @@ package app.ludrive.core.util;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class Lazy<T> implements Supplier<T> {
+public final class Lazy<T> implements Supplier<T> {
 
-    protected final Supplier<T> delegate;
+    private final Supplier<T> delegate;
 
-    protected volatile boolean initialized;
-    protected T value;
+    private volatile boolean initialized;
+    private T value;
 
     public Lazy(Supplier<T> delegate) {
         this.delegate = Objects.requireNonNull(delegate);
