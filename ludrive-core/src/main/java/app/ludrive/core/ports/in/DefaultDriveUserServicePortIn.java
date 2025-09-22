@@ -49,7 +49,7 @@ public class DefaultDriveUserServicePortIn implements DriveUserServicePortIn {
 
         authService.checkDriveUserAccess(identity, driveUserId);
 
-        DriveUser result = driveUserServicePortOut.getDriveUser(identity, driveUserId);
+        DriveUser result = driveUserServicePortOut.getDriveUser(driveUserId);
 
         eventManager.onDriveUserRead(new Events.DriveUserReadProps(identity, result.getId()));
 
@@ -61,7 +61,7 @@ public class DefaultDriveUserServicePortIn implements DriveUserServicePortIn {
 
         authService.checkDriveUserAccess(identity, driveUserId);
 
-        DriveUser result = driveUserServicePortOut.updateDriveUser(identity, driveUserId, driveUser);
+        DriveUser result = driveUserServicePortOut.updateDriveUser(driveUserId, driveUser);
 
         eventManager.onDriveUserUpdated(new Events.DriveUserUpdatedProps(identity, result.getId()));
 
@@ -73,7 +73,7 @@ public class DefaultDriveUserServicePortIn implements DriveUserServicePortIn {
 
         authService.checkDriveUserAccess(identity, driveUserId);
 
-        UUID result = driveUserServicePortOut.deleteDriveUser(identity, driveUserId);
+        UUID result = driveUserServicePortOut.deleteDriveUser(driveUserId);
 
         eventManager.onDriveUserDeleted(new Events.DriveUserDeletedProps(identity, result));
 
