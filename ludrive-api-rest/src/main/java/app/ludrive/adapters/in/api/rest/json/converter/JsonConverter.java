@@ -1,4 +1,4 @@
-package app.ludrive.adapters.in.api.rest.converter;
+package app.ludrive.adapters.in.api.rest.json.converter;
 
 import java.util.UUID;
 

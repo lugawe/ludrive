@@ -5,8 +5,8 @@ import java.util.UUID;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-import app.ludrive.adapters.in.api.rest.converter.JsonConverter;
 import app.ludrive.adapters.in.api.rest.json.JsonDriveUser;
+import app.ludrive.adapters.in.api.rest.json.converter.JsonConverter;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.in.DriveUserServicePortIn;
