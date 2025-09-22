@@ -1,4 +1,4 @@
-package app.ludrive.core.domain.management.auth;
+package app.ludrive.core.service.context;
 
 import java.io.Serializable;
 import java.util.UUID;

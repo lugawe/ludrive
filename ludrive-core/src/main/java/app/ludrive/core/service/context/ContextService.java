@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
-import app.ludrive.core.domain.management.auth.AuthIdentityEntryKey;
 
 public interface ContextService {
 
