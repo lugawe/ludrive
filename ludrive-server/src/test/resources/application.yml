@@ -36,12 +36,16 @@ quarkus:
   hibernate-orm:
 
     management:
+      log:
+        sql: true
       datasource: management
       packages: app.ludrive.adapters.out.persistence.management.jpa.entity
       schema-management:
         strategy: drop-and-create
 
     vfs:
+      log:
+        sql: true
       datasource: vfs
       packages: app.ludrive.adapters.out.persistence.vfs.jpa.entity
       multitenant: DATABASE
