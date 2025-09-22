@@ -9,18 +9,24 @@ import app.ludrive.server.cdi.util.ClassNamed;
 import app.ludrive.server.logging.Slf4jLoggerFactory;
 
 @Dependent
-public class QuarkusLogger {
+public class LoggerProducer {
+
+    public LoggerProducer() {}
+
+    private Logger createLogger(Class<?> tClass) {
+        return Slf4jLoggerFactory.getLogger(tClass);
+    }
 
     @Produces
     public Logger produce(InjectionPoint injectionPoint) {
 
         ClassNamed classNamed = injectionPoint.getAnnotated().getAnnotation(ClassNamed.class);
         if (classNamed != null) {
-            return Slf4jLoggerFactory.getLogger(classNamed.value());
+            return createLogger(classNamed.value());
         }
 
         Class<?> declaringClass = injectionPoint.getMember().getDeclaringClass();
 
-        return Slf4jLoggerFactory.getLogger(declaringClass);
+        return createLogger(declaringClass);
     }
 }

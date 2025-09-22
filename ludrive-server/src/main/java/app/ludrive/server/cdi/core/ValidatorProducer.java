@@ -6,9 +6,9 @@ import jakarta.enterprise.inject.Produces;
 import app.ludrive.core.service.validation.Validator;
 
 @ApplicationScoped
-public class QuarkusValidator {
+public class ValidatorProducer {
 
-    public QuarkusValidator() {}
+    public ValidatorProducer() {}
 
     @Produces
     public Validator produce() {

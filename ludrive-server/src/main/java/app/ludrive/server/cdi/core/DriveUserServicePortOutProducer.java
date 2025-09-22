@@ -11,7 +11,7 @@ import app.ludrive.core.ports.out.repository.DriveUserRepository;
 import app.ludrive.server.cdi.util.ClassNamed;
 
 @ApplicationScoped
-public class QuarkusDriveUserServicePortOut {
+public class DriveUserServicePortOutProducer {
 
     @Inject
     @ClassNamed(DriveUserServicePortOut.class)
@@ -20,7 +20,7 @@ public class QuarkusDriveUserServicePortOut {
     @Inject
     private DriveUserRepository driveUserRepository;
 
-    public QuarkusDriveUserServicePortOut() {}
+    public DriveUserServicePortOutProducer() {}
 
     @Produces
     public DriveUserServicePortOut produce() {

@@ -7,9 +7,9 @@ import app.ludrive.core.service.auth.AuthService;
 import app.ludrive.core.service.auth.DefaultAuthService;
 
 @ApplicationScoped
-public class QuarkusAuthService {
+public class AuthServiceProducer {
 
-    public QuarkusAuthService() {}
+    public AuthServiceProducer() {}
 
     @Produces
     public AuthService produce() {

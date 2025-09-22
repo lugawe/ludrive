@@ -11,7 +11,7 @@ import app.ludrive.core.ports.out.repository.EntryRepository;
 import app.ludrive.server.cdi.util.ClassNamed;
 
 @ApplicationScoped
-public class QuarkusEntryServicePortOut {
+public class EntryServicePortOutProducer {
 
     @Inject
     @ClassNamed(EntryServicePortOut.class)
@@ -20,7 +20,7 @@ public class QuarkusEntryServicePortOut {
     @Inject
     private EntryRepository entryRepository;
 
-    public QuarkusEntryServicePortOut() {}
+    public EntryServicePortOutProducer() {}
 
     @Produces
     public EntryServicePortOut produce() {

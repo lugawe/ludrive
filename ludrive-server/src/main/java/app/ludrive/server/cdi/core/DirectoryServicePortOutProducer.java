@@ -12,7 +12,7 @@ import app.ludrive.core.service.vfs.VirtualFSService;
 import app.ludrive.server.cdi.util.ClassNamed;
 
 @RequestScoped
-public class QuarkusDirectoryServicePortOut {
+public class DirectoryServicePortOutProducer {
 
     @Inject
     @ClassNamed(DirectoryServicePortOut.class)
@@ -24,7 +24,7 @@ public class QuarkusDirectoryServicePortOut {
     @Inject
     private VirtualFSService virtualFSService;
 
-    public QuarkusDirectoryServicePortOut() {}
+    public DirectoryServicePortOutProducer() {}
 
     @Produces
     public DirectoryServicePortOut produce() {

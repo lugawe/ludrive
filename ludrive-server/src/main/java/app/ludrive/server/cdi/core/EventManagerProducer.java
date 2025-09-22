@@ -20,7 +20,7 @@ import app.ludrive.server.otel.OpenTelemetryService;
 import io.opentelemetry.api.metrics.Meter;
 
 @ApplicationScoped
-public class QuarkusEventManager {
+public class EventManagerProducer {
 
     @Inject
     @ClassNamed(EventManager.class)
@@ -33,7 +33,7 @@ public class QuarkusEventManager {
     @Inject
     private Instance<Meter> meter;
 
-    public QuarkusEventManager() {}
+    public EventManagerProducer() {}
 
     private Collection<? extends EventManager> eventManagers() {
 

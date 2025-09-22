@@ -5,19 +5,19 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
 import app.ludrive.core.logging.Logger;
-import app.ludrive.core.ports.in.DefaultDriveUserServicePortIn;
-import app.ludrive.core.ports.in.DriveUserServicePortIn;
-import app.ludrive.core.ports.out.DriveUserServicePortOut;
+import app.ludrive.core.ports.in.DefaultEntryServicePortIn;
+import app.ludrive.core.ports.in.EntryServicePortIn;
+import app.ludrive.core.ports.out.EntryServicePortOut;
 import app.ludrive.core.service.auth.AuthService;
 import app.ludrive.core.service.event.EventManager;
 import app.ludrive.core.service.validation.Validator;
 import app.ludrive.server.cdi.util.ClassNamed;
 
 @ApplicationScoped
-public class QuarkusDriveUserServicePortIn {
+public class EntryServicePortInProducer {
 
     @Inject
-    @ClassNamed(DriveUserServicePortIn.class)
+    @ClassNamed(EntryServicePortIn.class)
     private Logger logger;
 
     @Inject
@@ -30,13 +30,13 @@ public class QuarkusDriveUserServicePortIn {
     private EventManager eventManager;
 
     @Inject
-    private DriveUserServicePortOut driveUserServicePortOut;
+    private EntryServicePortOut entryServicePortOut;
 
-    public QuarkusDriveUserServicePortIn() {}
+    public EntryServicePortInProducer() {}
 
     @Produces
-    public DriveUserServicePortIn produce() {
+    public EntryServicePortIn produce() {
 
-        return new DefaultDriveUserServicePortIn(logger, authService, validator, eventManager, driveUserServicePortOut);
+        return new DefaultEntryServicePortIn(logger, authService, validator, eventManager, entryServicePortOut);
     }
 }
