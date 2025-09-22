@@ -29,7 +29,7 @@
         <!-- general -->
         <project.encoding>UTF-8</project.encoding>
         <java.version>21</java.version>
-        <!-- format -->
+        <!-- code style -->
         <spotless-maven-plugin.version>2.46.1</spotless-maven-plugin.version>
         <checkstyle-maven-plugin.version>3.6.0</checkstyle-maven-plugin.version>
     </properties>
