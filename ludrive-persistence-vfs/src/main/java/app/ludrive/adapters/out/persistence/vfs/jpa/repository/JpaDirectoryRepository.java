@@ -22,9 +22,13 @@ import app.ludrive.core.ports.out.repository.DirectoryRepository;
 @RequestScoped
 public class JpaDirectoryRepository extends JpaRepository<JpaDirectory, UUID> implements DirectoryRepository {
 
+    protected final JpaConverter jpaConverter;
+
     @Inject
-    public JpaDirectoryRepository(@Named(JpaFactory.BEAN_PERSISTENCE_VFS) JpaFactory jpaFactory) {
+    public JpaDirectoryRepository(
+            @Named(JpaFactory.BEAN_PERSISTENCE_VFS) JpaFactory jpaFactory, JpaConverter jpaConverter) {
         super(jpaFactory);
+        this.jpaConverter = jpaConverter;
     }
 
     protected NotFoundException createNotFoundException(UUID entryId, String path) {
@@ -56,11 +60,11 @@ public class JpaDirectoryRepository extends JpaRepository<JpaDirectory, UUID> im
     @Transactional
     public Directory createDirectory(AuthIdentity identity, UUID entryId, Directory directory) {
 
-        JpaDirectory jpaDirectory = JpaConverter.toJpaDirectory(directory);
+        JpaDirectory jpaDirectory = jpaConverter.toJpaDirectory(directory);
 
         create(jpaDirectory);
 
-        return JpaConverter.toDirectory(jpaDirectory);
+        return jpaConverter.toDirectory(jpaDirectory);
     }
 
     @Override
@@ -69,7 +73,7 @@ public class JpaDirectoryRepository extends JpaRepository<JpaDirectory, UUID> im
 
         Stream<JpaDirectory> jpaDirectoryStream = getDirectoriesByEntryAndParentPath(entryId, path);
 
-        return jpaDirectoryStream.map(JpaConverter::toDirectory).toList().stream();
+        return jpaDirectoryStream.map(jpaConverter::toDirectory).toList().stream();
     }
 
     @Override
@@ -78,7 +82,7 @@ public class JpaDirectoryRepository extends JpaRepository<JpaDirectory, UUID> im
 
         JpaDirectory jpaDirectory = getDirectoryByEntryAndPath(entryId, path);
 
-        return JpaConverter.toDirectory(jpaDirectory);
+        return jpaConverter.toDirectory(jpaDirectory);
     }
 
     @Override
@@ -87,11 +91,11 @@ public class JpaDirectoryRepository extends JpaRepository<JpaDirectory, UUID> im
 
         JpaDirectory jpaDirectory = getDirectoryByEntryAndPath(entryId, path);
 
-        JpaConverter.updateJpaDirectory(jpaDirectory, directory);
+        jpaConverter.updateJpaDirectory(jpaDirectory, directory);
 
         update(jpaDirectory);
 
-        return JpaConverter.toDirectory(jpaDirectory);
+        return jpaConverter.toDirectory(jpaDirectory);
     }
 
     @Override
@@ -104,6 +108,6 @@ public class JpaDirectoryRepository extends JpaRepository<JpaDirectory, UUID> im
 
         delete(jpaDirectory);
 
-        return JpaConverter.toEntryItemId(id);
+        return jpaConverter.toEntryItemId(id);
     }
 }

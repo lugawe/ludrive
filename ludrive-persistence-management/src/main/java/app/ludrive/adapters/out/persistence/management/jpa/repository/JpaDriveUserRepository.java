@@ -18,9 +18,13 @@ import app.ludrive.core.ports.out.repository.DriveUserRepository;
 @ApplicationScoped
 public class JpaDriveUserRepository extends JpaRepository<JpaDriveUser, UUID> implements DriveUserRepository {
 
+    protected final JpaConverter jpaConverter;
+
     @Inject
-    public JpaDriveUserRepository(@Named(JpaFactory.BEAN_PERSISTENCE_MANAGEMENT) JpaFactory jpaFactory) {
+    public JpaDriveUserRepository(
+            @Named(JpaFactory.BEAN_PERSISTENCE_MANAGEMENT) JpaFactory jpaFactory, JpaConverter jpaConverter) {
         super(jpaFactory);
+        this.jpaConverter = jpaConverter;
     }
 
     protected NotFoundException createNotFoundException(UUID driveUserId) {
@@ -42,11 +46,11 @@ public class JpaDriveUserRepository extends JpaRepository<JpaDriveUser, UUID> im
     @Transactional
     public DriveUser createDriveUser(DriveUser driveUser) {
 
-        JpaDriveUser jpaDriveUser = JpaConverter.toJpaDriveUser(driveUser);
+        JpaDriveUser jpaDriveUser = jpaConverter.toJpaDriveUser(driveUser);
 
         create(jpaDriveUser);
 
-        return JpaConverter.toDriveUser(jpaDriveUser);
+        return jpaConverter.toDriveUser(jpaDriveUser);
     }
 
     @Override
@@ -55,7 +59,7 @@ public class JpaDriveUserRepository extends JpaRepository<JpaDriveUser, UUID> im
 
         JpaDriveUser jpaDriveUser = getDriveUserById(driveUserId);
 
-        return JpaConverter.toDriveUser(jpaDriveUser);
+        return jpaConverter.toDriveUser(jpaDriveUser);
     }
 
     @Override
@@ -64,11 +68,11 @@ public class JpaDriveUserRepository extends JpaRepository<JpaDriveUser, UUID> im
 
         JpaDriveUser jpaDriveUser = getDriveUserById(driveUserId);
 
-        JpaConverter.updateJpaDriveUser(jpaDriveUser, driveUser);
+        jpaConverter.updateJpaDriveUser(jpaDriveUser, driveUser);
 
         update(jpaDriveUser);
 
-        return JpaConverter.toDriveUser(jpaDriveUser);
+        return jpaConverter.toDriveUser(jpaDriveUser);
     }
 
     @Override

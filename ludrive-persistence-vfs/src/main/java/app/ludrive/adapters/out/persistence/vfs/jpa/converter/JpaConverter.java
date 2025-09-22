@@ -2,6 +2,9 @@ package app.ludrive.adapters.out.persistence.vfs.jpa.converter;
 
 import java.util.UUID;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+
 import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaDirectory;
 import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaEntryItemId;
 import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaFile;
@@ -9,11 +12,13 @@ import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.domain.vfs.File;
 
-public final class JpaConverter {
+@ApplicationScoped
+public class JpaConverter {
 
-    private JpaConverter() {}
+    @Inject
+    public JpaConverter() {}
 
-    public static JpaEntryItemId toJpaEntryItemId(EntryItemId entryItemId) {
+    public JpaEntryItemId toJpaEntryItemId(EntryItemId entryItemId) {
 
         JpaEntryItemId result = new JpaEntryItemId();
 
@@ -23,7 +28,7 @@ public final class JpaConverter {
         return result;
     }
 
-    public static EntryItemId toEntryItemId(JpaEntryItemId entryItemId) {
+    public EntryItemId toEntryItemId(JpaEntryItemId entryItemId) {
 
         UUID entryId = entryItemId.getEntryId();
         String path = entryItemId.getPath();
@@ -31,7 +36,7 @@ public final class JpaConverter {
         return new EntryItemId(entryId, path);
     }
 
-    public static JpaDirectory toJpaDirectory(Directory directory) {
+    public JpaDirectory toJpaDirectory(Directory directory) {
 
         JpaDirectory result = new JpaDirectory();
 
@@ -40,16 +45,16 @@ public final class JpaConverter {
         return result;
     }
 
-    public static Directory toDirectory(JpaDirectory directory) {
+    public Directory toDirectory(JpaDirectory directory) {
 
         EntryItemId entryItemId = toEntryItemId(directory.getId());
 
         return new Directory(entryItemId);
     }
 
-    public static void updateJpaDirectory(JpaDirectory jpaDirectory, Directory directory) {}
+    public void updateJpaDirectory(JpaDirectory jpaDirectory, Directory directory) {}
 
-    public static JpaFile toJpaFile(File file) {
+    public JpaFile toJpaFile(File file) {
 
         JpaFile result = new JpaFile();
 
@@ -58,12 +63,12 @@ public final class JpaConverter {
         return result;
     }
 
-    public static File toFile(JpaFile file) {
+    public File toFile(JpaFile file) {
 
         EntryItemId entryItemId = toEntryItemId(file.getId());
 
         return new File(entryItemId);
     }
 
-    public static void updateJpaFile(JpaFile jpaFile, File file) {}
+    public void updateJpaFile(JpaFile jpaFile, File file) {}
 }

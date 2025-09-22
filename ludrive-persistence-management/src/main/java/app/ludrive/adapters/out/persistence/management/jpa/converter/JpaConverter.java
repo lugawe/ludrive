@@ -1,20 +1,25 @@
 package app.ludrive.adapters.out.persistence.management.jpa.converter;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaDriveUser;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntry;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.management.auth.DriveUser;
 
-public final class JpaConverter {
+@ApplicationScoped
+public class JpaConverter {
 
-    private JpaConverter() {}
+    @Inject
+    public JpaConverter() {}
 
-    public static JpaDriveUser resolveAuthIdentity(AuthIdentity identity) {
+    public JpaDriveUser resolveAuthIdentity(AuthIdentity identity) {
         return toJpaDriveUser((DriveUser) identity);
     }
 
-    public static JpaDriveUser toJpaDriveUser(DriveUser driveUser) {
+    public JpaDriveUser toJpaDriveUser(DriveUser driveUser) {
 
         JpaDriveUser result = new JpaDriveUser();
 
@@ -24,7 +29,7 @@ public final class JpaConverter {
         return result;
     }
 
-    public static DriveUser toDriveUser(JpaDriveUser driveUser) {
+    public DriveUser toDriveUser(JpaDriveUser driveUser) {
 
         DriveUser result = new DriveUser();
 
@@ -34,12 +39,12 @@ public final class JpaConverter {
         return result;
     }
 
-    public static void updateJpaDriveUser(JpaDriveUser jpaDriveUser, DriveUser driveUser) {
+    public void updateJpaDriveUser(JpaDriveUser jpaDriveUser, DriveUser driveUser) {
 
         jpaDriveUser.setName(driveUser.getName());
     }
 
-    public static JpaEntry toJpaEntry(Entry entry) {
+    public JpaEntry toJpaEntry(Entry entry) {
 
         JpaEntry result = new JpaEntry();
 
@@ -50,7 +55,7 @@ public final class JpaConverter {
         return result;
     }
 
-    public static Entry toEntry(JpaEntry entry) {
+    public Entry toEntry(JpaEntry entry) {
 
         Entry result = new Entry();
 
@@ -61,7 +66,7 @@ public final class JpaConverter {
         return result;
     }
 
-    public static void updateJpaEntry(JpaEntry jpaEntry, Entry entry) {
+    public void updateJpaEntry(JpaEntry jpaEntry, Entry entry) {
 
         jpaEntry.setName(entry.getName());
         jpaEntry.setDescription(entry.getDescription());

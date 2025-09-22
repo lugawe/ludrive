@@ -22,9 +22,13 @@ import app.ludrive.core.ports.out.repository.EntryRepository;
 @ApplicationScoped
 public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements EntryRepository {
 
+    protected final JpaConverter jpaConverter;
+
     @Inject
-    public JpaEntryRepository(@Named(JpaFactory.BEAN_PERSISTENCE_MANAGEMENT) JpaFactory jpaFactory) {
+    public JpaEntryRepository(
+            @Named(JpaFactory.BEAN_PERSISTENCE_MANAGEMENT) JpaFactory jpaFactory, JpaConverter jpaConverter) {
         super(jpaFactory);
+        this.jpaConverter = jpaConverter;
     }
 
     protected NotFoundException createNotFoundException(UUID entryId) {
@@ -33,7 +37,7 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
     protected JpaEntry getEntryById(AuthIdentity identity, UUID entryId) {
 
-        JpaDriveUser jpaDriveUser = JpaConverter.resolveAuthIdentity(identity);
+        JpaDriveUser jpaDriveUser = jpaConverter.resolveAuthIdentity(identity);
 
         Object result = getEntityManager()
                 .createQuery("from JpaEntry where id = :id and owner.id = :owner_id")
@@ -50,21 +54,21 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
     @Transactional
     public Entry createEntry(AuthIdentity identity, Entry entry) {
 
-        JpaDriveUser jpaDriveUser = JpaConverter.resolveAuthIdentity(identity);
+        JpaDriveUser jpaDriveUser = jpaConverter.resolveAuthIdentity(identity);
 
-        JpaEntry jpaEntry = JpaConverter.toJpaEntry(entry);
+        JpaEntry jpaEntry = jpaConverter.toJpaEntry(entry);
         jpaEntry.setOwner(jpaDriveUser);
 
         create(jpaEntry);
 
-        return JpaConverter.toEntry(jpaEntry);
+        return jpaConverter.toEntry(jpaEntry);
     }
 
     @Override
     @Transactional
     public Stream<Entry> getEntries(AuthIdentity identity) {
 
-        JpaDriveUser jpaDriveUser = JpaConverter.resolveAuthIdentity(identity);
+        JpaDriveUser jpaDriveUser = jpaConverter.resolveAuthIdentity(identity);
 
         EntityManager entityManager = getEntityManager();
 
@@ -73,7 +77,7 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
                 .setParameter("owner_id", jpaDriveUser.getId())
                 .getResultStream();
 
-        return result.map(o -> (JpaEntry) o).map(JpaConverter::toEntry).toList().stream();
+        return result.map(o -> (JpaEntry) o).map(jpaConverter::toEntry).toList().stream();
     }
 
     @Override
@@ -82,7 +86,7 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
         JpaEntry jpaEntry = getEntryById(identity, entryId);
 
-        return JpaConverter.toEntry(jpaEntry);
+        return jpaConverter.toEntry(jpaEntry);
     }
 
     @Override
@@ -91,11 +95,11 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
         JpaEntry jpaEntry = getEntryById(identity, entryId);
 
-        JpaConverter.updateJpaEntry(jpaEntry, entry);
+        jpaConverter.updateJpaEntry(jpaEntry, entry);
 
         update(jpaEntry);
 
-        return JpaConverter.toEntry(jpaEntry);
+        return jpaConverter.toEntry(jpaEntry);
     }
 
     @Override

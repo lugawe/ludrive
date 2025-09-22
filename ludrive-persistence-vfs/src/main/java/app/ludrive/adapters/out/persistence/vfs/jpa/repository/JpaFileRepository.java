@@ -22,9 +22,12 @@ import app.ludrive.core.ports.out.repository.FileRepository;
 @RequestScoped
 public class JpaFileRepository extends JpaRepository<JpaFile, UUID> implements FileRepository {
 
+    protected final JpaConverter jpaConverter;
+
     @Inject
-    public JpaFileRepository(@Named(JpaFactory.BEAN_PERSISTENCE_VFS) JpaFactory jpaFactory) {
+    public JpaFileRepository(@Named(JpaFactory.BEAN_PERSISTENCE_VFS) JpaFactory jpaFactory, JpaConverter jpaConverter) {
         super(jpaFactory);
+        this.jpaConverter = jpaConverter;
     }
 
     protected NotFoundException createNotFoundException(UUID entryId, String path) {
@@ -56,11 +59,11 @@ public class JpaFileRepository extends JpaRepository<JpaFile, UUID> implements F
     @Transactional
     public File createFile(AuthIdentity identity, UUID entryId, File file) {
 
-        JpaFile jpaFile = JpaConverter.toJpaFile(file);
+        JpaFile jpaFile = jpaConverter.toJpaFile(file);
 
         create(jpaFile);
 
-        return JpaConverter.toFile(jpaFile);
+        return jpaConverter.toFile(jpaFile);
     }
 
     @Override
@@ -69,7 +72,7 @@ public class JpaFileRepository extends JpaRepository<JpaFile, UUID> implements F
 
         Stream<JpaFile> jpaFileStream = getFilesByEntryAndParentPath(entryId, path);
 
-        return jpaFileStream.map(JpaConverter::toFile).toList().stream();
+        return jpaFileStream.map(jpaConverter::toFile).toList().stream();
     }
 
     @Override
@@ -78,7 +81,7 @@ public class JpaFileRepository extends JpaRepository<JpaFile, UUID> implements F
 
         JpaFile jpaFile = getFileByEntryAndPath(entryId, path);
 
-        return JpaConverter.toFile(jpaFile);
+        return jpaConverter.toFile(jpaFile);
     }
 
     @Override
@@ -87,11 +90,11 @@ public class JpaFileRepository extends JpaRepository<JpaFile, UUID> implements F
 
         JpaFile jpaFile = getFileByEntryAndPath(entryId, path);
 
-        JpaConverter.updateJpaFile(jpaFile, file);
+        jpaConverter.updateJpaFile(jpaFile, file);
 
         update(jpaFile);
 
-        return JpaConverter.toFile(jpaFile);
+        return jpaConverter.toFile(jpaFile);
     }
 
     @Override
@@ -104,6 +107,6 @@ public class JpaFileRepository extends JpaRepository<JpaFile, UUID> implements F
 
         delete(jpaFile);
 
-        return JpaConverter.toEntryItemId(id);
+        return jpaConverter.toEntryItemId(id);
     }
 }
