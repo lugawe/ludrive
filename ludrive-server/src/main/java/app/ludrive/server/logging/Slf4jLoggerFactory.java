@@ -1,4 +1,4 @@
-package app.ludrive.server.cdi.core.logging;
+package app.ludrive.server.logging;
 
 import app.ludrive.core.logging.Logger;
 

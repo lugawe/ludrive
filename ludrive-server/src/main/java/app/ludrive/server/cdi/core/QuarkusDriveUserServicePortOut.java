@@ -1,0 +1,30 @@
+package app.ludrive.server.cdi.core;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Inject;
+
+import app.ludrive.core.logging.Logger;
+import app.ludrive.core.ports.out.DefaultDriveUserServicePortOut;
+import app.ludrive.core.ports.out.DriveUserServicePortOut;
+import app.ludrive.core.ports.out.repository.DriveUserRepository;
+import app.ludrive.server.cdi.util.ClassNamed;
+
+@ApplicationScoped
+public class QuarkusDriveUserServicePortOut {
+
+    @Inject
+    @ClassNamed(DriveUserServicePortOut.class)
+    private Logger logger;
+
+    @Inject
+    private DriveUserRepository driveUserRepository;
+
+    public QuarkusDriveUserServicePortOut() {}
+
+    @Produces
+    public DriveUserServicePortOut produce() {
+
+        return new DefaultDriveUserServicePortOut(logger, driveUserRepository);
+    }
+}
