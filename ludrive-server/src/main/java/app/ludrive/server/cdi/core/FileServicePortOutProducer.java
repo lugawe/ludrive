@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.DefaultFileServicePortOut;
 import app.ludrive.core.ports.out.FileServicePortOut;
+import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.FileRepository;
 import app.ludrive.core.service.vfs.VirtualFSService;
 import app.ludrive.server.cdi.util.ClassNamed;
@@ -19,6 +20,9 @@ public class FileServicePortOutProducer {
     private Logger logger;
 
     @Inject
+    private MigrationHandler migrationHandler;
+
+    @Inject
     private FileRepository fileRepository;
 
     @Inject
@@ -29,6 +33,6 @@ public class FileServicePortOutProducer {
     @Produces
     public FileServicePortOut produce() {
 
-        return new DefaultFileServicePortOut(logger, fileRepository, virtualFSService);
+        return new DefaultFileServicePortOut(logger, migrationHandler, fileRepository, virtualFSService);
     }
 }

@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.DefaultDirectoryServicePortOut;
 import app.ludrive.core.ports.out.DirectoryServicePortOut;
+import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
 import app.ludrive.core.service.vfs.VirtualFSService;
 import app.ludrive.server.cdi.util.ClassNamed;
@@ -19,6 +20,9 @@ public class DirectoryServicePortOutProducer {
     private Logger logger;
 
     @Inject
+    private MigrationHandler migrationHandler;
+
+    @Inject
     private DirectoryRepository directoryRepository;
 
     @Inject
@@ -29,6 +33,6 @@ public class DirectoryServicePortOutProducer {
     @Produces
     public DirectoryServicePortOut produce() {
 
-        return new DefaultDirectoryServicePortOut(logger, directoryRepository, virtualFSService);
+        return new DefaultDirectoryServicePortOut(logger, migrationHandler, directoryRepository, virtualFSService);
     }
 }

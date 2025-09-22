@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.DefaultEntryServicePortOut;
 import app.ludrive.core.ports.out.EntryServicePortOut;
+import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.EntryRepository;
 import app.ludrive.server.cdi.util.ClassNamed;
 
@@ -18,6 +19,9 @@ public class EntryServicePortOutProducer {
     private Logger logger;
 
     @Inject
+    private MigrationHandler migrationHandler;
+
+    @Inject
     private EntryRepository entryRepository;
 
     public EntryServicePortOutProducer() {}
@@ -25,6 +29,6 @@ public class EntryServicePortOutProducer {
     @Produces
     public EntryServicePortOut produce() {
 
-        return new DefaultEntryServicePortOut(logger, entryRepository);
+        return new DefaultEntryServicePortOut(logger, migrationHandler, entryRepository);
     }
 }

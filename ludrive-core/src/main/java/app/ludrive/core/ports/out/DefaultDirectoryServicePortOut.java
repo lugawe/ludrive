@@ -7,18 +7,24 @@ import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.logging.Logger;
+import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
 import app.ludrive.core.service.vfs.VirtualFSService;
 
 public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
     protected final Logger logger;
+    protected final MigrationHandler migrationHandler;
     protected final DirectoryRepository directoryRepository;
     protected final VirtualFSService virtualFSService;
 
     public DefaultDirectoryServicePortOut(
-            Logger logger, DirectoryRepository directoryRepository, VirtualFSService virtualFSService) {
+            Logger logger,
+            MigrationHandler migrationHandler,
+            DirectoryRepository directoryRepository,
+            VirtualFSService virtualFSService) {
         this.logger = logger;
+        this.migrationHandler = migrationHandler;
         this.directoryRepository = directoryRepository;
         this.virtualFSService = virtualFSService;
     }
