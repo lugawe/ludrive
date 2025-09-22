@@ -8,7 +8,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import app.ludrive.adapters.in.api.rest.auth.RestContextService;
+import app.ludrive.adapters.in.api.rest.context.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
 import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
