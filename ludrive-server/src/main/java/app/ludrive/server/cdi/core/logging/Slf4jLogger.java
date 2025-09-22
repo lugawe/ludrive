@@ -11,8 +11,8 @@ public record Slf4jLogger(Logger logger) implements app.ludrive.core.logging.Log
     }
 
     @Override
-    public void putContext(String key, String context) {
-        MDC.put(key, context);
+    public void putContext(String key, Object context) {
+        MDC.put(key, context.toString());
     }
 
     @Override
