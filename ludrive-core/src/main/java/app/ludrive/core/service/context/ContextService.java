@@ -16,4 +16,8 @@ public interface ContextService {
         UUID entryId = getEntry().getId();
         return new AuthIdentityEntryKey(authIdentityId, entryId);
     }
+
+    default <T> T extract(Class<T> extractType) {
+        throw new UnsupportedOperationException("unsupported");
+    }
 }
