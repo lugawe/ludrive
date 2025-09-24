@@ -14,6 +14,11 @@ public final class SystemMetadata extends Metadata implements Serializable {
 
     public SystemMetadata() {}
 
+    @Override
+    public String getType() {
+        return Metadata.TYPE_SYSTEM;
+    }
+
     public Status getStatus() {
         return status;
     }

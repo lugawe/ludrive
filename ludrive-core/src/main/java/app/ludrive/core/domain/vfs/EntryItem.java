@@ -8,7 +8,7 @@ public abstract sealed class EntryItem permits Directory, File {
     public static final String TYPE_DIRECTORY = "DIRECTORY";
     public static final String TYPE_FILE = "FILE";
 
-    protected EntryItemId id;
+    private EntryItemId id;
 
     public EntryItem(EntryItemId id) {
         this.id = Objects.requireNonNull(id);
@@ -24,6 +24,8 @@ public abstract sealed class EntryItem permits Directory, File {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
+    public abstract String getType();
 
     public EntryItemId getId() {
         return id;

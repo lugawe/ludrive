@@ -14,4 +14,9 @@ public final class Directory extends EntryItem implements Serializable {
     public Directory(UUID entryId, String path) {
         this(new EntryItemId(entryId, path));
     }
+
+    @Override
+    public String getType() {
+        return EntryItem.TYPE_DIRECTORY;
+    }
 }

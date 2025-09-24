@@ -8,6 +8,11 @@ public final class EntryItemMetadata extends Metadata implements Serializable {
 
     public EntryItemMetadata() {}
 
+    @Override
+    public String getType() {
+        return Metadata.TYPE_ENTRY_ITEM;
+    }
+
     public boolean isHidden() {
         return hidden;
     }

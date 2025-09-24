@@ -5,6 +5,9 @@ import java.util.Map;
 
 public abstract sealed class Metadata permits SystemMetadata, EntryItemMetadata {
 
+    public static final String TYPE_SYSTEM = "SYSTEM";
+    public static final String TYPE_ENTRY_ITEM = "ENTRY_ITEM";
+
     private String name;
 
     private Map<String, String> data;
@@ -14,6 +17,8 @@ public abstract sealed class Metadata permits SystemMetadata, EntryItemMetadata 
     private LocalDateTime lastAccessed;
 
     public Metadata() {}
+
+    public abstract String getType();
 
     public String getName() {
         return name;
