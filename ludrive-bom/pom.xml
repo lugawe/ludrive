@@ -21,7 +21,7 @@
         <!-- ludrive -->
         <ludrive.version>0.1</ludrive.version>
         <!-- dependency versions -->
-        <quarkus.version>3.26.4</quarkus.version>
+        <quarkus.version>3.28.1</quarkus.version>
         <google-guava.version>33.4.8-jre</google-guava.version>
         <google-tink.version>1.18.0</google-tink.version>
         <apache-commons-vfs2.version>2.10.0</apache-commons-vfs2.version>
@@ -30,7 +30,7 @@
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
-        <jandex-maven-plugin.version>3.4.0</jandex-maven-plugin.version>
+        <jandex-maven-plugin.version>3.5.0</jandex-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
