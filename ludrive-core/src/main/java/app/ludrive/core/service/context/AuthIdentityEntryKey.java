@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public record AuthIdentityEntryKey(UUID authIdentityId, UUID entryId) implements Serializable {
 
-    private static final String DELIMITER = ":";
+    private static final String DELIMITER = "::";
 
     public String getKeyString() {
         return authIdentityId + DELIMITER + entryId;
