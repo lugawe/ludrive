@@ -30,8 +30,16 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
         this.virtualFSService = virtualFSService;
     }
 
+    protected void checkRunMigration() {
+        if (migrationHandler.needsMigration()) {
+            migrationHandler.migrate();
+        }
+    }
+
     @Override
     public File createFile(AuthIdentity identity, UUID entryId, File file, Channel fileContent) {
+
+        checkRunMigration();
 
         return fileRepository.createFile(identity, entryId, file);
     }
@@ -39,11 +47,15 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     @Override
     public Stream<File> getFiles(AuthIdentity identity, UUID entryId, String path) {
 
+        checkRunMigration();
+
         return fileRepository.getFiles(identity, entryId, path);
     }
 
     @Override
     public File getFile(AuthIdentity identity, UUID entryId, String path) {
+
+        checkRunMigration();
 
         return fileRepository.getFile(identity, entryId, path);
     }
@@ -51,11 +63,15 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     @Override
     public Channel getFileContent(AuthIdentity identity, UUID entryId, String path) {
 
+        checkRunMigration();
+
         return null;
     }
 
     @Override
     public File updateFile(AuthIdentity identity, UUID entryId, String path, File file) {
+
+        checkRunMigration();
 
         return fileRepository.updateFile(identity, entryId, path, file);
     }
@@ -63,11 +79,15 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     @Override
     public File updateFileContent(AuthIdentity identity, UUID entryId, String path, File file, Channel fileContent) {
 
+        checkRunMigration();
+
         return null;
     }
 
     @Override
     public EntryItemId deleteFile(AuthIdentity identity, UUID entryId, String path) {
+
+        checkRunMigration();
 
         return fileRepository.deleteFile(identity, entryId, path);
     }

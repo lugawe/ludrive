@@ -29,8 +29,16 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
         this.virtualFSService = virtualFSService;
     }
 
+    protected void checkRunMigration() {
+        if (migrationHandler.needsMigration()) {
+            migrationHandler.migrate();
+        }
+    }
+
     @Override
     public Directory createDirectory(AuthIdentity identity, UUID entryId, Directory directory) {
+
+        checkRunMigration();
 
         return directoryRepository.createDirectory(identity, entryId, directory);
     }
@@ -38,11 +46,15 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     @Override
     public Stream<Directory> getDirectories(AuthIdentity identity, UUID entryId, String path) {
 
+        checkRunMigration();
+
         return directoryRepository.getDirectories(identity, entryId, path);
     }
 
     @Override
     public Directory getDirectory(AuthIdentity identity, UUID entryId, String path) {
+
+        checkRunMigration();
 
         return directoryRepository.getDirectory(identity, entryId, path);
     }
@@ -50,11 +62,15 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     @Override
     public Directory updateDirectory(AuthIdentity identity, UUID entryId, String path, Directory directory) {
 
+        checkRunMigration();
+
         return directoryRepository.updateDirectory(identity, entryId, path, directory);
     }
 
     @Override
     public EntryItemId deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
+
+        checkRunMigration();
 
         return directoryRepository.deleteDirectory(identity, entryId, path);
     }
