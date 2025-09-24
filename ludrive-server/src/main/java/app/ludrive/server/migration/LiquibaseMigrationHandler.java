@@ -55,9 +55,11 @@ public class LiquibaseMigrationHandler implements MigrationHandler {
 
             Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(connection);
 
-            Liquibase liquibase = new Liquibase(type.getChangeLogPath(), new ClassLoaderResourceAccessor(), database);
+            try (Liquibase liquibase =
+                    new Liquibase(type.getChangeLogPath(), new ClassLoaderResourceAccessor(), database)) {
 
-            liquibase.update();
+                liquibase.update();
+            } // closes database
 
             logger.info("liquibase migration done");
 
