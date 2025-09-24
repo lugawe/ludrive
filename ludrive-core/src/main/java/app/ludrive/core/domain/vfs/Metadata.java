@@ -1,14 +1,17 @@
 package app.ludrive.core.domain.vfs;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Map;
 
-public class Metadata implements Serializable {
+public abstract sealed class Metadata permits SystemMetadata, EntryItemMetadata {
 
     private String name;
-    private String type;
+
+    private Map<String, String> data;
+
     private LocalDateTime createdAt;
     private LocalDateTime lastModified;
+    private LocalDateTime lastAccessed;
 
     public Metadata() {}
 
@@ -20,12 +23,12 @@ public class Metadata implements Serializable {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public Map<String, String> getData() {
+        return data;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setData(Map<String, String> data) {
+        this.data = data;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -42,5 +45,13 @@ public class Metadata implements Serializable {
 
     public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public LocalDateTime getLastAccessed() {
+        return lastAccessed;
+    }
+
+    public void setLastAccessed(LocalDateTime lastAccessed) {
+        this.lastAccessed = lastAccessed;
     }
 }
