@@ -31,8 +31,17 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     protected void checkRunMigration() {
+
+        logger.info("checking if migration is required");
+
         if (migrationHandler.needsMigration()) {
+
+            logger.info("migration required for entry, starting migration");
+
             migrationHandler.migrate();
+
+        } else {
+            logger.info("migration is not required");
         }
     }
 
