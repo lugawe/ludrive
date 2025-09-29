@@ -3,7 +3,7 @@ package app.ludrive.server.logging;
 import org.slf4j.Logger;
 import org.slf4j.MDC;
 
-public record Slf4jLogger(Logger logger) implements app.ludrive.core.logging.Logger {
+public record Slf4jLogger(Logger logger) implements app.ludrive.core.service.logging.Logger {
 
     @Override
     public String getName() {

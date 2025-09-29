@@ -9,10 +9,10 @@ import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
-import app.ludrive.core.logging.Logger;
 import app.ludrive.core.service.event.AsyncEventManager;
 import app.ludrive.core.service.event.EventManager;
 import app.ludrive.core.service.event.LoggingEventManager;
+import app.ludrive.core.service.logging.Logger;
 import app.ludrive.core.service.telemetry.TelemetryEventManager;
 import app.ludrive.server.cdi.util.ClassNamed;
 import app.ludrive.server.otel.OpenTelemetryService;

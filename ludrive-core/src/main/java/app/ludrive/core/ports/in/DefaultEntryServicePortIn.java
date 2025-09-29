@@ -6,11 +6,11 @@ import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
-import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.EntryServicePortOut;
 import app.ludrive.core.service.auth.AuthService;
 import app.ludrive.core.service.event.EventManager;
 import app.ludrive.core.service.event.Events;
+import app.ludrive.core.service.logging.Logger;
 import app.ludrive.core.service.validation.Validator;
 
 public class DefaultEntryServicePortIn implements EntryServicePortIn {

@@ -4,12 +4,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
-import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.in.DefaultEntryServicePortIn;
 import app.ludrive.core.ports.in.EntryServicePortIn;
 import app.ludrive.core.ports.out.EntryServicePortOut;
 import app.ludrive.core.service.auth.AuthService;
 import app.ludrive.core.service.event.EventManager;
+import app.ludrive.core.service.logging.Logger;
 import app.ludrive.core.service.validation.Validator;
 import app.ludrive.server.cdi.util.ClassNamed;
 

@@ -1,4 +1,4 @@
-package app.ludrive.core.logging;
+package app.ludrive.core.service.logging;
 
 public interface Logger {
 

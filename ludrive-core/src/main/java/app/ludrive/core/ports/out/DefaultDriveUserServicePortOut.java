@@ -3,9 +3,9 @@ package app.ludrive.core.ports.out;
 import java.util.UUID;
 
 import app.ludrive.core.domain.management.auth.DriveUser;
-import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.DriveUserRepository;
+import app.ludrive.core.service.logging.Logger;
 
 public class DefaultDriveUserServicePortOut implements DriveUserServicePortOut {
 

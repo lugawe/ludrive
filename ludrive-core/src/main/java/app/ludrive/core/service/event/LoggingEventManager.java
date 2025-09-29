@@ -1,6 +1,6 @@
 package app.ludrive.core.service.event;
 
-import app.ludrive.core.logging.Logger;
+import app.ludrive.core.service.logging.Logger;
 
 public class LoggingEventManager implements EventManager {
 

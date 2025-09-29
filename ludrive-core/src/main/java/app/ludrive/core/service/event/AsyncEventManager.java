@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-import app.ludrive.core.logging.Logger;
+import app.ludrive.core.service.logging.Logger;
 
 public class AsyncEventManager implements EventManager {
 

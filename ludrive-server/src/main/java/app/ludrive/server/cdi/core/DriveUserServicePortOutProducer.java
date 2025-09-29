@@ -4,11 +4,11 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
-import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.DefaultDriveUserServicePortOut;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.DriveUserRepository;
+import app.ludrive.core.service.logging.Logger;
 import app.ludrive.server.cdi.util.ClassNamed;
 
 @ApplicationScoped

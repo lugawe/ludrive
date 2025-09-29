@@ -4,7 +4,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.Produces;
 import jakarta.enterprise.inject.spi.InjectionPoint;
 
-import app.ludrive.core.logging.Logger;
+import app.ludrive.core.service.logging.Logger;
 import app.ludrive.server.cdi.util.ClassNamed;
 import app.ludrive.server.logging.Slf4jLoggerFactory;
 

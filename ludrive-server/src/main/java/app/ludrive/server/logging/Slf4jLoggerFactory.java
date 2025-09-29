@@ -1,6 +1,6 @@
 package app.ludrive.server.logging;
 
-import app.ludrive.core.logging.Logger;
+import app.ludrive.core.service.logging.Logger;
 
 import org.slf4j.LoggerFactory;
 

@@ -5,9 +5,9 @@ import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
-import app.ludrive.core.logging.Logger;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.EntryRepository;
+import app.ludrive.core.service.logging.Logger;
 
 public class DefaultEntryServicePortOut implements EntryServicePortOut {
 

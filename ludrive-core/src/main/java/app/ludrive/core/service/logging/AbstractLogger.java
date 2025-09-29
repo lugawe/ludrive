@@ -1,4 +1,4 @@
-package app.ludrive.core.logging;
+package app.ludrive.core.service.logging;
 
 public abstract class AbstractLogger implements Logger {
 
