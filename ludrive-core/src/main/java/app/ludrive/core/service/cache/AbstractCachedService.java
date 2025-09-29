@@ -29,13 +29,10 @@ public abstract class AbstractCachedService<T, ID> extends AbstractCache<T, Cach
         }
 
         T value = loadValue(identity, id);
-        if (value == null) {
-            return Optional.empty();
-        }
 
         setValue(cacheKey, value);
 
-        return Optional.of(value);
+        return Optional.ofNullable(value);
     }
 
     public void evict(AuthIdentity identity, Collection<? extends ID> ids) {
