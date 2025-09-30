@@ -5,8 +5,8 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
-import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.domain.vfs.File;
+import app.ludrive.core.domain.vfs.FileContent;
 
 public interface FileServicePort {
 
@@ -16,11 +16,11 @@ public interface FileServicePort {
 
     File getFile(AuthIdentity identity, UUID entryId, String path);
 
-    Channel getFileContent(AuthIdentity identity, UUID entryId, String path);
+    FileContent getFileContent(AuthIdentity identity, UUID entryId, String path);
 
     File updateFile(AuthIdentity identity, UUID entryId, String path, File file);
 
-    File updateFileContent(AuthIdentity identity, UUID entryId, String path, File file, Channel fileContent);
+    File updateFileContent(AuthIdentity identity, UUID entryId, String path, FileContent fileContent);
 
-    EntryItemId deleteFile(AuthIdentity identity, UUID entryId, String path);
+    File deleteFile(AuthIdentity identity, UUID entryId, String path);
 }

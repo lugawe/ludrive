@@ -48,7 +48,7 @@ public class RestDriveUserService {
         return jsonConverter.toJsonDriveUser(result);
     }
 
-    public UUID deleteDriveUser(AuthIdentity identity, UUID driveUserId) {
+    public DriveUser deleteDriveUser(AuthIdentity identity, UUID driveUserId) {
 
         return driveUserServicePortIn.deleteDriveUser(identity, driveUserId);
     }

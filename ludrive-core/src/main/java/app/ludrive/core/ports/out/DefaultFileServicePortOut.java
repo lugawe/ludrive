@@ -5,8 +5,8 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
-import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.domain.vfs.File;
+import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.FileRepository;
 import app.ludrive.core.service.logging.Logger;
@@ -70,7 +70,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public Channel getFileContent(AuthIdentity identity, UUID entryId, String path) {
+    public FileContent getFileContent(AuthIdentity identity, UUID entryId, String path) {
 
         checkRunMigration();
 
@@ -86,7 +86,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public File updateFileContent(AuthIdentity identity, UUID entryId, String path, File file, Channel fileContent) {
+    public File updateFileContent(AuthIdentity identity, UUID entryId, String path, FileContent fileContent) {
 
         checkRunMigration();
 
@@ -94,7 +94,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public EntryItemId deleteFile(AuthIdentity identity, UUID entryId, String path) {
+    public File deleteFile(AuthIdentity identity, UUID entryId, String path) {
 
         checkRunMigration();
 

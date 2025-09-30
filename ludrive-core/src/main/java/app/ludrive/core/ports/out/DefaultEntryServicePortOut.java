@@ -47,7 +47,7 @@ public class DefaultEntryServicePortOut implements EntryServicePortOut {
     }
 
     @Override
-    public UUID deleteEntry(AuthIdentity identity, UUID entryId) {
+    public Entry deleteEntry(AuthIdentity identity, UUID entryId) {
 
         return entryRepository.deleteEntry(identity, entryId);
     }

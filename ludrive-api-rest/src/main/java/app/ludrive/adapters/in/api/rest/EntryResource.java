@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.Response;
 import app.ludrive.adapters.in.api.rest.context.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonEntry;
 import app.ludrive.adapters.in.api.rest.service.RestEntryService;
+import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.management.auth.Roles;
 
@@ -78,7 +79,7 @@ public class EntryResource {
 
         AuthIdentity identity = restContextService.getAuthIdentity();
 
-        UUID result = restEntryService.deleteEntry(identity, entryId);
+        Entry result = restEntryService.deleteEntry(identity, entryId);
         if (result == null) {
             throw new NotFoundException();
         }

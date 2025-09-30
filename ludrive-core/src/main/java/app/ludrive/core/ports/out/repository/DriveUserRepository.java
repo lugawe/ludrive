@@ -12,5 +12,5 @@ public interface DriveUserRepository {
 
     DriveUser updateDriveUser(UUID driveUserId, DriveUser driveUser);
 
-    UUID deleteDriveUser(UUID driveUserId);
+    DriveUser deleteDriveUser(UUID driveUserId);
 }

@@ -104,12 +104,12 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
     @Override
     @Transactional
-    public UUID deleteEntry(AuthIdentity identity, UUID entryId) {
+    public Entry deleteEntry(AuthIdentity identity, UUID entryId) {
 
         JpaEntry jpaEntry = getEntryById(identity, entryId);
 
         delete(jpaEntry);
 
-        return entryId;
+        return jpaConverter.toEntry(jpaEntry);
     }
 }

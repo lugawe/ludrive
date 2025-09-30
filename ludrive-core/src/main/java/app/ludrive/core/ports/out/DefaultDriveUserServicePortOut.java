@@ -39,7 +39,7 @@ public class DefaultDriveUserServicePortOut implements DriveUserServicePortOut {
     }
 
     @Override
-    public UUID deleteDriveUser(UUID driveUserId) {
+    public DriveUser deleteDriveUser(UUID driveUserId) {
 
         return driveUserRepository.deleteDriveUser(driveUserId);
     }

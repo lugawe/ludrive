@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
-import app.ludrive.core.domain.vfs.EntryItemId;
 
 public interface DirectoryRepository {
 
@@ -17,5 +16,5 @@ public interface DirectoryRepository {
 
     Directory updateDirectory(AuthIdentity identity, UUID entryId, String path, Directory directory);
 
-    EntryItemId deleteDirectory(AuthIdentity identity, UUID entryId, String path);
+    Directory deleteDirectory(AuthIdentity identity, UUID entryId, String path);
 }

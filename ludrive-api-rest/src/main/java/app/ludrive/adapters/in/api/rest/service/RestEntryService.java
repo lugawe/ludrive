@@ -56,7 +56,7 @@ public class RestEntryService {
         return jsonConverter.toJsonEntry(result);
     }
 
-    public UUID deleteEntry(AuthIdentity identity, UUID entryId) {
+    public Entry deleteEntry(AuthIdentity identity, UUID entryId) {
 
         return entryServicePortIn.deleteEntry(identity, entryId);
     }

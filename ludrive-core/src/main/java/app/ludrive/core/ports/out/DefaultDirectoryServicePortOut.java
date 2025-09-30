@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
-import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
 import app.ludrive.core.service.logging.Logger;
@@ -77,7 +76,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     }
 
     @Override
-    public EntryItemId deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
+    public Directory deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
 
         checkRunMigration();
 

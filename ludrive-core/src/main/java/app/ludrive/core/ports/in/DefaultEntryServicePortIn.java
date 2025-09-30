@@ -42,7 +42,7 @@ public class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         Entry result = entryServicePortOut.createEntry(identity, entry);
 
-        eventManager.onEntryCreated(new Events.EntryCreatedProps(identity, result.getId()));
+        eventManager.onEntryCreated(new Events.EntryCreatedProps(identity, result));
 
         return result;
     }
@@ -52,10 +52,7 @@ public class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         authService.checkAccess(identity);
 
-        Consumer<Entry> onEntryRead = entry -> {
-            UUID id = entry.getId();
-            eventManager.onEntryRead(new Events.EntryReadProps(identity, id));
-        };
+        Consumer<Entry> onEntryRead = entry -> eventManager.onEntryRead(new Events.EntryReadProps(identity, entry));
 
         return entryServicePortOut.getEntries(identity).peek(onEntryRead);
     }
@@ -67,7 +64,7 @@ public class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         Entry result = entryServicePortOut.getEntry(identity, entryId);
 
-        eventManager.onEntryRead(new Events.EntryReadProps(identity, result.getId()));
+        eventManager.onEntryRead(new Events.EntryReadProps(identity, result));
 
         return result;
     }
@@ -79,17 +76,17 @@ public class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         Entry result = entryServicePortOut.updateEntry(identity, entryId, entry);
 
-        eventManager.onEntryUpdated(new Events.EntryUpdatedProps(identity, result.getId()));
+        eventManager.onEntryUpdated(new Events.EntryUpdatedProps(identity, result));
 
         return result;
     }
 
     @Override
-    public UUID deleteEntry(AuthIdentity identity, UUID entryId) {
+    public Entry deleteEntry(AuthIdentity identity, UUID entryId) {
 
         authService.checkEntryAccess(identity, entryId);
 
-        UUID result = entryServicePortOut.deleteEntry(identity, entryId);
+        Entry result = entryServicePortOut.deleteEntry(identity, entryId);
 
         eventManager.onEntryDeleted(new Events.EntryDeletedProps(identity, result));
 

@@ -11,6 +11,7 @@ import app.ludrive.adapters.in.api.rest.context.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonDriveUser;
 import app.ludrive.adapters.in.api.rest.service.RestDriveUserService;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 
 @Path("/users")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -62,7 +63,7 @@ public class DriveUserResource {
 
         AuthIdentity identity = restContextService.getAuthIdentity();
 
-        UUID result = restDriveUserService.deleteDriveUser(identity, driveUserId);
+        DriveUser result = restDriveUserService.deleteDriveUser(identity, driveUserId);
         if (result == null) {
             throw new NotFoundException();
         }

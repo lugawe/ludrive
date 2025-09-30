@@ -6,8 +6,8 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
-import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.domain.vfs.File;
+import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.ports.out.FileServicePortOut;
 import app.ludrive.core.service.auth.AuthService;
 import app.ludrive.core.service.event.EventManager;
@@ -44,7 +44,7 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
 
         File result = fileServicePortOut.createFile(identity, entryId, file, fileContent);
 
-        eventManager.onFileCreated(new Events.FileCreatedProps(identity, entryId, result.getId()));
+        eventManager.onFileCreated(new Events.FileCreatedProps(identity, entryId, result));
 
         return result;
     }
@@ -55,10 +55,7 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
         authService.checkEntryAccess(identity, entryId);
         validator.validatePath(path);
 
-        Consumer<File> onFileRead = file -> {
-            EntryItemId id = file.getId();
-            eventManager.onFileRead(new Events.FileReadProps(identity, entryId, id));
-        };
+        Consumer<File> onFileRead = file -> eventManager.onFileRead(new Events.FileReadProps(identity, entryId, file));
 
         return fileServicePortOut.getFiles(identity, entryId, path).peek(onFileRead);
     }
@@ -71,20 +68,20 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
 
         File result = fileServicePortOut.getFile(identity, entryId, path);
 
-        eventManager.onFileRead(new Events.FileReadProps(identity, entryId, result.getId()));
+        eventManager.onFileRead(new Events.FileReadProps(identity, entryId, result));
 
         return result;
     }
 
     @Override
-    public Channel getFileContent(AuthIdentity identity, UUID entryId, String path) {
+    public FileContent getFileContent(AuthIdentity identity, UUID entryId, String path) {
 
         authService.checkEntryAccess(identity, entryId);
         validator.validatePath(path);
 
-        Channel result = fileServicePortOut.getFileContent(identity, entryId, path);
+        FileContent result = fileServicePortOut.getFileContent(identity, entryId, path);
 
-        eventManager.onFileRead(new Events.FileReadProps(identity, entryId, new EntryItemId(entryId, path)));
+        eventManager.onFileRead(new Events.FileReadProps(identity, entryId, result.file()));
 
         return result;
     }
@@ -98,32 +95,32 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
 
         File result = fileServicePortOut.updateFile(identity, entryId, path, file);
 
-        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result.getId()));
+        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result));
 
         return result;
     }
 
     @Override
-    public File updateFileContent(AuthIdentity identity, UUID entryId, String path, File file, Channel fileContent) {
+    public File updateFileContent(AuthIdentity identity, UUID entryId, String path, FileContent fileContent) {
 
         authService.checkEntryAccess(identity, entryId);
         validator.validatePath(path);
-        validator.validateFile(file, fileContent);
+        validator.validateFile(fileContent);
 
-        File result = fileServicePortOut.updateFileContent(identity, entryId, path, file, fileContent);
+        File result = fileServicePortOut.updateFileContent(identity, entryId, path, fileContent);
 
-        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result.getId()));
+        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result));
 
         return result;
     }
 
     @Override
-    public EntryItemId deleteFile(AuthIdentity identity, UUID entryId, String path) {
+    public File deleteFile(AuthIdentity identity, UUID entryId, String path) {
 
         authService.checkEntryAccess(identity, entryId);
         validator.validatePath(path);
 
-        EntryItemId result = fileServicePortOut.deleteFile(identity, entryId, path);
+        File result = fileServicePortOut.deleteFile(identity, entryId, path);
 
         eventManager.onFileDeleted(new Events.FileDeletedProps(identity, entryId, result));
 

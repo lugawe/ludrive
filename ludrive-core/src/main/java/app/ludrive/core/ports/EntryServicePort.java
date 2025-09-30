@@ -16,5 +16,5 @@ public interface EntryServicePort {
 
     Entry updateEntry(AuthIdentity identity, UUID entryId, Entry entry);
 
-    UUID deleteEntry(AuthIdentity identity, UUID entryId);
+    Entry deleteEntry(AuthIdentity identity, UUID entryId);
 }

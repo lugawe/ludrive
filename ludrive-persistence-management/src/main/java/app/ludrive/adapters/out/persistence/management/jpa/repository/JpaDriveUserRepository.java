@@ -77,12 +77,12 @@ public class JpaDriveUserRepository extends JpaRepository<JpaDriveUser, UUID> im
 
     @Override
     @Transactional
-    public UUID deleteDriveUser(UUID driveUserId) {
+    public DriveUser deleteDriveUser(UUID driveUserId) {
 
         JpaDriveUser jpaDriveUser = getDriveUserById(driveUserId);
 
         delete(jpaDriveUser);
 
-        return driveUserId;
+        return jpaConverter.toDriveUser(jpaDriveUser);
     }
 }

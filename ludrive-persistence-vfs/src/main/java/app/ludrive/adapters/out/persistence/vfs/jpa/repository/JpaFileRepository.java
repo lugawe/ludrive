@@ -11,10 +11,8 @@ import jakarta.transaction.Transactional;
 import app.ludrive.adapters.out.persistence.jpa.JpaFactory;
 import app.ludrive.adapters.out.persistence.jpa.JpaRepository;
 import app.ludrive.adapters.out.persistence.vfs.jpa.converter.JpaConverter;
-import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaEntryItemId;
 import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaFile;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
-import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.exception.NotFoundException;
 import app.ludrive.core.ports.out.repository.FileRepository;
@@ -99,14 +97,12 @@ public class JpaFileRepository extends JpaRepository<JpaFile, UUID> implements F
 
     @Override
     @Transactional
-    public EntryItemId deleteFile(AuthIdentity identity, UUID entryId, String path) {
+    public File deleteFile(AuthIdentity identity, UUID entryId, String path) {
 
         JpaFile jpaFile = getFileByEntryAndPath(entryId, path);
 
-        JpaEntryItemId id = jpaFile.getId();
-
         delete(jpaFile);
 
-        return jpaConverter.toEntryItemId(id);
+        return jpaConverter.toFile(jpaFile);
     }
 }

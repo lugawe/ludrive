@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
+import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.exception.ValidationException;
 
 public class Validator {
@@ -38,8 +39,12 @@ public class Validator {
         validatePath(directory.getPath());
     }
 
+    public void validateFile(FileContent fileContent) throws ValidationException {
+        validateFile(fileContent.file(), fileContent.content());
+    }
+
     public void validateFile(File file, Channel fileContent) throws ValidationException {
-        validatePath(file.getPath());
+        validateFile(file);
     }
 
     public void validateFile(File file) throws ValidationException {

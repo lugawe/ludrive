@@ -12,10 +12,8 @@ import app.ludrive.adapters.out.persistence.jpa.JpaFactory;
 import app.ludrive.adapters.out.persistence.jpa.JpaRepository;
 import app.ludrive.adapters.out.persistence.vfs.jpa.converter.JpaConverter;
 import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaDirectory;
-import app.ludrive.adapters.out.persistence.vfs.jpa.entity.JpaEntryItemId;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
-import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.exception.NotFoundException;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
 
@@ -100,14 +98,12 @@ public class JpaDirectoryRepository extends JpaRepository<JpaDirectory, UUID> im
 
     @Override
     @Transactional
-    public EntryItemId deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
+    public Directory deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
 
         JpaDirectory jpaDirectory = getDirectoryByEntryAndPath(entryId, path);
 
-        JpaEntryItemId id = jpaDirectory.getId();
-
         delete(jpaDirectory);
 
-        return jpaConverter.toEntryItemId(id);
+        return jpaConverter.toDirectory(jpaDirectory);
     }
 }

@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
-import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.ports.out.DirectoryServicePortOut;
 import app.ludrive.core.service.auth.AuthService;
 import app.ludrive.core.service.event.EventManager;
@@ -43,7 +42,7 @@ public class DefaultDirectoryServicePortIn implements DirectoryServicePortIn {
 
         Directory result = directoryServicePortOut.createDirectory(identity, entryId, directory);
 
-        eventManager.onDirectoryCreated(new Events.DirectoryCreatedProps(identity, entryId, result.getId()));
+        eventManager.onDirectoryCreated(new Events.DirectoryCreatedProps(identity, entryId, result));
 
         return result;
     }
@@ -54,10 +53,8 @@ public class DefaultDirectoryServicePortIn implements DirectoryServicePortIn {
         authService.checkEntryAccess(identity, entryId);
         validator.validatePath(path);
 
-        Consumer<Directory> onDirectoryRead = directory -> {
-            EntryItemId id = directory.getId();
-            eventManager.onDirectoryRead(new Events.DirectoryReadProps(identity, entryId, id));
-        };
+        Consumer<Directory> onDirectoryRead =
+                directory -> eventManager.onDirectoryRead(new Events.DirectoryReadProps(identity, entryId, directory));
 
         return directoryServicePortOut.getDirectories(identity, entryId, path).peek(onDirectoryRead);
     }
@@ -70,7 +67,7 @@ public class DefaultDirectoryServicePortIn implements DirectoryServicePortIn {
 
         Directory result = directoryServicePortOut.getDirectory(identity, entryId, path);
 
-        eventManager.onDirectoryRead(new Events.DirectoryReadProps(identity, entryId, result.getId()));
+        eventManager.onDirectoryRead(new Events.DirectoryReadProps(identity, entryId, result));
 
         return result;
     }
@@ -84,18 +81,18 @@ public class DefaultDirectoryServicePortIn implements DirectoryServicePortIn {
 
         Directory result = directoryServicePortOut.updateDirectory(identity, entryId, path, directory);
 
-        eventManager.onDirectoryUpdated(new Events.DirectoryUpdatedProps(identity, entryId, result.getId()));
+        eventManager.onDirectoryUpdated(new Events.DirectoryUpdatedProps(identity, entryId, result));
 
         return result;
     }
 
     @Override
-    public EntryItemId deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
+    public Directory deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
 
         authService.checkEntryAccess(identity, entryId);
         validator.validatePath(path);
 
-        EntryItemId result = directoryServicePortOut.deleteDirectory(identity, entryId, path);
+        Directory result = directoryServicePortOut.deleteDirectory(identity, entryId, path);
 
         eventManager.onDirectoryDeleted(new Events.DirectoryDeletedProps(identity, entryId, result));
 
