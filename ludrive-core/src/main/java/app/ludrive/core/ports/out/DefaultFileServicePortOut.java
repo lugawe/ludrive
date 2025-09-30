@@ -1,6 +1,5 @@
 package app.ludrive.core.ports.out;
 
-import java.nio.channels.Channel;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -46,11 +45,11 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file, Channel fileContent) {
+    public File createFile(AuthIdentity identity, UUID entryId, FileContent fileContent) {
 
         checkRunMigration();
 
-        return fileRepository.createFile(identity, entryId, file);
+        return fileRepository.createFile(identity, entryId, fileContent.file());
     }
 
     @Override

@@ -12,6 +12,7 @@ import app.ludrive.adapters.in.api.rest.json.converter.JsonConverter;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
+import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.ports.in.DirectoryServicePortIn;
 import app.ludrive.core.ports.in.FileServicePortIn;
 
@@ -45,7 +46,7 @@ public class RestStorageService {
 
         File file = jsonConverter.toFile(jsonFile);
 
-        File result = fileServicePortIn.createFile(identity, entryId, file, fileContent);
+        File result = fileServicePortIn.createFile(identity, entryId, new FileContent(file, fileContent));
 
         return jsonConverter.toJsonFile(result);
     }

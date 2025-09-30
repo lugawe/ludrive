@@ -1,6 +1,5 @@
 package app.ludrive.core.ports;
 
-import java.nio.channels.Channel;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -10,7 +9,7 @@ import app.ludrive.core.domain.vfs.FileContent;
 
 public interface FileServicePort {
 
-    File createFile(AuthIdentity identity, UUID entryId, File file, Channel fileContent);
+    File createFile(AuthIdentity identity, UUID entryId, FileContent fileContent);
 
     Stream<File> getFiles(AuthIdentity identity, UUID entryId, String path);
 

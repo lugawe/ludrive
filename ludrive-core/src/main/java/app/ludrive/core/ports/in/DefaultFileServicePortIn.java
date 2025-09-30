@@ -1,6 +1,5 @@
 package app.ludrive.core.ports.in;
 
-import java.nio.channels.Channel;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -37,12 +36,12 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file, Channel fileContent) {
+    public File createFile(AuthIdentity identity, UUID entryId, FileContent fileContent) {
 
         authService.checkEntryAccess(identity, entryId);
-        validator.validateFile(file, fileContent);
+        validator.validateFile(fileContent);
 
-        File result = fileServicePortOut.createFile(identity, entryId, file, fileContent);
+        File result = fileServicePortOut.createFile(identity, entryId, fileContent);
 
         eventManager.onFileCreated(new Events.FileCreatedProps(identity, entryId, result));
 
