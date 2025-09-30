@@ -17,7 +17,7 @@ public final class NoMigrationHandler implements MigrationHandler {
     @Override
     public void migrate() throws MigrationException {}
 
-    public static NoMigrationHandler getInstance() {
+    public static MigrationHandler getInstance() {
         return instance.get();
     }
 }
