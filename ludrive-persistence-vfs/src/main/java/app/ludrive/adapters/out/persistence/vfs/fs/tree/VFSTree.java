@@ -18,7 +18,7 @@ public interface VFSTree {
         if (result instanceof Directory directory) {
             return directory;
         }
-        throw new VFSException();
+        throw new VFSException(String.format("%s is not an directory", path));
     }
 
     default File getFile(String path) {
@@ -26,7 +26,7 @@ public interface VFSTree {
         if (result instanceof File file) {
             return file;
         }
-        throw new VFSException();
+        throw new VFSException(String.format("%s is not an file", path));
     }
 
     SequencedCollection<? extends EntryItem> getChildren(String path);
