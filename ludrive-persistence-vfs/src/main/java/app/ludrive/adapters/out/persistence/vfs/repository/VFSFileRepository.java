@@ -1,0 +1,67 @@
+package app.ludrive.adapters.out.persistence.vfs.repository;
+
+import java.util.Collection;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+
+import app.ludrive.adapters.out.persistence.vfs.fs.tree.VFSTree;
+import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.vfs.EntryItem;
+import app.ludrive.core.domain.vfs.File;
+import app.ludrive.core.ports.out.repository.FileRepository;
+
+@RequestScoped
+public class VFSFileRepository implements FileRepository {
+
+    protected final VFSTree tree;
+
+    @Inject
+    public VFSFileRepository(VFSTree tree) {
+        this.tree = tree;
+    }
+
+    @Override
+    public File createFile(AuthIdentity identity, UUID entryId, File file) {
+
+        String path = file.getPath();
+
+        tree.set(path, file);
+
+        return tree.getFile(path);
+    }
+
+    @Override
+    public Stream<File> getFiles(AuthIdentity identity, UUID entryId, String path) {
+
+        Collection<? extends EntryItem> children = tree.getChildren(path);
+
+        return children.stream().filter(i -> i instanceof File).map(i -> (File) i);
+    }
+
+    @Override
+    public File getFile(AuthIdentity identity, UUID entryId, String path) {
+
+        return tree.getFile(path);
+    }
+
+    @Override
+    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file) {
+
+        tree.set(path, file);
+
+        return tree.getFile(path);
+    }
+
+    @Override
+    public File deleteFile(AuthIdentity identity, UUID entryId, String path) {
+
+        File file = tree.getFile(path);
+
+        tree.remove(path);
+
+        return file;
+    }
+}
