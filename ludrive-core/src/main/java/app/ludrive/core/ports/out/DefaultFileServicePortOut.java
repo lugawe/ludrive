@@ -49,7 +49,9 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         checkRunMigration();
 
-        return fileRepository.createFile(identity, entryId, fileContent.file());
+        virtualFSService.createFile(fileContent);
+
+        return fileRepository.createFile(identity, fileContent.file());
     }
 
     @Override
@@ -57,7 +59,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         checkRunMigration();
 
-        return fileRepository.getFiles(identity, entryId, path);
+        return fileRepository.getFiles(identity, path);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         checkRunMigration();
 
-        return fileRepository.getFile(identity, entryId, path);
+        return fileRepository.getFile(identity, path);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         checkRunMigration();
 
-        return fileRepository.updateFile(identity, entryId, path, file);
+        return fileRepository.updateFile(identity, path, file);
     }
 
     @Override
@@ -97,6 +99,6 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         checkRunMigration();
 
-        return fileRepository.deleteFile(identity, entryId, path);
+        return fileRepository.deleteFile(identity, path);
     }
 }

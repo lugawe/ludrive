@@ -1,7 +1,6 @@
 package app.ludrive.adapters.out.persistence.vfs.repository;
 
 import java.util.Collection;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -24,7 +23,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     }
 
     @Override
-    public Directory createDirectory(AuthIdentity identity, UUID entryId, Directory directory) {
+    public Directory createDirectory(AuthIdentity identity, Directory directory) {
 
         String path = directory.getPath();
 
@@ -34,7 +33,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     }
 
     @Override
-    public Stream<Directory> getDirectories(AuthIdentity identity, UUID entryId, String path) {
+    public Stream<Directory> getDirectories(AuthIdentity identity, String path) {
 
         Collection<? extends EntryItem> children = tree.getChildren(path);
 
@@ -42,13 +41,13 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     }
 
     @Override
-    public Directory getDirectory(AuthIdentity identity, UUID entryId, String path) {
+    public Directory getDirectory(AuthIdentity identity, String path) {
 
         return tree.getDirectory(path);
     }
 
     @Override
-    public Directory updateDirectory(AuthIdentity identity, UUID entryId, String path, Directory directory) {
+    public Directory updateDirectory(AuthIdentity identity, String path, Directory directory) {
 
         tree.set(path, directory);
 
@@ -56,7 +55,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     }
 
     @Override
-    public Directory deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
+    public Directory deleteDirectory(AuthIdentity identity, String path) {
 
         Directory directory = tree.getDirectory(path);
 

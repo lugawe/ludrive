@@ -1,7 +1,6 @@
 package app.ludrive.adapters.out.persistence.vfs.repository;
 
 import java.util.Collection;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -24,7 +23,7 @@ public class VFSFileRepository implements FileRepository {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file) {
+    public File createFile(AuthIdentity identity, File file) {
 
         String path = file.getPath();
 
@@ -34,7 +33,7 @@ public class VFSFileRepository implements FileRepository {
     }
 
     @Override
-    public Stream<File> getFiles(AuthIdentity identity, UUID entryId, String path) {
+    public Stream<File> getFiles(AuthIdentity identity, String path) {
 
         Collection<? extends EntryItem> children = tree.getChildren(path);
 
@@ -42,13 +41,13 @@ public class VFSFileRepository implements FileRepository {
     }
 
     @Override
-    public File getFile(AuthIdentity identity, UUID entryId, String path) {
+    public File getFile(AuthIdentity identity, String path) {
 
         return tree.getFile(path);
     }
 
     @Override
-    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file) {
+    public File updateFile(AuthIdentity identity, String path, File file) {
 
         tree.set(path, file);
 
@@ -56,7 +55,7 @@ public class VFSFileRepository implements FileRepository {
     }
 
     @Override
-    public File deleteFile(AuthIdentity identity, UUID entryId, String path) {
+    public File deleteFile(AuthIdentity identity, String path) {
 
         File file = tree.getFile(path);
 

@@ -48,7 +48,9 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
         checkRunMigration();
 
-        return directoryRepository.createDirectory(identity, entryId, directory);
+        virtualFSService.createDirectory(directory);
+
+        return directoryRepository.createDirectory(identity, directory);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
         checkRunMigration();
 
-        return directoryRepository.getDirectories(identity, entryId, path);
+        return directoryRepository.getDirectories(identity, path);
     }
 
     @Override
@@ -64,7 +66,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
         checkRunMigration();
 
-        return directoryRepository.getDirectory(identity, entryId, path);
+        return directoryRepository.getDirectory(identity, path);
     }
 
     @Override
@@ -72,7 +74,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
         checkRunMigration();
 
-        return directoryRepository.updateDirectory(identity, entryId, path, directory);
+        return directoryRepository.updateDirectory(identity, path, directory);
     }
 
     @Override
@@ -80,6 +82,6 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
         checkRunMigration();
 
-        return directoryRepository.deleteDirectory(identity, entryId, path);
+        return directoryRepository.deleteDirectory(identity, path);
     }
 }
