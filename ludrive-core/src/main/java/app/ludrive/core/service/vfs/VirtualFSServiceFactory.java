@@ -5,5 +5,5 @@ import app.ludrive.core.service.context.AuthIdentityEntryKey;
 
 public interface VirtualFSServiceFactory {
 
-    VirtualFSService resolve(AuthIdentityEntryKey key) throws VFSException;
+    VirtualFSService create(AuthIdentityEntryKey key) throws VFSException;
 }
