@@ -13,11 +13,6 @@ public final class AnonymousAuthIdentity implements AuthIdentity {
     private AnonymousAuthIdentity() {}
 
     @Override
-    public String toString() {
-        return getName();
-    }
-
-    @Override
     public UUID getId() {
         throw new RuntimeException("anonymous auth identity has no id");
     }
