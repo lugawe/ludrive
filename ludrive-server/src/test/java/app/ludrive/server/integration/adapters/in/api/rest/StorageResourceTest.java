@@ -1,5 +1,6 @@
 package app.ludrive.server.integration.adapters.in.api.rest;
 
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import jakarta.inject.Inject;
@@ -7,7 +8,7 @@ import jakarta.inject.Inject;
 import app.ludrive.adapters.in.api.rest.StorageResource;
 import app.ludrive.adapters.in.api.rest.auth.Jwts;
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
-import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
+import app.ludrive.adapters.in.api.rest.json.JsonFile;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
@@ -59,9 +60,9 @@ public class StorageResourceTest {
 
     @Test
     @Order(1)
-    public void createStorageItem() {
+    public void createDirectory() {
 
-        JsonEntryItem jsonDirectory1 = new JsonDirectory(entryId, "/");
+        JsonDirectory jsonDirectory1 = new JsonDirectory(entryId, "/");
 
         JsonDirectory ret1 = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -79,7 +80,7 @@ public class StorageResourceTest {
 
         Assertions.assertNotNull(ret1);
 
-        JsonEntryItem jsonDirectory2 = new JsonDirectory(entryId, "/dir1");
+        JsonDirectory jsonDirectory2 = new JsonDirectory(entryId, "/dir1");
 
         JsonDirectory ret2 = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -96,5 +97,29 @@ public class StorageResourceTest {
                 .as(JsonDirectory.class);
 
         Assertions.assertNotNull(ret2);
+    }
+
+    @Test
+    @Order(2)
+    public void createFile() {
+
+        JsonFile jsonFile = new JsonFile(entryId, "/dir1/hello.txt");
+
+        JsonFile ret1 = RestAssured.given()
+                .contentType(ContentType.MULTIPART)
+                .auth()
+                .oauth2(jwt)
+                .pathParam("entryId", entryId)
+                .multiPart("file", jsonFile, "application/json")
+                .multiPart("content", "", "Hello World!".getBytes(StandardCharsets.UTF_8), "application/octet-stream")
+                .when()
+                .post("/{entryId}/files")
+                .then()
+                .statusCode(200)
+                .body(Matchers.not(Matchers.emptyString()))
+                .extract()
+                .as(JsonFile.class);
+
+        Assertions.assertNotNull(ret1);
     }
 }
