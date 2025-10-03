@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceUnit;
 
-import app.ludrive.adapters.out.persistence.jpa.JpaFactory;
+import app.ludrive.adapters.out.persistence.management.jpa.repository.JpaFactory;
 
 @ApplicationScoped
 public class JpaManagementProducerFactory {

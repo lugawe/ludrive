@@ -27,8 +27,8 @@
         </dependency>
 
         <dependency>
-            <groupId>app.ludrive</groupId>
-            <artifactId>ludrive-persistence</artifactId>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
         </dependency>
 
         <dependency>

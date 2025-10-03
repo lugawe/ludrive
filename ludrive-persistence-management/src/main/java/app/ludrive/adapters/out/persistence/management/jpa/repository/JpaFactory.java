@@ -1,4 +1,4 @@
-package app.ludrive.adapters.out.persistence.jpa;
+package app.ludrive.adapters.out.persistence.management.jpa.repository;
 
 import java.util.Objects;
 

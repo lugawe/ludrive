@@ -9,8 +9,6 @@ import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
-import app.ludrive.adapters.out.persistence.jpa.JpaFactory;
-import app.ludrive.adapters.out.persistence.jpa.JpaRepository;
 import app.ludrive.adapters.out.persistence.management.jpa.converter.JpaConverter;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaDriveUser;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntry;

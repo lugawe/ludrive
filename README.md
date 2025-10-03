@@ -19,7 +19,6 @@ The Module "ludrive-project" has the following modules:
 - ludrive-api-rest
 - ludrive-api-grpc
 - ludrive-cli
-- ludrive-persistence
 - ludrive-persistence-management
 - ludrive-persistence-vfs
 - ludrive-server
