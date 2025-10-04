@@ -5,7 +5,6 @@ import java.util.UUID;
 import jakarta.persistence.*;
 
 @Entity
-@Cacheable
 @Table(name = "entry")
 public class JpaEntry {
 

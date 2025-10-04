@@ -5,7 +5,6 @@ import java.util.UUID;
 import jakarta.persistence.*;
 
 @Entity
-@Cacheable
 @Table(name = "drive_user")
 public class JpaDriveUser {
 
