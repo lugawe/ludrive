@@ -7,4 +7,10 @@ public interface MigrationHandler {
     boolean needsMigration();
 
     void migrate() throws MigrationException;
+
+    default void checkRunMigration() {
+        if (needsMigration()) {
+            migrate();
+        }
+    }
 }

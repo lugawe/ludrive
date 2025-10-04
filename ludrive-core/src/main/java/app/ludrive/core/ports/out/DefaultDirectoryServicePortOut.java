@@ -28,25 +28,10 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
         this.virtualFSService = virtualFSService;
     }
 
-    protected void checkRunMigration() {
-
-        logger.info("checking if migration is required");
-
-        if (migrationHandler.needsMigration()) {
-
-            logger.info("migration required for entry, starting migration");
-
-            migrationHandler.migrate();
-
-        } else {
-            logger.info("migration is not required");
-        }
-    }
-
     @Override
     public Directory createDirectory(AuthIdentity identity, UUID entryId, Directory directory) {
 
-        checkRunMigration();
+        migrationHandler.checkRunMigration();
 
         virtualFSService.createDirectory(directory);
 
@@ -56,7 +41,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     @Override
     public Stream<Directory> getDirectories(AuthIdentity identity, UUID entryId, String path) {
 
-        checkRunMigration();
+        migrationHandler.checkRunMigration();
 
         return directoryRepository.getDirectories(identity, path);
     }
@@ -64,7 +49,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     @Override
     public Directory getDirectory(AuthIdentity identity, UUID entryId, String path) {
 
-        checkRunMigration();
+        migrationHandler.checkRunMigration();
 
         return directoryRepository.getDirectory(identity, path);
     }
@@ -72,7 +57,9 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     @Override
     public Directory updateDirectory(AuthIdentity identity, UUID entryId, String path, Directory directory) {
 
-        checkRunMigration();
+        migrationHandler.checkRunMigration();
+
+        virtualFSService.updateDirectory(path, directory);
 
         return directoryRepository.updateDirectory(identity, path, directory);
     }
@@ -80,7 +67,9 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     @Override
     public Directory deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
 
-        checkRunMigration();
+        migrationHandler.checkRunMigration();
+
+        virtualFSService.deleteDirectory(path);
 
         return directoryRepository.deleteDirectory(identity, path);
     }
