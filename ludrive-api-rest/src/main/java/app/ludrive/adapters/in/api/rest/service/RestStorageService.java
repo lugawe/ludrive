@@ -1,6 +1,6 @@
 package app.ludrive.adapters.in.api.rest.service;
 
-import java.nio.channels.Channel;
+import java.io.InputStream;
 import java.util.UUID;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -42,11 +42,11 @@ public class RestStorageService {
         return jsonConverter.toJsonDirectory(result);
     }
 
-    public JsonFile createFile(AuthIdentity identity, UUID entryId, JsonFile jsonFile, Channel fileContent) {
+    public JsonFile createFile(AuthIdentity identity, UUID entryId, JsonFile jsonFile, InputStream fileContent) {
 
         File file = jsonConverter.toFile(jsonFile);
 
-        File result = fileServicePortIn.createFile(identity, entryId, new FileContent(file, fileContent));
+        File result = fileServicePortIn.createFile(identity, entryId, FileContent.from(file, fileContent));
 
         return jsonConverter.toJsonFile(result);
     }

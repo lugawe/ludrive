@@ -1,7 +1,6 @@
 package app.ludrive.adapters.in.api.rest;
 
 import java.io.InputStream;
-import java.nio.channels.Channels;
 import java.util.UUID;
 
 import jakarta.annotation.security.RolesAllowed;
@@ -56,7 +55,7 @@ public class StorageResource {
 
         AuthIdentity identity = restContextService.getAuthIdentity();
 
-        JsonFile result = restStorageService.createFile(identity, entryId, jsonFile, Channels.newChannel(content));
+        JsonFile result = restStorageService.createFile(identity, entryId, jsonFile, content);
 
         return Response.ok(result).build();
     }
