@@ -3,7 +3,9 @@ package app.ludrive.core.domain.management;
 import java.io.Serializable;
 import java.util.UUID;
 
-public final class KeyPair implements Serializable {
+import app.ludrive.core.domain.Identifiable;
+
+public final class KeyPair implements Identifiable, Serializable {
 
     private UUID id;
     private String name;
@@ -20,6 +22,7 @@ public final class KeyPair implements Serializable {
         this.publicKey = publicKey;
     }
 
+    @Override
     public UUID getId() {
         return id;
     }
@@ -28,6 +31,7 @@ public final class KeyPair implements Serializable {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }

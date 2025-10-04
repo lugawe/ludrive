@@ -4,8 +4,11 @@ import java.security.Principal;
 import java.util.Set;
 import java.util.UUID;
 
-public sealed interface AuthIdentity extends Principal permits DriveUser, AnonymousAuthIdentity {
+import app.ludrive.core.domain.Identifiable;
 
+public sealed interface AuthIdentity extends Identifiable, Principal permits DriveUser, AnonymousAuthIdentity {
+
+    @Override
     UUID getId();
 
     @Override

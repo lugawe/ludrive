@@ -2,12 +2,16 @@ package app.ludrive.core.domain.vfs;
 
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 
-public abstract sealed class Metadata permits SystemMetadata, EntryItemMetadata {
+import app.ludrive.core.domain.Identifiable;
+
+public abstract sealed class Metadata implements Identifiable permits SystemMetadata, EntryItemMetadata {
 
     public static final String TYPE_SYSTEM = "SYSTEM";
     public static final String TYPE_ENTRY_ITEM = "ENTRY_ITEM";
 
+    private UUID id;
     private String name;
 
     private Map<String, String> data;
@@ -20,6 +24,16 @@ public abstract sealed class Metadata permits SystemMetadata, EntryItemMetadata 
 
     public abstract String getType();
 
+    @Override
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    @Override
     public String getName() {
         return name;
     }

@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public final class Entry implements Serializable {
+import app.ludrive.core.domain.Identifiable;
+
+public final class Entry implements Identifiable, Serializable {
 
     private UUID id;
     private String name;
+
     private String description;
 
     private EntryConfiguration configuration;
@@ -31,6 +34,7 @@ public final class Entry implements Serializable {
         return Objects.hashCode(id);
     }
 
+    @Override
     public UUID getId() {
         return id;
     }
@@ -39,6 +43,7 @@ public final class Entry implements Serializable {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
 
-public final class EntryConfiguration implements Serializable {
+import app.ludrive.core.domain.Identifiable;
+
+public final class EntryConfiguration implements Identifiable, Serializable {
 
     public enum Type {
         MEMORY,
@@ -22,6 +24,7 @@ public final class EntryConfiguration implements Serializable {
 
     public EntryConfiguration() {}
 
+    @Override
     public UUID getId() {
         return id;
     }
@@ -30,6 +33,7 @@ public final class EntryConfiguration implements Serializable {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
