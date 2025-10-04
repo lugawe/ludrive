@@ -1,8 +1,8 @@
 package app.ludrive.adapters.out.persistence.vfs.fs.tree;
 
 import java.util.Map;
-import java.util.SequencedCollection;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 import jakarta.enterprise.context.RequestScoped;
 
@@ -17,7 +17,7 @@ public class MemoryVFSTree implements VFSTree {
     public MemoryVFSTree() {}
 
     @Override
-    public void set(String path, EntryItem entryItem) {
+    public void put(String path, EntryItem entryItem) {
         items.put(path, entryItem);
     }
 
@@ -27,8 +27,8 @@ public class MemoryVFSTree implements VFSTree {
     }
 
     @Override
-    public SequencedCollection<? extends EntryItem> getChildren(String path) {
-        throw new UnsupportedOperationException();
+    public Stream<? extends EntryItem> list(String path) {
+        return items.values().stream().filter(e -> e.getPath().startsWith(path));
     }
 
     @Override
