@@ -8,9 +8,9 @@ import app.ludrive.adapters.out.persistence.vfs.repository.VFSFileRepository;
 import app.ludrive.core.ports.out.repository.FileRepository;
 
 @RequestScoped
-public class VFSFileRepositoryProducer {
+public class FileRepositoryProducer {
 
-    public VFSFileRepositoryProducer() {}
+    public FileRepositoryProducer() {}
 
     @Produces
     public FileRepository produce(VFSTree tree) {
