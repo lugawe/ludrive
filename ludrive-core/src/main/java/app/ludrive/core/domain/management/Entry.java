@@ -10,6 +10,8 @@ public final class Entry implements Serializable {
     private String name;
     private String description;
 
+    private EntryConfiguration configuration;
+
     public Entry() {}
 
     public Entry(UUID id, String name, String description) {
@@ -51,5 +53,13 @@ public final class Entry implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public EntryConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(EntryConfiguration configuration) {
+        this.configuration = configuration;
     }
 }
