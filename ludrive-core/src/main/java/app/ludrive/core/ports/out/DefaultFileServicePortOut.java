@@ -4,6 +4,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
@@ -30,13 +31,24 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, FileContent fileContent) {
+    public File createFile(AuthIdentity identity, UUID entryId, File file) {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.createFile(fileContent);
+        virtualFSService.createFile(file);
 
-        return fileRepository.createFile(identity, fileContent.file());
+        return fileRepository.createFile(identity, file);
+    }
+
+    @Override
+    public File createFile(AuthIdentity identity, UUID entryId, File file, Content content) {
+
+        migrationHandler.checkRunMigration();
+
+        virtualFSService.createFile(file);
+        virtualFSService.updateFileContent(file.getPath(), content);
+
+        return fileRepository.createFile(identity, file);
     }
 
     @Override
@@ -61,8 +73,9 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
         migrationHandler.checkRunMigration();
 
         File file = fileRepository.getFile(identity, path);
+        Content content = virtualFSService.getFileContent(path);
 
-        return virtualFSService.getFileContent(file);
+        return new FileContent(file, content);
     }
 
     @Override
@@ -70,19 +83,26 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.updateFile(path, file);
+        File originalFile = fileRepository.getFile(identity, path);
+        String originalFilePath = originalFile.getPath();
 
-        return fileRepository.updateFile(identity, path, file);
+        virtualFSService.updateFile(originalFilePath, file);
+
+        return fileRepository.updateFile(identity, originalFilePath, file);
     }
 
     @Override
-    public File updateFileContent(AuthIdentity identity, UUID entryId, String path, FileContent fileContent) {
+    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file, Content content) {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.updateFileContent(path, fileContent);
+        File originalFile = fileRepository.getFile(identity, path);
+        String originalFilePath = originalFile.getPath();
 
-        return fileRepository.updateFile(identity, path, fileContent.file());
+        virtualFSService.updateFile(originalFilePath, file);
+        virtualFSService.updateFileContent(originalFilePath, content);
+
+        return fileRepository.updateFile(identity, originalFilePath, file);
     }
 
     @Override

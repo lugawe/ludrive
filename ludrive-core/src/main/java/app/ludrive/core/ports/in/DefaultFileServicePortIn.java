@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.ports.out.FileServicePortOut;
@@ -36,12 +37,26 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, FileContent fileContent) {
+    public File createFile(AuthIdentity identity, UUID entryId, File file) {
 
         authService.checkEntryAccess(identity, entryId);
-        validator.validateFile(fileContent);
+        validator.validateFile(file);
 
-        File result = fileServicePortOut.createFile(identity, entryId, fileContent);
+        File result = fileServicePortOut.createFile(identity, entryId, file);
+
+        eventManager.onFileCreated(new Events.FileCreatedProps(identity, entryId, result));
+
+        return result;
+    }
+
+    @Override
+    public File createFile(AuthIdentity identity, UUID entryId, File file, Content content) {
+
+        authService.checkEntryAccess(identity, entryId);
+        validator.validateFile(file);
+        validator.validateFile(content);
+
+        File result = fileServicePortOut.createFile(identity, entryId, file, content);
 
         eventManager.onFileCreated(new Events.FileCreatedProps(identity, entryId, result));
 
@@ -100,13 +115,14 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     }
 
     @Override
-    public File updateFileContent(AuthIdentity identity, UUID entryId, String path, FileContent fileContent) {
+    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file, Content content) {
 
         authService.checkEntryAccess(identity, entryId);
         validator.validatePath(path);
-        validator.validateFile(fileContent);
+        validator.validateFile(file);
+        validator.validateFile(content);
 
-        File result = fileServicePortOut.updateFileContent(identity, entryId, path, fileContent);
+        File result = fileServicePortOut.updateFile(identity, entryId, path, file, content);
 
         eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result));
 

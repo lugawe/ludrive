@@ -1,12 +1,11 @@
 package app.ludrive.core.service.validation;
 
-import java.nio.channels.Channel;
 import java.util.regex.Pattern;
 
 import app.ludrive.core.domain.management.Entry;
+import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
-import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.exception.ValidationException;
 
 public class Validator {
@@ -39,13 +38,7 @@ public class Validator {
         validatePath(directory.getPath());
     }
 
-    public void validateFile(FileContent fileContent) throws ValidationException {
-        validateFile(fileContent.file(), fileContent.content());
-    }
-
-    public void validateFile(File file, Channel fileContent) throws ValidationException {
-        validateFile(file);
-    }
+    public void validateFile(Content content) throws ValidationException {}
 
     public void validateFile(File file) throws ValidationException {
         validatePath(file.getPath());

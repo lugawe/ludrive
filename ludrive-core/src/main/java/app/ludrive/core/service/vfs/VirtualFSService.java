@@ -1,8 +1,8 @@
 package app.ludrive.core.service.vfs;
 
+import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
-import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.exception.VFSException;
 
 public interface VirtualFSService {
@@ -23,7 +23,7 @@ public interface VirtualFSService {
 
     // --- vfs content operations ---
 
-    void updateFileContent(String path, FileContent content) throws VFSException;
+    void updateFileContent(String path, Content content) throws VFSException;
 
-    FileContent getFileContent(String path) throws VFSException;
+    Content getFileContent(String path) throws VFSException;
 }
