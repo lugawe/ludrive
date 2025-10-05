@@ -62,7 +62,7 @@ public class StorageResourceTest {
     @Order(1)
     public void createDirectory() {
 
-        JsonDirectory jsonDirectory1 = new JsonDirectory(entryId, "/");
+        JsonDirectory jsonDirectory1 = new JsonDirectory(entryId, "/dir0");
 
         JsonDirectory ret1 = RestAssured.given()
                 .contentType(ContentType.JSON)
