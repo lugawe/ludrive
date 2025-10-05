@@ -19,6 +19,7 @@ public final class EntryConfiguration implements Identifiable, Serializable {
     private String name;
 
     private Type type;
+    private String rootPath;
 
     private Map<String, String> credentials;
 
@@ -48,6 +49,14 @@ public final class EntryConfiguration implements Identifiable, Serializable {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public String getRootPath() {
+        return rootPath;
+    }
+
+    public void setRootPath(String rootPath) {
+        this.rootPath = rootPath;
     }
 
     public Map<String, String> getCredentials() {
