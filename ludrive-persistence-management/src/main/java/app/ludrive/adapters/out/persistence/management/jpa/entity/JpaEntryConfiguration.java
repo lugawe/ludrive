@@ -14,8 +14,8 @@ public class JpaEntryConfiguration {
     @Column(name = "type", nullable = false)
     private EntryConfiguration.Type type;
 
-    @Column(name = "root_path")
-    private String rootPath;
+    @Column(name = "root_location")
+    private String rootLocation;
 
     @Convert(converter = MapAttributeConverter.class)
     @Column(name = "credentials")
@@ -31,12 +31,12 @@ public class JpaEntryConfiguration {
         this.type = type;
     }
 
-    public String getRootPath() {
-        return rootPath;
+    public String getRootLocation() {
+        return rootLocation;
     }
 
-    public void setRootPath(String rootPath) {
-        this.rootPath = rootPath;
+    public void setRootLocation(String rootLocation) {
+        this.rootLocation = rootLocation;
     }
 
     public Map<String, String> getCredentials() {

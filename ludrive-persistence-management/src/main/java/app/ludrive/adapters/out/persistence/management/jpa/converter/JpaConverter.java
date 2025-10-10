@@ -89,7 +89,7 @@ public class JpaConverter {
         JpaEntryConfiguration result = new JpaEntryConfiguration();
 
         result.setType(entryConfiguration.getType());
-        result.setRootPath(entryConfiguration.getRootPath());
+        result.setRootLocation(entryConfiguration.getRootLocation());
 
         Map<String, String> credentials = entryConfiguration.getCredentials();
         if (credentials != null) {
@@ -108,7 +108,7 @@ public class JpaConverter {
         EntryConfiguration result = new EntryConfiguration();
 
         result.setType(entryConfiguration.getType());
-        result.setRootPath(entryConfiguration.getRootPath());
+        result.setRootLocation(entryConfiguration.getRootLocation());
 
         Map<String, String> credentials = entryConfiguration.getCredentials();
         if (credentials != null) {

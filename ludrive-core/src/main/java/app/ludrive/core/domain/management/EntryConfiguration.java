@@ -14,21 +14,15 @@ public final class EntryConfiguration implements Serializable {
 
     private Type type;
 
-    private String rootPath;
+    private String rootLocation;
 
     private Map<String, String> credentials;
 
     public EntryConfiguration() {}
 
-    public EntryConfiguration(Type type, String rootPath) {
+    public EntryConfiguration(Type type, String rootLocation) {
         this.type = type;
-        this.rootPath = rootPath;
-    }
-
-    public EntryConfiguration(Type type, String rootPath, Map<String, String> credentials) {
-        this.type = type;
-        this.rootPath = rootPath;
-        this.credentials = credentials;
+        this.rootLocation = rootLocation;
     }
 
     public Type getType() {
@@ -39,12 +33,12 @@ public final class EntryConfiguration implements Serializable {
         this.type = type;
     }
 
-    public String getRootPath() {
-        return rootPath;
+    public String getRootLocation() {
+        return rootLocation;
     }
 
-    public void setRootPath(String rootPath) {
-        this.rootPath = rootPath;
+    public void setRootLocation(String rootLocation) {
+        this.rootLocation = rootLocation;
     }
 
     public Map<String, String> getCredentials() {
