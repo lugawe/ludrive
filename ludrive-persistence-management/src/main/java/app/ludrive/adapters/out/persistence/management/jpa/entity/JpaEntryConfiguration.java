@@ -4,6 +4,7 @@ import java.util.Map;
 
 import jakarta.persistence.*;
 
+import app.ludrive.adapters.out.persistence.management.jpa.util.MapAttributeConverter;
 import app.ludrive.core.domain.management.EntryConfiguration;
 
 @Embeddable
@@ -16,6 +17,7 @@ public class JpaEntryConfiguration {
     @Column(name = "root_path")
     private String rootPath;
 
+    @Convert(converter = MapAttributeConverter.class)
     @Column(name = "credentials")
     private Map<String, String> credentials;
 
