@@ -10,6 +10,7 @@ import app.ludrive.adapters.in.api.rest.auth.Jwts;
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
 import app.ludrive.core.domain.management.Entry;
+import app.ludrive.core.domain.management.EntryConfiguration;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
 import app.ludrive.core.ports.out.EntryServicePortOut;
@@ -50,6 +51,7 @@ public class StorageResourceTest {
         Entry entry = new Entry();
         entry.setName("Test Entry 1 Name");
         entry.setDescription("Test Entry 1 Description");
+        entry.setConfiguration(new EntryConfiguration(EntryConfiguration.Type.MEMORY, "/"));
 
         Entry createdEntry = entryServicePortOut.createEntry(createdDriveUser, entry);
 

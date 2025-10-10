@@ -11,6 +11,9 @@ CREATE TABLE entry (
   owner_id UUID NOT NULL,
   name TEXT NOT NULL,
   description TEXT,
+  type TEXT NOT NULL,
+  root_path TEXT NOT NULL,
+  credentials TEXT,
   UNIQUE (owner_id, name),
   FOREIGN KEY (owner_id) REFERENCES drive_user (id)
 );

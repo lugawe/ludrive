@@ -20,6 +20,17 @@ public final class EntryConfiguration implements Serializable {
 
     public EntryConfiguration() {}
 
+    public EntryConfiguration(Type type, String rootPath) {
+        this.type = type;
+        this.rootPath = rootPath;
+    }
+
+    public EntryConfiguration(Type type, String rootPath, Map<String, String> credentials) {
+        this.type = type;
+        this.rootPath = rootPath;
+        this.credentials = credentials;
+    }
+
     public Type getType() {
         return type;
     }

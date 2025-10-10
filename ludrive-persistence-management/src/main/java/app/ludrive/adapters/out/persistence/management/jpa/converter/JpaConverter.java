@@ -1,11 +1,16 @@
 package app.ludrive.adapters.out.persistence.management.jpa.converter;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaDriveUser;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntry;
+import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntryConfiguration;
 import app.ludrive.core.domain.management.Entry;
+import app.ludrive.core.domain.management.EntryConfiguration;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.management.auth.DriveUser;
 
@@ -51,6 +56,7 @@ public class JpaConverter {
         result.setId(entry.getId());
         result.setName(entry.getName());
         result.setDescription(entry.getDescription());
+        result.setConfiguration(toJpaEntryConfiguration(entry.getConfiguration()));
 
         return result;
     }
@@ -62,6 +68,7 @@ public class JpaConverter {
         result.setId(entry.getId());
         result.setName(entry.getName());
         result.setDescription(entry.getDescription());
+        result.setConfiguration(toEntryConfiguration(entry.getConfiguration()));
 
         return result;
     }
@@ -70,5 +77,44 @@ public class JpaConverter {
 
         jpaEntry.setName(entry.getName());
         jpaEntry.setDescription(entry.getDescription());
+        jpaEntry.setConfiguration(toJpaEntryConfiguration(entry.getConfiguration()));
+    }
+
+    public JpaEntryConfiguration toJpaEntryConfiguration(EntryConfiguration entryConfiguration) {
+
+        if (entryConfiguration == null) {
+            return null;
+        }
+
+        JpaEntryConfiguration result = new JpaEntryConfiguration();
+
+        result.setType(entryConfiguration.getType());
+        result.setRootPath(entryConfiguration.getRootPath());
+
+        Map<String, String> credentials = entryConfiguration.getCredentials();
+        if (credentials != null) {
+            result.setCredentials(new LinkedHashMap<>(credentials));
+        }
+
+        return result;
+    }
+
+    public EntryConfiguration toEntryConfiguration(JpaEntryConfiguration entryConfiguration) {
+
+        if (entryConfiguration == null) {
+            return null;
+        }
+
+        EntryConfiguration result = new EntryConfiguration();
+
+        result.setType(entryConfiguration.getType());
+        result.setRootPath(entryConfiguration.getRootPath());
+
+        Map<String, String> credentials = entryConfiguration.getCredentials();
+        if (credentials != null) {
+            result.setCredentials(new LinkedHashMap<>(credentials));
+        }
+
+        return result;
     }
 }

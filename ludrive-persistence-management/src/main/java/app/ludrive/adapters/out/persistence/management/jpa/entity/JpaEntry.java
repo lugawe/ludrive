@@ -23,6 +23,9 @@ public class JpaEntry {
     @Column(name = "description")
     private String description;
 
+    @Embedded
+    private JpaEntryConfiguration configuration;
+
     public JpaEntry() {}
 
     public UUID getId() {
@@ -55,5 +58,13 @@ public class JpaEntry {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public JpaEntryConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(JpaEntryConfiguration configuration) {
+        this.configuration = configuration;
     }
 }
