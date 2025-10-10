@@ -13,6 +13,7 @@ public class JsonEntry {
     private UUID id;
     private String name;
     private String description;
+    private JsonEntryConfiguration configuration;
 
     public JsonEntry() {}
 
@@ -38,5 +39,13 @@ public class JsonEntry {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public JsonEntryConfiguration getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(JsonEntryConfiguration configuration) {
+        this.configuration = configuration;
     }
 }

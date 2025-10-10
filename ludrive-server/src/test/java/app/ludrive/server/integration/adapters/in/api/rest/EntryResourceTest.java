@@ -7,6 +7,8 @@ import jakarta.inject.Inject;
 import app.ludrive.adapters.in.api.rest.EntryResource;
 import app.ludrive.adapters.in.api.rest.auth.Jwts;
 import app.ludrive.adapters.in.api.rest.json.JsonEntry;
+import app.ludrive.adapters.in.api.rest.json.JsonEntryConfiguration;
+import app.ludrive.core.domain.management.EntryConfiguration;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
 
@@ -56,6 +58,7 @@ public class EntryResourceTest {
         JsonEntry jsonEntry1 = new JsonEntry();
         jsonEntry1.setName(name1);
         jsonEntry1.setDescription(description1);
+        jsonEntry1.setConfiguration(new JsonEntryConfiguration(EntryConfiguration.Type.MEMORY, "/"));
 
         JsonEntry ret1 = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -79,6 +82,7 @@ public class EntryResourceTest {
         JsonEntry jsonEntry2 = new JsonEntry();
         jsonEntry2.setName(name2);
         jsonEntry2.setDescription(description2);
+        jsonEntry2.setConfiguration(new JsonEntryConfiguration(EntryConfiguration.Type.MEMORY, "/"));
 
         JsonEntry ret2 = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -142,6 +146,7 @@ public class EntryResourceTest {
 
         JsonEntry update = new JsonEntry();
         update.setName("updated");
+        update.setConfiguration(new JsonEntryConfiguration(EntryConfiguration.Type.MEMORY, "/"));
 
         JsonEntry ret = RestAssured.given()
                 .contentType(ContentType.JSON)

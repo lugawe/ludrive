@@ -1,5 +1,7 @@
 package app.ludrive.adapters.in.api.rest.json.converter;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -7,6 +9,7 @@ import jakarta.inject.Inject;
 
 import app.ludrive.adapters.in.api.rest.json.*;
 import app.ludrive.core.domain.management.Entry;
+import app.ludrive.core.domain.management.EntryConfiguration;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.EntryItemId;
@@ -63,6 +66,7 @@ public class JsonConverter {
         result.setId(entry.getId());
         result.setName(entry.getName());
         result.setDescription(entry.getDescription());
+        result.setConfiguration(toJsonEntryConfiguration(entry.getConfiguration()));
 
         return result;
     }
@@ -74,6 +78,45 @@ public class JsonConverter {
         result.setId(jsonEntry.getId());
         result.setName(jsonEntry.getName());
         result.setDescription(jsonEntry.getDescription());
+        result.setConfiguration(toEntryConfiguration(jsonEntry.getConfiguration()));
+
+        return result;
+    }
+
+    public JsonEntryConfiguration toJsonEntryConfiguration(EntryConfiguration entryConfiguration) {
+
+        if (entryConfiguration == null) {
+            return null;
+        }
+
+        JsonEntryConfiguration result = new JsonEntryConfiguration();
+
+        result.setType(entryConfiguration.getType());
+        result.setRootLocation(entryConfiguration.getRootLocation());
+
+        Map<String, String> credentials = entryConfiguration.getCredentials();
+        if (credentials != null) {
+            result.setCredentials(new LinkedHashMap<>(credentials));
+        }
+
+        return result;
+    }
+
+    public EntryConfiguration toEntryConfiguration(JsonEntryConfiguration entryConfiguration) {
+
+        if (entryConfiguration == null) {
+            return null;
+        }
+
+        EntryConfiguration result = new EntryConfiguration();
+
+        result.setType(entryConfiguration.getType());
+        result.setRootLocation(entryConfiguration.getRootLocation());
+
+        Map<String, String> credentials = entryConfiguration.getCredentials();
+        if (credentials != null) {
+            result.setCredentials(new LinkedHashMap<>(credentials));
+        }
 
         return result;
     }
