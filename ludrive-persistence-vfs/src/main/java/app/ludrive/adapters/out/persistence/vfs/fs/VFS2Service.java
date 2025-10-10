@@ -2,10 +2,7 @@ package app.ludrive.adapters.out.persistence.vfs.fs;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.UUID;
 
-import app.ludrive.core.domain.management.Entry;
-import app.ludrive.core.domain.management.EntryConfiguration;
 import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
@@ -16,22 +13,23 @@ import org.apache.commons.vfs2.*;
 
 public class VFS2Service implements VirtualFSService {
 
-    protected final Entry entry;
     protected final FileSystemManager fileSystemManager;
     protected final FileObject root;
 
-    public VFS2Service(Entry entry, String rootPath) throws VFSException {
-        this.entry = entry;
+    public VFS2Service(String rootLocation) throws VFSException {
+        if (rootLocation == null) {
+            throw new NullPointerException("rootLocation");
+        }
         try {
             this.fileSystemManager = VFS.getManager();
-            this.root = fileSystemManager.resolveFile(rootPath);
+            this.root = fileSystemManager.resolveFile(rootLocation);
         } catch (Exception e) {
             throw new VFSException("failed to initialize VFS2Service", e);
         }
     }
 
     private FileObject resolve(String path) throws FileSystemException {
-        if (path == null || path.isBlank()) {
+        if (path == null || path.isBlank() || "/".equals(path)) {
             return root;
         }
         String p = path.startsWith("/") ? path.substring(1) : path;
