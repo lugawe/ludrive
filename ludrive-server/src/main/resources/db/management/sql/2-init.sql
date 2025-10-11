@@ -13,6 +13,7 @@ CREATE TABLE entry (
   description TEXT,
   type TEXT NOT NULL,
   root_location TEXT NOT NULL,
+  config TEXT,
   credentials TEXT,
   UNIQUE (owner_id, name),
   FOREIGN KEY (owner_id) REFERENCES drive_user (id)
