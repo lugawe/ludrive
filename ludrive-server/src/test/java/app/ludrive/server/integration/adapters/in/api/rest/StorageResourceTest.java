@@ -1,6 +1,7 @@
 package app.ludrive.server.integration.adapters.in.api.rest;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.inject.Inject;
@@ -8,6 +9,7 @@ import jakarta.inject.Inject;
 import app.ludrive.adapters.in.api.rest.StorageResource;
 import app.ludrive.adapters.in.api.rest.auth.Jwts;
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
+import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.EntryConfiguration;
@@ -18,6 +20,7 @@ import app.ludrive.core.ports.out.EntryServicePortOut;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;
@@ -127,5 +130,26 @@ public class StorageResourceTest {
                 .as(JsonFile.class);
 
         Assertions.assertNotNull(ret1);
+    }
+
+    @Test
+    @Order(3)
+    public void getEntryItems() {
+
+        List<JsonEntryItem> entryItems = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .auth()
+                .oauth2(jwt)
+                .pathParam("entryId", entryId)
+                .queryParam("path", "/")
+                .when()
+                .get("/{entryId}/vfs")
+                .then()
+                .statusCode(200)
+                .body(Matchers.not(Matchers.emptyString()))
+                .extract()
+                .as(new TypeRef<>() {});
+
+        Assertions.assertNotNull(entryItems);
     }
 }
