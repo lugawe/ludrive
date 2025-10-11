@@ -7,6 +7,10 @@ import app.ludrive.core.exception.VFSException;
 
 public interface VirtualFileSystemService {
 
+    // --- initialize ---
+
+    void initialize(VirtualFileSystemTree tree);
+
     // --- vfs operations ---
 
     void createDirectory(Directory directory) throws VFSException;
