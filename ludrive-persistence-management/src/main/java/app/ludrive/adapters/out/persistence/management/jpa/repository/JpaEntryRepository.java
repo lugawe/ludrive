@@ -1,5 +1,6 @@
 package app.ludrive.adapters.out.persistence.management.jpa.repository;
 
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -25,7 +26,7 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
     @Inject
     public JpaEntryRepository(@Named(JpaFactory.MANAGEMENT) JpaFactory jpaFactory, JpaConverter jpaConverter) {
         super(jpaFactory);
-        this.jpaConverter = jpaConverter;
+        this.jpaConverter = Objects.requireNonNull(jpaConverter);
     }
 
     protected NotFoundException createNotFoundException(UUID entryId) {

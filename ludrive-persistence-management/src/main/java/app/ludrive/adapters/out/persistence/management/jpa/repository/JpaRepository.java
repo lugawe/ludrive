@@ -9,7 +9,7 @@ public abstract class JpaRepository<T, ID> {
     private JpaFactory jpaFactory;
 
     public JpaRepository(JpaFactory jpaFactory) {
-        this.jpaFactory = Objects.requireNonNull(jpaFactory, "jpaFactory");
+        this.jpaFactory = Objects.requireNonNull(jpaFactory);
     }
 
     public JpaRepository() {}
