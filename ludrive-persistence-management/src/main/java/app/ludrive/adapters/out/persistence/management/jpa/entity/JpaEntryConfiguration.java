@@ -14,7 +14,7 @@ public class JpaEntryConfiguration {
     @Column(name = "type", nullable = false)
     private EntryConfiguration.Type type;
 
-    @Column(name = "root_location")
+    @Column(name = "root_location", nullable = false)
     private String rootLocation;
 
     @Convert(converter = MapAttributeConverter.class)
