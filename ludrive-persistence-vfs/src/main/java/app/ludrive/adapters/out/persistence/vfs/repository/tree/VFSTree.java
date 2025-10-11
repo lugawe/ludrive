@@ -1,4 +1,4 @@
-package app.ludrive.adapters.out.persistence.vfs.fs.tree;
+package app.ludrive.adapters.out.persistence.vfs.repository.tree;
 
 import java.util.stream.Stream;
 

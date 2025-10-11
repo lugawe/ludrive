@@ -3,7 +3,7 @@ package app.ludrive.adapters.out.persistence.vfs.repository;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import app.ludrive.adapters.out.persistence.vfs.fs.tree.VFSTree;
+import app.ludrive.adapters.out.persistence.vfs.repository.tree.VFSTree;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;

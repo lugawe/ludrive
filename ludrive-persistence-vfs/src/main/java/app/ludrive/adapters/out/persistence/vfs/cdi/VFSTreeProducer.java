@@ -7,8 +7,8 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
-import app.ludrive.adapters.out.persistence.vfs.fs.tree.MemoryVFSTree;
-import app.ludrive.adapters.out.persistence.vfs.fs.tree.VFSTree;
+import app.ludrive.adapters.out.persistence.vfs.repository.tree.MemoryVFSTree;
+import app.ludrive.adapters.out.persistence.vfs.repository.tree.VFSTree;
 import app.ludrive.core.service.context.AuthIdentityEntryKey;
 import app.ludrive.core.service.context.ContextService;
 
