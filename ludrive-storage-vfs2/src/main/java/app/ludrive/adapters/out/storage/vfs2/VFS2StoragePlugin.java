@@ -1,4 +1,4 @@
-package app.ludrive.adapters.out.persistence.vfs.vfs2;
+package app.ludrive.adapters.out.storage.vfs2;
 
 import jakarta.enterprise.context.ApplicationScoped;
 

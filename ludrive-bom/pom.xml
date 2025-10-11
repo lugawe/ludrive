@@ -80,6 +80,12 @@
 
             <dependency>
                 <groupId>app.ludrive</groupId>
+                <artifactId>ludrive-storage-vfs2</artifactId>
+                <version>${ludrive.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>app.ludrive</groupId>
                 <artifactId>ludrive-server</artifactId>
                 <version>${ludrive.version}</version>
             </dependency>

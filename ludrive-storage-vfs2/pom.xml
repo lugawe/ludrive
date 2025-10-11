@@ -10,12 +10,12 @@
         <relativePath>../ludrive-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>ludrive-persistence-vfs</artifactId>
+    <artifactId>ludrive-storage-vfs2</artifactId>
     <version>0.1</version>
 
     <packaging>jar</packaging>
 
-    <name>ludrive-persistence-vfs</name>
+    <name>ludrive-storage-vfs2</name>
 
     <dependencies>
 
@@ -29,6 +29,11 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-vfs2</artifactId>
         </dependency>
 
         <!-- testing dependencies -->

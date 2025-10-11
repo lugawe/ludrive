@@ -21,6 +21,7 @@
         <module>ludrive-cli</module>
         <module>ludrive-persistence-management</module>
         <module>ludrive-persistence-vfs</module>
+        <module>ludrive-storage-vfs2</module>
         <module>ludrive-server</module>
     </modules>
 
