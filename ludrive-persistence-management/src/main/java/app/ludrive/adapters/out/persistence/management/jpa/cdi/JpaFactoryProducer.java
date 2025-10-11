@@ -1,4 +1,4 @@
-package app.ludrive.server.cdi.persistence;
+package app.ludrive.adapters.out.persistence.management.jpa.cdi;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
@@ -11,7 +11,7 @@ import jakarta.persistence.PersistenceUnit;
 import app.ludrive.adapters.out.persistence.management.jpa.repository.JpaFactory;
 
 @ApplicationScoped
-public class JpaManagementProducerFactory {
+public class JpaFactoryProducer {
 
     @Inject
     @PersistenceUnit(unitName = "management")
@@ -21,11 +21,11 @@ public class JpaManagementProducerFactory {
     @PersistenceUnit(unitName = "management")
     private EntityManager entityManager;
 
-    public JpaManagementProducerFactory() {}
+    public JpaFactoryProducer() {}
 
     @Produces
-    @Named(JpaFactory.BEAN_PERSISTENCE_MANAGEMENT)
-    public JpaFactory produceManagementJpaFactory() {
+    @Named(JpaFactory.MANAGEMENT)
+    public JpaFactory produce() {
         return new JpaFactory(entityManagerFactory, () -> entityManager);
     }
 }

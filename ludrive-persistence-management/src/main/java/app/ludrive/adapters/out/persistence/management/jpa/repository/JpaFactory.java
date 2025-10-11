@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 public class JpaFactory {
 
-    public static final String BEAN_PERSISTENCE_MANAGEMENT = "BEAN_PERSISTENCE_MANAGEMENT";
+    public static final String MANAGEMENT = "BEAN_PERSISTENCE_MANAGEMENT";
 
     private final EntityManagerFactory entityManagerFactory;
     private final Provider<EntityManager> entityManagerProvider;
