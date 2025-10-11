@@ -3,6 +3,9 @@ package app.ludrive.adapters.out.persistence.management.jpa.repository;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
@@ -14,11 +17,13 @@ import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.exception.NotFoundException;
 import app.ludrive.core.ports.out.repository.EntryRepository;
 
+@ApplicationScoped
 public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements EntryRepository {
 
     protected final JpaConverter jpaConverter;
 
-    public JpaEntryRepository(JpaFactory jpaFactory, JpaConverter jpaConverter) {
+    @Inject
+    public JpaEntryRepository(@Named(JpaFactory.MANAGEMENT) JpaFactory jpaFactory, JpaConverter jpaConverter) {
         super(jpaFactory);
         this.jpaConverter = jpaConverter;
     }

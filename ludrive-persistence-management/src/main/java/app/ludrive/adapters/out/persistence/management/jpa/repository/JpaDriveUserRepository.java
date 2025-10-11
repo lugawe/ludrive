@@ -2,6 +2,9 @@ package app.ludrive.adapters.out.persistence.management.jpa.repository;
 
 import java.util.UUID;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.transaction.Transactional;
 
 import app.ludrive.adapters.out.persistence.management.jpa.converter.JpaConverter;
@@ -10,11 +13,13 @@ import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.exception.NotFoundException;
 import app.ludrive.core.ports.out.repository.DriveUserRepository;
 
+@ApplicationScoped
 public class JpaDriveUserRepository extends JpaRepository<JpaDriveUser, UUID> implements DriveUserRepository {
 
     protected final JpaConverter jpaConverter;
 
-    public JpaDriveUserRepository(JpaFactory jpaFactory, JpaConverter jpaConverter) {
+    @Inject
+    public JpaDriveUserRepository(@Named(JpaFactory.MANAGEMENT) JpaFactory jpaFactory, JpaConverter jpaConverter) {
         super(jpaFactory);
         this.jpaConverter = jpaConverter;
     }
