@@ -1,12 +1,15 @@
 package app.ludrive.adapters.in.api.rest.service;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
+import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
 import app.ludrive.adapters.in.api.rest.json.converter.JsonConverter;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
@@ -49,5 +52,15 @@ public class RestStorageService {
         File result = fileServicePortIn.createFile(identity, entryId, file, Content.from(content));
 
         return jsonConverter.toJsonFile(result);
+    }
+
+    public List<? extends JsonEntryItem> getEntryItems(AuthIdentity identity, UUID entryId, String path) {
+
+        Stream<JsonDirectory> directoryStream =
+                directoryServicePortIn.getDirectories(identity, entryId, path).map(jsonConverter::toJsonDirectory);
+        Stream<JsonFile> fileStream =
+                fileServicePortIn.getFiles(identity, entryId, path).map(jsonConverter::toJsonFile);
+
+        return Stream.concat(directoryStream, fileStream).toList();
     }
 }

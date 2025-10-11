@@ -1,6 +1,7 @@
 package app.ludrive.adapters.in.api.rest;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.annotation.security.RolesAllowed;
@@ -11,6 +12,7 @@ import jakarta.ws.rs.core.Response;
 
 import app.ludrive.adapters.in.api.rest.context.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
+import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
 import app.ludrive.adapters.in.api.rest.service.RestStorageService;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
@@ -56,6 +58,17 @@ public class StorageResource {
         AuthIdentity identity = restContextService.getAuthIdentity();
 
         JsonFile result = restStorageService.createFile(identity, entryId, jsonFile, content);
+
+        return Response.ok(result).build();
+    }
+
+    @GET
+    @Path("/{entryId}/vfs")
+    public Response getEntryItems(@PathParam("entryId") UUID entryId, @QueryParam("path") String path) {
+
+        AuthIdentity identity = restContextService.getAuthIdentity();
+
+        List<? extends JsonEntryItem> result = restStorageService.getEntryItems(identity, entryId, path);
 
         return Response.ok(result).build();
     }
