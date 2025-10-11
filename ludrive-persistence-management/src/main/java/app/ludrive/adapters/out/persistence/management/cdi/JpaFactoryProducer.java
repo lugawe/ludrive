@@ -1,4 +1,4 @@
-package app.ludrive.adapters.out.persistence.management.jpa.cdi;
+package app.ludrive.adapters.out.persistence.management.cdi;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
