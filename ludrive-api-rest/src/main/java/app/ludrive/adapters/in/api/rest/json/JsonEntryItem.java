@@ -20,6 +20,8 @@ public abstract class JsonEntryItem {
         this.id = id;
     }
 
+    public abstract String getType();
+
     public JsonEntryItemId getId() {
         return id;
     }
