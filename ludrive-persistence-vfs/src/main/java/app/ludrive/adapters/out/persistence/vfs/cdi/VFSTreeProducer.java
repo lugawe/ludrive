@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
 
 import app.ludrive.adapters.out.persistence.vfs.repository.tree.MemoryVFSTree;
 import app.ludrive.adapters.out.persistence.vfs.repository.tree.VFSTree;
@@ -17,13 +16,10 @@ public class VFSTreeProducer {
 
     private static final Map<AuthIdentityEntryKey, VFSTree> cache = new ConcurrentHashMap<>();
 
-    @Inject
-    private ContextService contextService;
-
     public VFSTreeProducer() {}
 
     @Produces
-    public VFSTree produce() {
+    public VFSTree produce(ContextService contextService) {
 
         AuthIdentityEntryKey key = contextService.getKey();
 
