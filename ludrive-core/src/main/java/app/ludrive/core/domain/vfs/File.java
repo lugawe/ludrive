@@ -1,9 +1,8 @@
 package app.ludrive.core.domain.vfs;
 
-import java.io.Serializable;
 import java.util.UUID;
 
-public final class File extends EntryItem implements Serializable {
+public final class File extends EntryItem {
 
     public File(EntryItemId entryItemId) {
         super(entryItemId);
