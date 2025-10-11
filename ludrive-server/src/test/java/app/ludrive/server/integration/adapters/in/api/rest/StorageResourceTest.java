@@ -40,6 +40,10 @@ public class StorageResourceTest {
 
     public StorageResourceTest() {}
 
+    private EntryConfiguration entryConfiguration() {
+        return new EntryConfiguration("VFS2", "ram:///");
+    }
+
     @BeforeAll
     public void createDriveUserAndEntryAndJwt() {
 
@@ -51,7 +55,7 @@ public class StorageResourceTest {
         Entry entry = new Entry();
         entry.setName("Test Entry 1 Name");
         entry.setDescription("Test Entry 1 Description");
-        entry.setConfiguration(new EntryConfiguration(EntryConfiguration.Type.MEMORY, "/"));
+        entry.setConfiguration(entryConfiguration());
 
         Entry createdEntry = entryServicePortOut.createEntry(createdDriveUser, entry);
 
