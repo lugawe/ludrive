@@ -1,4 +1,4 @@
-package app.ludrive.adapters.out.persistence.vfs.fs;
+package app.ludrive.adapters.out.persistence.vfs.vfs2;
 
 import java.io.InputStream;
 import java.io.OutputStream;
