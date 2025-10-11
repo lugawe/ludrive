@@ -8,19 +8,19 @@ import app.ludrive.adapters.out.persistence.vfs.fs.VFS2Service;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.EntryConfiguration;
 import app.ludrive.core.service.context.ContextService;
-import app.ludrive.core.service.vfs.VirtualFSService;
+import app.ludrive.core.service.vfs.VirtualFileSystemService;
 
 // TODO make it better
 @RequestScoped
-public class VirtualFSServiceProducer {
+public class VirtualFileSystemServiceProducer {
 
     @Inject
     private ContextService contextService;
 
-    public VirtualFSServiceProducer() {}
+    public VirtualFileSystemServiceProducer() {}
 
     @Produces
-    public VirtualFSService produce() {
+    public VirtualFileSystemService produce() {
 
         Entry entry = contextService.getEntry();
         EntryConfiguration configuration = entry.getConfiguration();

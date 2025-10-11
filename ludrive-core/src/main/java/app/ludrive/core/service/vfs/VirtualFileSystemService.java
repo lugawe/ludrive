@@ -5,7 +5,7 @@ import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.exception.VFSException;
 
-public interface VirtualFSService {
+public interface VirtualFileSystemService {
 
     // --- vfs operations ---
 

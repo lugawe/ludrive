@@ -10,24 +10,24 @@ import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.FileRepository;
 import app.ludrive.core.service.logging.Logger;
-import app.ludrive.core.service.vfs.VirtualFSService;
+import app.ludrive.core.service.vfs.VirtualFileSystemService;
 
 public class DefaultFileServicePortOut implements FileServicePortOut {
 
     protected final Logger logger;
     protected final MigrationHandler migrationHandler;
     protected final FileRepository fileRepository;
-    protected final VirtualFSService virtualFSService;
+    protected final VirtualFileSystemService virtualFileSystemService;
 
     public DefaultFileServicePortOut(
             Logger logger,
             MigrationHandler migrationHandler,
             FileRepository fileRepository,
-            VirtualFSService virtualFSService) {
+            VirtualFileSystemService virtualFileSystemService) {
         this.logger = logger;
         this.migrationHandler = migrationHandler;
         this.fileRepository = fileRepository;
-        this.virtualFSService = virtualFSService;
+        this.virtualFileSystemService = virtualFileSystemService;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.createFile(file);
+        virtualFileSystemService.createFile(file);
 
         return fileRepository.createFile(identity, file);
     }
@@ -45,8 +45,8 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.createFile(file);
-        virtualFSService.updateFileContent(file.getPath(), content);
+        virtualFileSystemService.createFile(file);
+        virtualFileSystemService.updateFileContent(file.getPath(), content);
 
         return fileRepository.createFile(identity, file);
     }
@@ -73,7 +73,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
         migrationHandler.checkRunMigration();
 
         File file = fileRepository.getFile(identity, path);
-        Content content = virtualFSService.getFileContent(path);
+        Content content = virtualFileSystemService.getFileContent(path);
 
         return new FileContent(file, content);
     }
@@ -86,7 +86,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
         File originalFile = fileRepository.getFile(identity, path);
         String originalFilePath = originalFile.getPath();
 
-        virtualFSService.updateFile(originalFilePath, file);
+        virtualFileSystemService.updateFile(originalFilePath, file);
 
         return fileRepository.updateFile(identity, originalFilePath, file);
     }
@@ -99,8 +99,8 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
         File originalFile = fileRepository.getFile(identity, path);
         String originalFilePath = originalFile.getPath();
 
-        virtualFSService.updateFile(originalFilePath, file);
-        virtualFSService.updateFileContent(originalFilePath, content);
+        virtualFileSystemService.updateFile(originalFilePath, file);
+        virtualFileSystemService.updateFileContent(originalFilePath, content);
 
         return fileRepository.updateFile(identity, originalFilePath, file);
     }
@@ -110,7 +110,7 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.deleteFile(path);
+        virtualFileSystemService.deleteFile(path);
 
         return fileRepository.deleteFile(identity, path);
     }

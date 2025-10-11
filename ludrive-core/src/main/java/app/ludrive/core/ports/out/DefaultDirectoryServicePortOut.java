@@ -8,24 +8,24 @@ import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
 import app.ludrive.core.service.logging.Logger;
-import app.ludrive.core.service.vfs.VirtualFSService;
+import app.ludrive.core.service.vfs.VirtualFileSystemService;
 
 public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
     protected final Logger logger;
     protected final MigrationHandler migrationHandler;
     protected final DirectoryRepository directoryRepository;
-    protected final VirtualFSService virtualFSService;
+    protected final VirtualFileSystemService virtualFileSystemService;
 
     public DefaultDirectoryServicePortOut(
             Logger logger,
             MigrationHandler migrationHandler,
             DirectoryRepository directoryRepository,
-            VirtualFSService virtualFSService) {
+            VirtualFileSystemService virtualFileSystemService) {
         this.logger = logger;
         this.migrationHandler = migrationHandler;
         this.directoryRepository = directoryRepository;
-        this.virtualFSService = virtualFSService;
+        this.virtualFileSystemService = virtualFileSystemService;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.createDirectory(directory);
+        virtualFileSystemService.createDirectory(directory);
 
         return directoryRepository.createDirectory(identity, directory);
     }
@@ -59,7 +59,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.updateDirectory(path, directory);
+        virtualFileSystemService.updateDirectory(path, directory);
 
         return directoryRepository.updateDirectory(identity, path, directory);
     }
@@ -69,7 +69,7 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
         migrationHandler.checkRunMigration();
 
-        virtualFSService.deleteDirectory(path);
+        virtualFileSystemService.deleteDirectory(path);
 
         return directoryRepository.deleteDirectory(identity, path);
     }

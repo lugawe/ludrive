@@ -9,7 +9,7 @@ import app.ludrive.core.ports.out.FileServicePortOut;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.FileRepository;
 import app.ludrive.core.service.logging.Logger;
-import app.ludrive.core.service.vfs.VirtualFSService;
+import app.ludrive.core.service.vfs.VirtualFileSystemService;
 import app.ludrive.server.cdi.util.ClassNamed;
 
 @RequestScoped
@@ -26,13 +26,13 @@ public class FileServicePortOutProducer {
     private FileRepository fileRepository;
 
     @Inject
-    private VirtualFSService virtualFSService;
+    private VirtualFileSystemService virtualFileSystemService;
 
     public FileServicePortOutProducer() {}
 
     @Produces
     public FileServicePortOut produce() {
 
-        return new DefaultFileServicePortOut(logger, migrationHandler, fileRepository, virtualFSService);
+        return new DefaultFileServicePortOut(logger, migrationHandler, fileRepository, virtualFileSystemService);
     }
 }

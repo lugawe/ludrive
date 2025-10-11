@@ -7,11 +7,11 @@ import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.exception.VFSException;
-import app.ludrive.core.service.vfs.VirtualFSService;
+import app.ludrive.core.service.vfs.VirtualFileSystemService;
 
 import org.apache.commons.vfs2.*;
 
-public class VFS2Service implements VirtualFSService {
+public class VFS2Service implements VirtualFileSystemService {
 
     protected final FileSystemManager fileSystemManager;
     protected final FileObject root;
