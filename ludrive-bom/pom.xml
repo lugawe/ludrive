@@ -68,13 +68,7 @@
 
             <dependency>
                 <groupId>app.ludrive</groupId>
-                <artifactId>ludrive-persistence-management</artifactId>
-                <version>${ludrive.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>app.ludrive</groupId>
-                <artifactId>ludrive-persistence-vfs</artifactId>
+                <artifactId>ludrive-persistence</artifactId>
                 <version>${ludrive.version}</version>
             </dependency>
 

@@ -47,12 +47,7 @@
 
         <dependency>
             <groupId>app.ludrive</groupId>
-            <artifactId>ludrive-persistence-management</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>app.ludrive</groupId>
-            <artifactId>ludrive-persistence-vfs</artifactId>
+            <artifactId>ludrive-persistence</artifactId>
         </dependency>
 
         <dependency>

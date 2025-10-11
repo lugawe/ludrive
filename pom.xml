@@ -19,8 +19,7 @@
         <module>ludrive-api-rest</module>
         <module>ludrive-api-grpc</module>
         <module>ludrive-cli</module>
-        <module>ludrive-persistence-management</module>
-        <module>ludrive-persistence-vfs</module>
+        <module>ludrive-persistence</module>
         <module>ludrive-storage-vfs2</module>
         <module>ludrive-server</module>
     </modules>

@@ -10,12 +10,12 @@
         <relativePath>../ludrive-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>ludrive-persistence-management</artifactId>
+    <artifactId>ludrive-persistence</artifactId>
     <version>0.1</version>
 
     <packaging>jar</packaging>
 
-    <name>ludrive-persistence-management</name>
+    <name>ludrive-persistence</name>
 
     <dependencies>
 
