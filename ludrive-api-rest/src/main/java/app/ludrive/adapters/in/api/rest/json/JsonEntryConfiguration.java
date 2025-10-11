@@ -2,8 +2,6 @@ package app.ludrive.adapters.in.api.rest.json;
 
 import java.util.Map;
 
-import app.ludrive.core.domain.management.EntryConfiguration;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -12,22 +10,22 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class JsonEntryConfiguration {
 
-    private EntryConfiguration.Type type;
+    private String type;
     private String rootLocation;
     private Map<String, String> credentials;
 
     public JsonEntryConfiguration() {}
 
-    public JsonEntryConfiguration(EntryConfiguration.Type type, String rootLocation) {
+    public JsonEntryConfiguration(String type, String rootLocation) {
         this.type = type;
         this.rootLocation = rootLocation;
     }
 
-    public EntryConfiguration.Type getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(EntryConfiguration.Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 

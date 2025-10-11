@@ -5,14 +5,12 @@ import java.util.Map;
 import jakarta.persistence.*;
 
 import app.ludrive.adapters.out.persistence.management.jpa.util.MapAttributeConverter;
-import app.ludrive.core.domain.management.EntryConfiguration;
 
 @Embeddable
 public class JpaEntryConfiguration {
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private EntryConfiguration.Type type;
+    private String type;
 
     @Column(name = "root_location", nullable = false)
     private String rootLocation;
@@ -23,11 +21,11 @@ public class JpaEntryConfiguration {
 
     public JpaEntryConfiguration() {}
 
-    public EntryConfiguration.Type getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(EntryConfiguration.Type type) {
+    public void setType(String type) {
         this.type = type;
     }
 
