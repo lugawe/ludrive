@@ -1,3 +1,9 @@
 package app.ludrive.core.plugin;
 
-public interface StoragePlugin extends Plugin {}
+import app.ludrive.core.domain.management.EntryConfiguration;
+import app.ludrive.core.service.vfs.VirtualFileSystemService;
+
+public interface StoragePlugin extends Plugin {
+
+    VirtualFileSystemService createVFSService(EntryConfiguration configuration);
+}
