@@ -6,18 +6,18 @@ import java.util.stream.Stream;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 
-import app.ludrive.adapters.out.persistence.vfs.repository.tree.VFSTree;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
+import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
 @RequestScoped
 public class VFSDirectoryRepository implements DirectoryRepository {
 
-    protected final VFSTree tree;
+    protected final VirtualFileSystemTree tree;
 
     @Inject
-    public VFSDirectoryRepository(VFSTree tree) {
+    public VFSDirectoryRepository(VirtualFileSystemTree tree) {
         this.tree = Objects.requireNonNull(tree);
     }
 
