@@ -37,7 +37,7 @@ public class StorageResource {
     }
 
     @POST
-    @Path("/{entryId}/directories")
+    @Path("/{entryId}/vfs/directories")
     public Response createDirectory(@PathParam("entryId") UUID entryId, JsonDirectory jsonDirectory) {
 
         AuthIdentity identity = restContextService.getAuthIdentity();
@@ -48,7 +48,7 @@ public class StorageResource {
     }
 
     @POST
-    @Path("/{entryId}/files")
+    @Path("/{entryId}/vfs/files")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response createFile(
             @PathParam("entryId") UUID entryId,
