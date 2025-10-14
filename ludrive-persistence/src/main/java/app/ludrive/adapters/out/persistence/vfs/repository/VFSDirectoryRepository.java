@@ -45,7 +45,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     @Override
     public Directory getDirectory(AuthIdentity identity, String path) {
 
-        return tree.getDirectory(path).orElseThrow();
+        return tree.getDirectory(path).orElseThrow(this::createNotFoundException);
     }
 
     @Override
