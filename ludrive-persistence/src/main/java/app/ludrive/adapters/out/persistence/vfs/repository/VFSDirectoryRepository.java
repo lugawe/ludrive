@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.vfs.Directory;
+import app.ludrive.core.exception.NotFoundException;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
 import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
@@ -21,6 +22,10 @@ public class VFSDirectoryRepository implements DirectoryRepository {
         this.tree = Objects.requireNonNull(tree);
     }
 
+    protected NotFoundException createNotFoundException() {
+        return new NotFoundException("Entry item not found");
+    }
+
     @Override
     public Directory createDirectory(AuthIdentity identity, Directory directory) {
 
@@ -28,19 +33,19 @@ public class VFSDirectoryRepository implements DirectoryRepository {
 
         tree.put(path, directory);
 
-        return tree.getDirectory(path);
+        return tree.getDirectory(path).orElseThrow(this::createNotFoundException);
     }
 
     @Override
     public Stream<Directory> getDirectories(AuthIdentity identity, String path) {
 
-        return tree.listDirectories(path);
+        return tree.listDirectories(path).stream();
     }
 
     @Override
     public Directory getDirectory(AuthIdentity identity, String path) {
 
-        return tree.getDirectory(path);
+        return tree.getDirectory(path).orElseThrow();
     }
 
     @Override
@@ -48,13 +53,13 @@ public class VFSDirectoryRepository implements DirectoryRepository {
 
         tree.put(path, directory);
 
-        return tree.getDirectory(path);
+        return tree.getDirectory(path).orElseThrow(this::createNotFoundException);
     }
 
     @Override
     public Directory deleteDirectory(AuthIdentity identity, String path) {
 
-        Directory directory = tree.getDirectory(path);
+        Directory directory = tree.getDirectory(path).orElseThrow(this::createNotFoundException);
 
         tree.remove(path);
 
