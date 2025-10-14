@@ -16,6 +16,7 @@ import app.ludrive.core.plugin.Plugin;
 import app.ludrive.core.plugin.StoragePlugin;
 import app.ludrive.core.service.context.ContextService;
 import app.ludrive.core.service.vfs.VirtualFileSystemService;
+import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
 @ApplicationScoped
 public class PluginFactory {
@@ -41,7 +42,7 @@ public class PluginFactory {
 
     @Produces
     @RequestScoped
-    public VirtualFileSystemService produces(ContextService contextService) {
+    public VirtualFileSystemService produces(ContextService contextService, VirtualFileSystemTree tree) {
 
         Entry entry = contextService.getEntry();
         if (entry == null) {
@@ -57,7 +58,9 @@ public class PluginFactory {
 
         Plugin plugin = pluginCache.get(type);
         if (plugin instanceof StoragePlugin storagePlugin) {
-            return storagePlugin.createVFSService(configuration);
+            VirtualFileSystemService service = storagePlugin.createVFSService(configuration);
+            service.initialize(tree);
+            return service;
         }
 
         throw new IllegalStateException("No StoragePlugin found for type: " + type);

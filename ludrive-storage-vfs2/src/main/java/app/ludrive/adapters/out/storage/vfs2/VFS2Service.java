@@ -8,6 +8,7 @@ import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.exception.VFSException;
 import app.ludrive.core.service.vfs.VirtualFileSystemService;
+import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
 import org.apache.commons.vfs2.*;
 
@@ -37,6 +38,9 @@ public class VFS2Service implements VirtualFileSystemService {
     }
 
     private void checkClose(FileObject file) {}
+
+    @Override
+    public void initialize(VirtualFileSystemTree tree) {}
 
     @Override
     public void createDirectory(Directory directory) throws VFSException {
