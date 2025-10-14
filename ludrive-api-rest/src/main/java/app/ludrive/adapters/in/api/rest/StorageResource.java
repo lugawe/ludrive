@@ -72,4 +72,26 @@ public class StorageResource {
 
         return Response.ok(result).build();
     }
+
+    @GET
+    @Path("/{entryId}/vfs/directories")
+    public Response getDirectories(@PathParam("entryId") UUID entryId, @QueryParam("path") String path) {
+
+        AuthIdentity identity = restContextService.getAuthIdentity();
+
+        List<JsonDirectory> result = restStorageService.getDirectories(identity, entryId, path);
+
+        return Response.ok(result).build();
+    }
+
+    @GET
+    @Path("/{entryId}/vfs/files")
+    public Response getFiles(@PathParam("entryId") UUID entryId, @QueryParam("path") String path) {
+
+        AuthIdentity identity = restContextService.getAuthIdentity();
+
+        List<JsonFile> result = restStorageService.getFiles(identity, entryId, path);
+
+        return Response.ok(result).build();
+    }
 }

@@ -63,4 +63,20 @@ public class RestStorageService {
 
         return Stream.concat(directoryStream, fileStream).toList();
     }
+
+    public List<JsonDirectory> getDirectories(AuthIdentity identity, UUID entryId, String path) {
+
+        return directoryServicePortIn
+                .getDirectories(identity, entryId, path)
+                .map(jsonConverter::toJsonDirectory)
+                .toList();
+    }
+
+    public List<JsonFile> getFiles(AuthIdentity identity, UUID entryId, String path) {
+
+        return fileServicePortIn
+                .getFiles(identity, entryId, path)
+                .map(jsonConverter::toJsonFile)
+                .toList();
+    }
 }
