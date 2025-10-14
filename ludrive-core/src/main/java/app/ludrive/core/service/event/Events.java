@@ -8,6 +8,7 @@ import java.util.UUID;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.management.auth.DriveUser;
+import app.ludrive.core.domain.util.Update;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
 
@@ -17,8 +18,6 @@ public final class Events {
 
         AuthIdentity identity();
     }
-
-    public record Update<T>(T oldValue, T newValue) implements Serializable {}
 
     public record DriveUserCreatedProps(AuthIdentity identity, SequencedCollection<DriveUser> driveUsers)
             implements EventProps {
