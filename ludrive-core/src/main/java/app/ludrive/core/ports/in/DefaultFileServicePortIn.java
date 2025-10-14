@@ -107,11 +107,12 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
         validator.validatePath(path);
         validator.validateFile(file);
 
-        File result = fileServicePortOut.updateFile(identity, entryId, path, file);
+        File oldFile = fileServicePortOut.getFile(identity, entryId, path);
+        File newFile = fileServicePortOut.updateFile(identity, entryId, path, file);
 
-        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result));
+        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, oldFile, newFile));
 
-        return result;
+        return newFile;
     }
 
     @Override
@@ -122,11 +123,12 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
         validator.validateFile(file);
         validator.validateFile(content);
 
-        File result = fileServicePortOut.updateFile(identity, entryId, path, file, content);
+        File oldFile = fileServicePortOut.getFile(identity, entryId, path);
+        File newFile = fileServicePortOut.updateFile(identity, entryId, path, file, content);
 
-        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, result));
+        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, oldFile, newFile));
 
-        return result;
+        return newFile;
     }
 
     @Override

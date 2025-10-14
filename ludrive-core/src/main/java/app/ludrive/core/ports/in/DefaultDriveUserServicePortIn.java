@@ -60,11 +60,12 @@ public class DefaultDriveUserServicePortIn implements DriveUserServicePortIn {
 
         authService.checkDriveUserAccess(identity, driveUserId);
 
-        DriveUser result = driveUserServicePortOut.updateDriveUser(driveUserId, driveUser);
+        DriveUser oldDriveUser = driveUserServicePortOut.getDriveUser(driveUserId);
+        DriveUser newDriveUser = driveUserServicePortOut.updateDriveUser(driveUserId, driveUser);
 
-        eventManager.onDriveUserUpdated(new Events.DriveUserUpdatedProps(identity, result));
+        eventManager.onDriveUserUpdated(new Events.DriveUserUpdatedProps(identity, oldDriveUser, newDriveUser));
 
-        return result;
+        return newDriveUser;
     }
 
     @Override

@@ -79,11 +79,13 @@ public class DefaultDirectoryServicePortIn implements DirectoryServicePortIn {
         validator.validatePath(path);
         validator.validateDirectory(directory);
 
-        Directory result = directoryServicePortOut.updateDirectory(identity, entryId, path, directory);
+        Directory oldDirectory = directoryServicePortOut.getDirectory(identity, entryId, path);
+        Directory newDirectory = directoryServicePortOut.updateDirectory(identity, entryId, path, directory);
 
-        eventManager.onDirectoryUpdated(new Events.DirectoryUpdatedProps(identity, entryId, result));
+        eventManager.onDirectoryUpdated(
+                new Events.DirectoryUpdatedProps(identity, entryId, oldDirectory, newDirectory));
 
-        return result;
+        return newDirectory;
     }
 
     @Override

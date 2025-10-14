@@ -74,11 +74,12 @@ public class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         authService.checkEntryAccess(identity, entryId);
 
-        Entry result = entryServicePortOut.updateEntry(identity, entryId, entry);
+        Entry oldEntry = entryServicePortOut.getEntry(identity, entryId);
+        Entry newEntry = entryServicePortOut.updateEntry(identity, entryId, entry);
 
-        eventManager.onEntryUpdated(new Events.EntryUpdatedProps(identity, result));
+        eventManager.onEntryUpdated(new Events.EntryUpdatedProps(identity, oldEntry, newEntry));
 
-        return result;
+        return newEntry;
     }
 
     @Override

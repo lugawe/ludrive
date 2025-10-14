@@ -1,5 +1,6 @@
 package app.ludrive.core.service.event;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
@@ -12,10 +13,12 @@ import app.ludrive.core.domain.vfs.File;
 
 public final class Events {
 
-    public interface EventProps {
+    public interface EventProps extends Serializable {
 
         AuthIdentity identity();
     }
+
+    public record Update<T>(T oldValue, T newValue) implements Serializable {}
 
     public record DriveUserCreatedProps(AuthIdentity identity, Collection<DriveUser> driveUsers) implements EventProps {
         public DriveUserCreatedProps(AuthIdentity identity, DriveUser driveUser) {
@@ -29,9 +32,15 @@ public final class Events {
         }
     }
 
-    public record DriveUserUpdatedProps(AuthIdentity identity, Collection<DriveUser> driveUsers) implements EventProps {
-        public DriveUserUpdatedProps(AuthIdentity identity, DriveUser driveUser) {
-            this(identity, Collections.singletonList(driveUser));
+    public record DriveUserUpdatedProps(AuthIdentity identity, Collection<Update<DriveUser>> driveUsers)
+            implements EventProps {
+
+        public DriveUserUpdatedProps(AuthIdentity identity, Update<DriveUser> driveUserUpdate) {
+            this(identity, Collections.singletonList(driveUserUpdate));
+        }
+
+        public DriveUserUpdatedProps(AuthIdentity identity, DriveUser oldDriveUser, DriveUser newDriveUser) {
+            this(identity, new Update<>(oldDriveUser, newDriveUser));
         }
     }
 
@@ -53,9 +62,14 @@ public final class Events {
         }
     }
 
-    public record EntryUpdatedProps(AuthIdentity identity, Collection<Entry> entries) implements EventProps {
-        public EntryUpdatedProps(AuthIdentity identity, Entry entry) {
-            this(identity, Collections.singletonList(entry));
+    public record EntryUpdatedProps(AuthIdentity identity, Collection<Update<Entry>> entries) implements EventProps {
+
+        public EntryUpdatedProps(AuthIdentity identity, Update<Entry> entryUpdate) {
+            this(identity, Collections.singletonList(entryUpdate));
+        }
+
+        public EntryUpdatedProps(AuthIdentity identity, Entry oldEntry, Entry newEntry) {
+            this(identity, new Update<>(oldEntry, newEntry));
         }
     }
 
@@ -79,10 +93,16 @@ public final class Events {
         }
     }
 
-    public record DirectoryUpdatedProps(AuthIdentity identity, UUID entryId, Collection<Directory> directories)
+    public record DirectoryUpdatedProps(AuthIdentity identity, UUID entryId, Collection<Update<Directory>> directories)
             implements EventProps {
-        public DirectoryUpdatedProps(AuthIdentity identity, UUID entryId, Directory directory) {
-            this(identity, entryId, Collections.singletonList(directory));
+
+        public DirectoryUpdatedProps(AuthIdentity identity, UUID entryId, Update<Directory> directoryUpdate) {
+            this(identity, entryId, Collections.singletonList(directoryUpdate));
+        }
+
+        public DirectoryUpdatedProps(
+                AuthIdentity identity, UUID entryId, Directory oldDirectory, Directory newDirectory) {
+            this(identity, entryId, new Update<>(oldDirectory, newDirectory));
         }
     }
 
@@ -105,9 +125,15 @@ public final class Events {
         }
     }
 
-    public record FileUpdatedProps(AuthIdentity identity, UUID entryId, Collection<File> files) implements EventProps {
-        public FileUpdatedProps(AuthIdentity identity, UUID entryId, File file) {
-            this(identity, entryId, Collections.singletonList(file));
+    public record FileUpdatedProps(AuthIdentity identity, UUID entryId, Collection<Update<File>> files)
+            implements EventProps {
+
+        public FileUpdatedProps(AuthIdentity identity, UUID entryId, Update<File> fileUpdate) {
+            this(identity, entryId, Collections.singletonList(fileUpdate));
+        }
+
+        public FileUpdatedProps(AuthIdentity identity, UUID entryId, File oldFile, File newFile) {
+            this(identity, entryId, new Update<>(oldFile, newFile));
         }
     }
 
