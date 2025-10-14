@@ -7,7 +7,7 @@ import java.util.UUID;
 public record EntryItemId(UUID entryId, String path) implements Serializable {
 
     public EntryItemId(UUID entryId, String path) {
-        this.entryId = Objects.requireNonNull(entryId, "entryId");
-        this.path = Objects.requireNonNull(path, "path");
+        this.entryId = Objects.requireNonNull(entryId);
+        this.path = Objects.requireNonNull(path);
     }
 }

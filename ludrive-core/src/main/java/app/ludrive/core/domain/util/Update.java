@@ -1,3 +1,5 @@
 package app.ludrive.core.domain.util;
 
-public record Update<T>(T oldValue, T newValue) {}
+import app.ludrive.core.domain.Identifiable;
+
+public record Update<T extends Identifiable>(T oldValue, T newValue) {}

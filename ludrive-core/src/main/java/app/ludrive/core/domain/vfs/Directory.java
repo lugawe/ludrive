@@ -1,8 +1,9 @@
 package app.ludrive.core.domain.vfs;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public final class Directory extends EntryItem {
+public final class Directory extends EntryItem implements Serializable {
 
     public static final String ROOT = "/";
 

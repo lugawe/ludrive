@@ -1,10 +1,11 @@
 package app.ludrive.core.domain.vfs;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract sealed class EntryItem implements Serializable permits Directory, File {
+import app.ludrive.core.domain.Identifiable;
+
+public abstract sealed class EntryItem implements Identifiable permits Directory, File {
 
     public static final String TYPE_DIRECTORY = "DIRECTORY";
     public static final String TYPE_FILE = "FILE";
@@ -28,6 +29,7 @@ public abstract sealed class EntryItem implements Serializable permits Directory
 
     public abstract String getType();
 
+    @Override
     public EntryItemId getId() {
         return id;
     }

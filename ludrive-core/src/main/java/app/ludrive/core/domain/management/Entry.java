@@ -43,7 +43,6 @@ public final class Entry implements Identifiable, Serializable {
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }

@@ -33,7 +33,6 @@ public abstract sealed class Metadata implements Identifiable permits SystemMeta
         this.id = id;
     }
 
-    @Override
     public String getName() {
         return name;
     }

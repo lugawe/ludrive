@@ -1,10 +1,8 @@
 package app.ludrive.core.domain;
 
-import java.util.UUID;
+import java.io.Serializable;
 
 public interface Identifiable {
 
-    UUID getId();
-
-    String getName();
+    Serializable getId();
 }
