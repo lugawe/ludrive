@@ -1,6 +1,7 @@
 package app.ludrive.core.service.vfs;
 
-import java.util.stream.Stream;
+import java.util.Optional;
+import java.util.SequencedCollection;
 
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.EntryItem;
@@ -10,17 +11,17 @@ public interface VirtualFileSystemTree {
 
     void put(String path, EntryItem entryItem);
 
-    EntryItem get(String path);
+    Optional<? extends EntryItem> get(String path);
 
-    Directory getDirectory(String path);
+    Optional<Directory> getDirectory(String path);
 
-    File getFile(String path);
+    Optional<File> getFile(String path);
 
-    Stream<? extends EntryItem> list(String path);
+    SequencedCollection<? extends EntryItem> list(String path);
 
-    Stream<Directory> listDirectories(String path);
+    SequencedCollection<Directory> listDirectories(String path);
 
-    Stream<File> listFiles(String path);
+    SequencedCollection<File> listFiles(String path);
 
     void remove(String path);
 }
