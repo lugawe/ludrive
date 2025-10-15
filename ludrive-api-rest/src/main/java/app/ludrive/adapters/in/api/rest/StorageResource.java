@@ -15,7 +15,7 @@ import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
 import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
 import app.ludrive.adapters.in.api.rest.service.RestStorageService;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.management.auth.Roles;
 
 import org.jboss.resteasy.reactive.PartType;
@@ -40,9 +40,9 @@ public class StorageResource {
     @Path("/{entryId}/vfs/directories")
     public Response createDirectory(@PathParam("entryId") UUID entryId, JsonDirectory jsonDirectory) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        JsonDirectory result = restStorageService.createDirectory(identity, entryId, jsonDirectory);
+        JsonDirectory result = restStorageService.createDirectory(driveUser, entryId, jsonDirectory);
 
         return Response.ok(result).build();
     }
@@ -55,9 +55,9 @@ public class StorageResource {
             @RestForm("file") @PartType(MediaType.APPLICATION_JSON) JsonFile jsonFile,
             @RestForm("content") @PartType(MediaType.APPLICATION_OCTET_STREAM) InputStream content) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        JsonFile result = restStorageService.createFile(identity, entryId, jsonFile, content);
+        JsonFile result = restStorageService.createFile(driveUser, entryId, jsonFile, content);
 
         return Response.ok(result).build();
     }
@@ -66,9 +66,9 @@ public class StorageResource {
     @Path("/{entryId}/vfs")
     public Response getEntryItems(@PathParam("entryId") UUID entryId, @QueryParam("path") String path) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        List<? extends JsonEntryItem> result = restStorageService.getEntryItems(identity, entryId, path);
+        List<? extends JsonEntryItem> result = restStorageService.getEntryItems(driveUser, entryId, path);
 
         return Response.ok(result).build();
     }
@@ -77,9 +77,9 @@ public class StorageResource {
     @Path("/{entryId}/vfs/directories")
     public Response getDirectories(@PathParam("entryId") UUID entryId, @QueryParam("path") String path) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        List<JsonDirectory> result = restStorageService.getDirectories(identity, entryId, path);
+        List<JsonDirectory> result = restStorageService.getDirectories(driveUser, entryId, path);
 
         return Response.ok(result).build();
     }
@@ -88,9 +88,9 @@ public class StorageResource {
     @Path("/{entryId}/vfs/files")
     public Response getFiles(@PathParam("entryId") UUID entryId, @QueryParam("path") String path) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        List<JsonFile> result = restStorageService.getFiles(identity, entryId, path);
+        List<JsonFile> result = restStorageService.getFiles(driveUser, entryId, path);
 
         return Response.ok(result).build();
     }
