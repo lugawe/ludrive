@@ -13,7 +13,7 @@ import app.ludrive.adapters.in.api.rest.context.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonEntry;
 import app.ludrive.adapters.in.api.rest.service.RestEntryService;
 import app.ludrive.core.domain.management.Entry;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.management.auth.Roles;
 
 @RolesAllowed({Roles.ROLE_DRIVE_ADMIN, Roles.ROLE_DRIVE_USER})
@@ -34,9 +34,9 @@ public class EntryResource {
     @POST
     public Response createEntry(JsonEntry jsonEntry) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        JsonEntry result = restEntryService.createEntry(identity, jsonEntry);
+        JsonEntry result = restEntryService.createEntry(driveUser, jsonEntry);
 
         return Response.ok(result).build();
     }
@@ -44,9 +44,9 @@ public class EntryResource {
     @GET
     public Response getEntries() {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        Stream<JsonEntry> result = restEntryService.getEntries(identity);
+        Stream<JsonEntry> result = restEntryService.getEntries(driveUser);
 
         return Response.ok(result).build();
     }
@@ -55,9 +55,9 @@ public class EntryResource {
     @Path("/{entryId}")
     public Response getEntry(@PathParam("entryId") UUID entryId) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        JsonEntry result = restEntryService.getEntry(identity, entryId);
+        JsonEntry result = restEntryService.getEntry(driveUser, entryId);
 
         return Response.ok(result).build();
     }
@@ -66,9 +66,9 @@ public class EntryResource {
     @Path("/{entryId}")
     public Response updateEntry(@PathParam("entryId") UUID entryId, JsonEntry jsonEntry) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        JsonEntry result = restEntryService.updateEntry(identity, entryId, jsonEntry);
+        JsonEntry result = restEntryService.updateEntry(driveUser, entryId, jsonEntry);
 
         return Response.ok(result).build();
     }
@@ -77,9 +77,9 @@ public class EntryResource {
     @Path("/{entryId}")
     public Response deleteEntry(@PathParam("entryId") UUID entryId) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        Entry result = restEntryService.deleteEntry(identity, entryId);
+        Entry result = restEntryService.deleteEntry(driveUser, entryId);
         if (result == null) {
             throw new NotFoundException();
         }

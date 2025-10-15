@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.Entry;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.EntryServicePortOut;
 import app.ludrive.core.service.auth.AuthService;
 import app.ludrive.core.service.event.EventManager;
@@ -35,61 +35,61 @@ public class DefaultEntryServicePortIn implements EntryServicePortIn {
     }
 
     @Override
-    public Entry createEntry(AuthIdentity identity, Entry entry) {
+    public Entry createEntry(DriveUser driveUser, Entry entry) {
 
-        authService.checkAccess(identity);
+        authService.checkAccess(driveUser);
         validator.validateEntry(entry);
 
-        Entry result = entryServicePortOut.createEntry(identity, entry);
+        Entry result = entryServicePortOut.createEntry(driveUser, entry);
 
-        eventManager.onEntryCreated(new Events.EntryCreatedProps(identity, result));
-
-        return result;
-    }
-
-    @Override
-    public Stream<Entry> getEntries(AuthIdentity identity) {
-
-        authService.checkAccess(identity);
-
-        Consumer<Entry> onEntryRead = entry -> eventManager.onEntryRead(new Events.EntryReadProps(identity, entry));
-
-        return entryServicePortOut.getEntries(identity).peek(onEntryRead);
-    }
-
-    @Override
-    public Entry getEntry(AuthIdentity identity, UUID entryId) {
-
-        authService.checkEntryAccess(identity, entryId);
-
-        Entry result = entryServicePortOut.getEntry(identity, entryId);
-
-        eventManager.onEntryRead(new Events.EntryReadProps(identity, result));
+        eventManager.onEntryCreated(new Events.EntryCreatedProps(driveUser, result));
 
         return result;
     }
 
     @Override
-    public Entry updateEntry(AuthIdentity identity, UUID entryId, Entry entry) {
+    public Stream<Entry> getEntries(DriveUser driveUser) {
 
-        authService.checkEntryAccess(identity, entryId);
+        authService.checkAccess(driveUser);
 
-        Entry oldEntry = entryServicePortOut.getEntry(identity, entryId);
-        Entry newEntry = entryServicePortOut.updateEntry(identity, entryId, entry);
+        Consumer<Entry> onEntryRead = entry -> eventManager.onEntryRead(new Events.EntryReadProps(driveUser, entry));
 
-        eventManager.onEntryUpdated(new Events.EntryUpdatedProps(identity, oldEntry, newEntry));
+        return entryServicePortOut.getEntries(driveUser).peek(onEntryRead);
+    }
+
+    @Override
+    public Entry getEntry(DriveUser driveUser, UUID entryId) {
+
+        authService.checkEntryAccess(driveUser, entryId);
+
+        Entry result = entryServicePortOut.getEntry(driveUser, entryId);
+
+        eventManager.onEntryRead(new Events.EntryReadProps(driveUser, result));
+
+        return result;
+    }
+
+    @Override
+    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry entry) {
+
+        authService.checkEntryAccess(driveUser, entryId);
+
+        Entry oldEntry = entryServicePortOut.getEntry(driveUser, entryId);
+        Entry newEntry = entryServicePortOut.updateEntry(driveUser, entryId, entry);
+
+        eventManager.onEntryUpdated(new Events.EntryUpdatedProps(driveUser, oldEntry, newEntry));
 
         return newEntry;
     }
 
     @Override
-    public Entry deleteEntry(AuthIdentity identity, UUID entryId) {
+    public Entry deleteEntry(DriveUser driveUser, UUID entryId) {
 
-        authService.checkEntryAccess(identity, entryId);
+        authService.checkEntryAccess(driveUser, entryId);
 
-        Entry result = entryServicePortOut.deleteEntry(identity, entryId);
+        Entry result = entryServicePortOut.deleteEntry(driveUser, entryId);
 
-        eventManager.onEntryDeleted(new Events.EntryDeletedProps(identity, result));
+        eventManager.onEntryDeleted(new Events.EntryDeletedProps(driveUser, result));
 
         return result;
     }

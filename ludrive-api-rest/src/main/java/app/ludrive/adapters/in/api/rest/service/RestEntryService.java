@@ -9,7 +9,7 @@ import jakarta.inject.Inject;
 import app.ludrive.adapters.in.api.rest.json.JsonEntry;
 import app.ludrive.adapters.in.api.rest.json.converter.JsonConverter;
 import app.ludrive.core.domain.management.Entry;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.in.EntryServicePortIn;
 
 @ApplicationScoped
@@ -24,40 +24,40 @@ public class RestEntryService {
         this.entryServicePortIn = entryServicePortIn;
     }
 
-    public JsonEntry createEntry(AuthIdentity identity, JsonEntry jsonEntry) {
+    public JsonEntry createEntry(DriveUser driveUser, JsonEntry jsonEntry) {
 
         Entry entry = jsonConverter.toEntry(jsonEntry);
 
-        Entry result = entryServicePortIn.createEntry(identity, entry);
+        Entry result = entryServicePortIn.createEntry(driveUser, entry);
 
         return jsonConverter.toJsonEntry(result);
     }
 
-    public Stream<JsonEntry> getEntries(AuthIdentity identity) {
+    public Stream<JsonEntry> getEntries(DriveUser driveUser) {
 
-        Stream<Entry> entries = entryServicePortIn.getEntries(identity);
+        Stream<Entry> entries = entryServicePortIn.getEntries(driveUser);
 
         return entries.map(jsonConverter::toJsonEntry);
     }
 
-    public JsonEntry getEntry(AuthIdentity identity, UUID entryId) {
+    public JsonEntry getEntry(DriveUser driveUser, UUID entryId) {
 
-        Entry entry = entryServicePortIn.getEntry(identity, entryId);
+        Entry entry = entryServicePortIn.getEntry(driveUser, entryId);
 
         return jsonConverter.toJsonEntry(entry);
     }
 
-    public JsonEntry updateEntry(AuthIdentity identity, UUID entryId, JsonEntry jsonEntry) {
+    public JsonEntry updateEntry(DriveUser driveUser, UUID entryId, JsonEntry jsonEntry) {
 
         Entry entry = jsonConverter.toEntry(jsonEntry);
 
-        Entry result = entryServicePortIn.updateEntry(identity, entryId, entry);
+        Entry result = entryServicePortIn.updateEntry(driveUser, entryId, entry);
 
         return jsonConverter.toJsonEntry(result);
     }
 
-    public Entry deleteEntry(AuthIdentity identity, UUID entryId) {
+    public Entry deleteEntry(DriveUser driveUser, UUID entryId) {
 
-        return entryServicePortIn.deleteEntry(identity, entryId);
+        return entryServicePortIn.deleteEntry(driveUser, entryId);
     }
 }

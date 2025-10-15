@@ -4,7 +4,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.Entry;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.EntryRepository;
 import app.ludrive.core.service.logging.Logger;
@@ -23,32 +23,32 @@ public class DefaultEntryServicePortOut implements EntryServicePortOut {
     }
 
     @Override
-    public Entry createEntry(AuthIdentity identity, Entry entry) {
+    public Entry createEntry(DriveUser driveUser, Entry entry) {
 
-        return entryRepository.createEntry(identity, entry);
+        return entryRepository.createEntry(driveUser, entry);
     }
 
     @Override
-    public Stream<Entry> getEntries(AuthIdentity identity) {
+    public Stream<Entry> getEntries(DriveUser driveUser) {
 
-        return entryRepository.getEntries(identity);
+        return entryRepository.getEntries(driveUser);
     }
 
     @Override
-    public Entry getEntry(AuthIdentity identity, UUID entryId) {
+    public Entry getEntry(DriveUser driveUser, UUID entryId) {
 
-        return entryRepository.getEntry(identity, entryId);
+        return entryRepository.getEntry(driveUser, entryId);
     }
 
     @Override
-    public Entry updateEntry(AuthIdentity identity, UUID entryId, Entry entry) {
+    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry entry) {
 
-        return entryRepository.updateEntry(identity, entryId, entry);
+        return entryRepository.updateEntry(driveUser, entryId, entry);
     }
 
     @Override
-    public Entry deleteEntry(AuthIdentity identity, UUID entryId) {
+    public Entry deleteEntry(DriveUser driveUser, UUID entryId) {
 
-        return entryRepository.deleteEntry(identity, entryId);
+        return entryRepository.deleteEntry(driveUser, entryId);
     }
 }
