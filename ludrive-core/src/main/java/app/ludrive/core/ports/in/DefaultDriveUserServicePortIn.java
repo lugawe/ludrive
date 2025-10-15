@@ -36,6 +36,8 @@ public class DefaultDriveUserServicePortIn implements DriveUserServicePortIn {
     @Override
     public DriveUser createDriveUser(DriveUser driveUser) {
 
+        validator.validateDriveUser(driveUser);
+
         DriveUser result = driveUserServicePortOut.createDriveUser(driveUser);
 
         eventManager.onDriveUserCreated(new Events.DriveUserCreatedProps(AnonymousAuthIdentity.getInstance(), result));
@@ -59,6 +61,7 @@ public class DefaultDriveUserServicePortIn implements DriveUserServicePortIn {
     public DriveUser updateDriveUser(AuthIdentity identity, UUID driveUserId, DriveUser driveUser) {
 
         authService.checkDriveUserAccess(identity, driveUserId);
+        validator.validateDriveUser(driveUser);
 
         DriveUser oldDriveUser = driveUserServicePortOut.getDriveUser(driveUserId);
         DriveUser newDriveUser = driveUserServicePortOut.updateDriveUser(driveUserId, driveUser);

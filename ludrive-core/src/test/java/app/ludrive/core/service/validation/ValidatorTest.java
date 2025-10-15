@@ -8,7 +8,7 @@ import org.junit.jupiter.api.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ValidatorTest {
 
-    private final Validator validator = new Validator();
+    private final DefaultValidator validator = new DefaultValidator();
 
     public ValidatorTest() {}
 

@@ -53,8 +53,7 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     public File createFile(DriveUser driveUser, UUID entryId, File file, Content content) {
 
         authService.checkEntryAccess(driveUser, entryId);
-        validator.validateFile(file);
-        validator.validateFile(content);
+        validator.validateFile(file, content);
 
         File result = fileServicePortOut.createFile(driveUser, entryId, file, content);
 
@@ -120,8 +119,7 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
 
         authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
-        validator.validateFile(file);
-        validator.validateFile(content);
+        validator.validateFile(file, content);
 
         File oldFile = fileServicePortOut.getFile(driveUser, entryId, path);
         File newFile = fileServicePortOut.updateFile(driveUser, entryId, path, file, content);
