@@ -20,9 +20,9 @@ public interface FileServicePort {
 
     FileContent getFileContent(DriveUser driveUser, UUID entryId, String path);
 
-    File updateFile(DriveUser driveUser, UUID entryId, String path, File file);
+    File updateFile(DriveUser driveUser, UUID entryId, String path, File updatedFile);
 
-    File updateFile(DriveUser driveUser, UUID entryId, String path, File file, Content content);
+    File updateFile(DriveUser driveUser, UUID entryId, String path, File updatedFile, Content updatedContent);
 
     File deleteFile(DriveUser driveUser, UUID entryId, String path);
 }

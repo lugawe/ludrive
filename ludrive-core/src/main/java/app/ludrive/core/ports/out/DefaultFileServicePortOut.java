@@ -79,30 +79,30 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public File updateFile(DriveUser driveUser, UUID entryId, String path, File file) {
+    public File updateFile(DriveUser driveUser, UUID entryId, String path, File updatedFile) {
 
         migrationHandler.checkRunMigration();
 
         File originalFile = fileRepository.getFile(driveUser, path);
         String originalFilePath = originalFile.getPath();
 
-        virtualFileSystemService.updateFile(originalFilePath, file);
+        virtualFileSystemService.updateFile(originalFilePath, updatedFile);
 
-        return fileRepository.updateFile(driveUser, originalFilePath, file);
+        return fileRepository.updateFile(driveUser, originalFilePath, updatedFile);
     }
 
     @Override
-    public File updateFile(DriveUser driveUser, UUID entryId, String path, File file, Content content) {
+    public File updateFile(DriveUser driveUser, UUID entryId, String path, File updatedFile, Content updatedContent) {
 
         migrationHandler.checkRunMigration();
 
         File originalFile = fileRepository.getFile(driveUser, path);
         String originalFilePath = originalFile.getPath();
 
-        virtualFileSystemService.updateFile(originalFilePath, file);
-        virtualFileSystemService.updateFileContent(originalFilePath, content);
+        virtualFileSystemService.updateFile(originalFilePath, updatedFile);
+        virtualFileSystemService.updateFileContent(originalFilePath, updatedContent);
 
-        return fileRepository.updateFile(driveUser, originalFilePath, file);
+        return fileRepository.updateFile(driveUser, originalFilePath, updatedFile);
     }
 
     @Override

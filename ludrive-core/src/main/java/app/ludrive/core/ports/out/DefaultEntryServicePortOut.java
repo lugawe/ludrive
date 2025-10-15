@@ -41,9 +41,9 @@ public class DefaultEntryServicePortOut implements EntryServicePortOut {
     }
 
     @Override
-    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry entry) {
+    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry updatedEntry) {
 
-        return entryRepository.updateEntry(driveUser, entryId, entry);
+        return entryRepository.updateEntry(driveUser, entryId, updatedEntry);
     }
 
     @Override

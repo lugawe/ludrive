@@ -33,9 +33,9 @@ public class DefaultDriveUserServicePortOut implements DriveUserServicePortOut {
     }
 
     @Override
-    public DriveUser updateDriveUser(UUID driveUserId, DriveUser driveUser) {
+    public DriveUser updateDriveUser(UUID driveUserId, DriveUser updatedDriveUser) {
 
-        return driveUserRepository.updateDriveUser(driveUserId, driveUser);
+        return driveUserRepository.updateDriveUser(driveUserId, updatedDriveUser);
     }
 
     @Override

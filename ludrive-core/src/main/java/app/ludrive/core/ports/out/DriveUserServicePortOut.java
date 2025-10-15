@@ -11,7 +11,7 @@ public interface DriveUserServicePortOut extends DriveUserServicePort {
 
     DriveUser getDriveUser(UUID driveUserId);
 
-    DriveUser updateDriveUser(UUID driveUserId, DriveUser driveUser);
+    DriveUser updateDriveUser(UUID driveUserId, DriveUser updatedDriveUser);
 
     DriveUser deleteDriveUser(UUID driveUserId);
 }

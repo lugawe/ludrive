@@ -14,7 +14,7 @@ public interface DirectoryServicePort {
 
     Directory getDirectory(DriveUser driveUser, UUID entryId, String path);
 
-    Directory updateDirectory(DriveUser driveUser, UUID entryId, String path, Directory directory);
+    Directory updateDirectory(DriveUser driveUser, UUID entryId, String path, Directory updatedDirectory);
 
     Directory deleteDirectory(DriveUser driveUser, UUID entryId, String path);
 }

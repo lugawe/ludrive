@@ -49,9 +49,9 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     }
 
     @Override
-    public Directory updateDirectory(DriveUser driveUser, String path, Directory directory) {
+    public Directory updateDirectory(DriveUser driveUser, String path, Directory updatedDirectory) {
 
-        tree.put(path, directory);
+        tree.put(path, updatedDirectory);
 
         return tree.getDirectory(path).orElseThrow(this::createNotFoundException);
     }

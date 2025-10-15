@@ -55,13 +55,13 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     }
 
     @Override
-    public Directory updateDirectory(DriveUser driveUser, UUID entryId, String path, Directory directory) {
+    public Directory updateDirectory(DriveUser driveUser, UUID entryId, String path, Directory updatedDirectory) {
 
         migrationHandler.checkRunMigration();
 
-        virtualFileSystemService.updateDirectory(path, directory);
+        virtualFileSystemService.updateDirectory(path, updatedDirectory);
 
-        return directoryRepository.updateDirectory(driveUser, path, directory);
+        return directoryRepository.updateDirectory(driveUser, path, updatedDirectory);
     }
 
     @Override

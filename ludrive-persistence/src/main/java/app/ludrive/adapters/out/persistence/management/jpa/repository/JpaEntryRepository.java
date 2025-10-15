@@ -89,11 +89,11 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
     @Override
     @Transactional
-    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry entry) {
+    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry updatedEntry) {
 
         JpaEntry jpaEntry = getEntryById(driveUser, entryId);
 
-        jpaConverter.updateJpaEntry(jpaEntry, entry);
+        jpaConverter.updateJpaEntry(jpaEntry, updatedEntry);
 
         update(jpaEntry);
 

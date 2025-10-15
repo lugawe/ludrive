@@ -14,7 +14,7 @@ public interface EntryServicePort {
 
     Entry getEntry(DriveUser driveUser, UUID entryId);
 
-    Entry updateEntry(DriveUser driveUser, UUID entryId, Entry entry);
+    Entry updateEntry(DriveUser driveUser, UUID entryId, Entry updatedEntry);
 
     Entry deleteEntry(DriveUser driveUser, UUID entryId);
 }

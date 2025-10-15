@@ -100,14 +100,14 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     }
 
     @Override
-    public File updateFile(DriveUser driveUser, UUID entryId, String path, File file) {
+    public File updateFile(DriveUser driveUser, UUID entryId, String path, File updatedFile) {
 
         authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
-        validator.validateFile(file);
+        validator.validateFile(updatedFile);
 
         File oldFile = fileServicePortOut.getFile(driveUser, entryId, path);
-        File newFile = fileServicePortOut.updateFile(driveUser, entryId, path, file);
+        File newFile = fileServicePortOut.updateFile(driveUser, entryId, path, updatedFile);
 
         eventManager.onFileUpdated(new Events.FileUpdatedProps(driveUser, entryId, oldFile, newFile));
 
@@ -115,14 +115,14 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     }
 
     @Override
-    public File updateFile(DriveUser driveUser, UUID entryId, String path, File file, Content content) {
+    public File updateFile(DriveUser driveUser, UUID entryId, String path, File updatedFile, Content updatedContent) {
 
         authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
-        validator.validateFile(file, content);
+        validator.validateFile(updatedFile, updatedContent);
 
         File oldFile = fileServicePortOut.getFile(driveUser, entryId, path);
-        File newFile = fileServicePortOut.updateFile(driveUser, entryId, path, file, content);
+        File newFile = fileServicePortOut.updateFile(driveUser, entryId, path, updatedFile, updatedContent);
 
         eventManager.onFileUpdated(new Events.FileUpdatedProps(driveUser, entryId, oldFile, newFile));
 

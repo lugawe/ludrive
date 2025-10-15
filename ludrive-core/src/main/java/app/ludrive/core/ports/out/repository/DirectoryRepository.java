@@ -13,7 +13,7 @@ public interface DirectoryRepository {
 
     Directory getDirectory(DriveUser driveUser, String path);
 
-    Directory updateDirectory(DriveUser driveUser, String path, Directory directory);
+    Directory updateDirectory(DriveUser driveUser, String path, Directory updatedDirectory);
 
     Directory deleteDirectory(DriveUser driveUser, String path);
 }

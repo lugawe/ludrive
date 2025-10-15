@@ -70,12 +70,13 @@ public class DefaultEntryServicePortIn implements EntryServicePortIn {
     }
 
     @Override
-    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry entry) {
+    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry updatedEntry) {
 
         authService.checkEntryAccess(driveUser, entryId);
+        validator.validateEntry(updatedEntry);
 
         Entry oldEntry = entryServicePortOut.getEntry(driveUser, entryId);
-        Entry newEntry = entryServicePortOut.updateEntry(driveUser, entryId, entry);
+        Entry newEntry = entryServicePortOut.updateEntry(driveUser, entryId, updatedEntry);
 
         eventManager.onEntryUpdated(new Events.EntryUpdatedProps(driveUser, oldEntry, newEntry));
 

@@ -73,14 +73,14 @@ public class DefaultDirectoryServicePortIn implements DirectoryServicePortIn {
     }
 
     @Override
-    public Directory updateDirectory(DriveUser driveUser, UUID entryId, String path, Directory directory) {
+    public Directory updateDirectory(DriveUser driveUser, UUID entryId, String path, Directory updatedDirectory) {
 
         authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
-        validator.validateDirectory(directory);
+        validator.validateDirectory(updatedDirectory);
 
         Directory oldDirectory = directoryServicePortOut.getDirectory(driveUser, entryId, path);
-        Directory newDirectory = directoryServicePortOut.updateDirectory(driveUser, entryId, path, directory);
+        Directory newDirectory = directoryServicePortOut.updateDirectory(driveUser, entryId, path, updatedDirectory);
 
         eventManager.onDirectoryUpdated(
                 new Events.DirectoryUpdatedProps(driveUser, entryId, oldDirectory, newDirectory));
