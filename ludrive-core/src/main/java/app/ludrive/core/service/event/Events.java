@@ -33,7 +33,7 @@ public final class Events {
         }
     }
 
-    public record DriveUserUpdatedProps(AuthIdentity identity, SequencedCollection<Update<DriveUser>> driveUsers)
+    public record DriveUserUpdatedProps(AuthIdentity identity, SequencedCollection<Update<DriveUser>> driveUserUpdates)
             implements EventProps {
 
         public DriveUserUpdatedProps(AuthIdentity identity, Update<DriveUser> driveUserUpdate) {
@@ -64,7 +64,7 @@ public final class Events {
         }
     }
 
-    public record EntryUpdatedProps(AuthIdentity identity, SequencedCollection<Update<Entry>> entries)
+    public record EntryUpdatedProps(AuthIdentity identity, SequencedCollection<Update<Entry>> entryUpdates)
             implements EventProps {
 
         public EntryUpdatedProps(AuthIdentity identity, Update<Entry> entryUpdate) {
@@ -97,7 +97,7 @@ public final class Events {
     }
 
     public record DirectoryUpdatedProps(
-            AuthIdentity identity, UUID entryId, SequencedCollection<Update<Directory>> directories)
+            AuthIdentity identity, UUID entryId, SequencedCollection<Update<Directory>> directoryUpdates)
             implements EventProps {
 
         public DirectoryUpdatedProps(AuthIdentity identity, UUID entryId, Update<Directory> directoryUpdate) {
@@ -131,7 +131,7 @@ public final class Events {
         }
     }
 
-    public record FileUpdatedProps(AuthIdentity identity, UUID entryId, SequencedCollection<Update<File>> files)
+    public record FileUpdatedProps(AuthIdentity identity, UUID entryId, SequencedCollection<Update<File>> fileUpdates)
             implements EventProps {
 
         public FileUpdatedProps(AuthIdentity identity, UUID entryId, Update<File> fileUpdate) {
