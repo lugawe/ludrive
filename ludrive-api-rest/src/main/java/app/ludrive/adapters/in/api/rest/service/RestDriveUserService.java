@@ -7,7 +7,7 @@ import jakarta.inject.Inject;
 
 import app.ludrive.adapters.in.api.rest.json.JsonDriveUser;
 import app.ludrive.adapters.in.api.rest.json.converter.JsonConverter;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.AnonymousAuthIdentity;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.in.DriveUserServicePortIn;
 
@@ -27,29 +27,29 @@ public class RestDriveUserService {
 
         DriveUser driveUser = jsonConverter.toDriveUser(jsonDriveUser);
 
-        DriveUser result = driveUserServicePortIn.createDriveUser(driveUser);
+        DriveUser result = driveUserServicePortIn.createDriveUser(AnonymousAuthIdentity.getInstance(), driveUser);
 
         return jsonConverter.toJsonDriveUser(result);
     }
 
-    public JsonDriveUser getDriveUser(AuthIdentity identity, UUID driveUserId) {
+    public JsonDriveUser getDriveUser(DriveUser driveUser, UUID driveUserId) {
 
-        DriveUser driveUser = driveUserServicePortIn.getDriveUser(identity, driveUserId);
-
-        return jsonConverter.toJsonDriveUser(driveUser);
-    }
-
-    public JsonDriveUser updateDriveUser(AuthIdentity identity, UUID driveUserId, JsonDriveUser jsonDriveUser) {
-
-        DriveUser driveUser = jsonConverter.toDriveUser(jsonDriveUser);
-
-        DriveUser result = driveUserServicePortIn.updateDriveUser(identity, driveUserId, driveUser);
+        DriveUser result = driveUserServicePortIn.getDriveUser(driveUser, driveUserId);
 
         return jsonConverter.toJsonDriveUser(result);
     }
 
-    public DriveUser deleteDriveUser(AuthIdentity identity, UUID driveUserId) {
+    public JsonDriveUser updateDriveUser(DriveUser driveUser, UUID driveUserId, JsonDriveUser jsonDriveUser) {
 
-        return driveUserServicePortIn.deleteDriveUser(identity, driveUserId);
+        DriveUser updatedDriveUser = jsonConverter.toDriveUser(jsonDriveUser);
+
+        DriveUser result = driveUserServicePortIn.updateDriveUser(driveUser, driveUserId, updatedDriveUser);
+
+        return jsonConverter.toJsonDriveUser(result);
+    }
+
+    public DriveUser deleteDriveUser(DriveUser driveUser, UUID driveUserId) {
+
+        return driveUserServicePortIn.deleteDriveUser(driveUser, driveUserId);
     }
 }

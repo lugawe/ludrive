@@ -2,7 +2,6 @@ package app.ludrive.core.ports.in;
 
 import java.util.UUID;
 
-import app.ludrive.core.domain.management.auth.AnonymousAuthIdentity;
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
@@ -34,51 +33,51 @@ public class DefaultDriveUserServicePortIn implements DriveUserServicePortIn {
     }
 
     @Override
-    public DriveUser createDriveUser(DriveUser driveUser) {
+    public DriveUser createDriveUser(AuthIdentity identity, DriveUser driveUser) {
 
         validator.validateDriveUser(driveUser);
 
         DriveUser result = driveUserServicePortOut.createDriveUser(driveUser);
 
-        eventManager.onDriveUserCreated(new Events.DriveUserCreatedProps(AnonymousAuthIdentity.getInstance(), result));
+        eventManager.onDriveUserCreated(new Events.DriveUserCreatedProps(identity, result));
 
         return result;
     }
 
     @Override
-    public DriveUser getDriveUser(AuthIdentity identity, UUID driveUserId) {
+    public DriveUser getDriveUser(DriveUser driveUser, UUID driveUserId) {
 
-        authService.checkDriveUserAccess(identity, driveUserId);
+        authService.checkDriveUserAccess(driveUser, driveUserId);
 
         DriveUser result = driveUserServicePortOut.getDriveUser(driveUserId);
 
-        eventManager.onDriveUserRead(new Events.DriveUserReadProps(identity, result));
+        eventManager.onDriveUserRead(new Events.DriveUserReadProps(driveUser, result));
 
         return result;
     }
 
     @Override
-    public DriveUser updateDriveUser(AuthIdentity identity, UUID driveUserId, DriveUser driveUser) {
+    public DriveUser updateDriveUser(DriveUser driveUser, UUID driveUserId, DriveUser updatedDriveUser) {
 
-        authService.checkDriveUserAccess(identity, driveUserId);
-        validator.validateDriveUser(driveUser);
+        authService.checkDriveUserAccess(driveUser, driveUserId);
+        validator.validateDriveUser(updatedDriveUser);
 
         DriveUser oldDriveUser = driveUserServicePortOut.getDriveUser(driveUserId);
-        DriveUser newDriveUser = driveUserServicePortOut.updateDriveUser(driveUserId, driveUser);
+        DriveUser newDriveUser = driveUserServicePortOut.updateDriveUser(driveUserId, updatedDriveUser);
 
-        eventManager.onDriveUserUpdated(new Events.DriveUserUpdatedProps(identity, oldDriveUser, newDriveUser));
+        eventManager.onDriveUserUpdated(new Events.DriveUserUpdatedProps(driveUser, oldDriveUser, newDriveUser));
 
         return newDriveUser;
     }
 
     @Override
-    public DriveUser deleteDriveUser(AuthIdentity identity, UUID driveUserId) {
+    public DriveUser deleteDriveUser(DriveUser driveUser, UUID driveUserId) {
 
-        authService.checkDriveUserAccess(identity, driveUserId);
+        authService.checkDriveUserAccess(driveUser, driveUserId);
 
         DriveUser result = driveUserServicePortOut.deleteDriveUser(driveUserId);
 
-        eventManager.onDriveUserDeleted(new Events.DriveUserDeletedProps(identity, result));
+        eventManager.onDriveUserDeleted(new Events.DriveUserDeletedProps(driveUser, result));
 
         return result;
     }

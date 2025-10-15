@@ -26,28 +26,28 @@ public final class Events {
         }
     }
 
-    public record DriveUserReadProps(AuthIdentity identity, SequencedCollection<DriveUser> driveUsers)
+    public record DriveUserReadProps(DriveUser identity, SequencedCollection<DriveUser> driveUsers)
             implements EventProps {
-        public DriveUserReadProps(AuthIdentity identity, DriveUser driveUser) {
+        public DriveUserReadProps(DriveUser identity, DriveUser driveUser) {
             this(identity, Collections.singletonList(driveUser));
         }
     }
 
-    public record DriveUserUpdatedProps(AuthIdentity identity, SequencedCollection<Update<DriveUser>> driveUserUpdates)
+    public record DriveUserUpdatedProps(DriveUser identity, SequencedCollection<Update<DriveUser>> driveUserUpdates)
             implements EventProps {
 
-        public DriveUserUpdatedProps(AuthIdentity identity, Update<DriveUser> driveUserUpdate) {
+        public DriveUserUpdatedProps(DriveUser identity, Update<DriveUser> driveUserUpdate) {
             this(identity, Collections.singletonList(driveUserUpdate));
         }
 
-        public DriveUserUpdatedProps(AuthIdentity identity, DriveUser oldDriveUser, DriveUser newDriveUser) {
+        public DriveUserUpdatedProps(DriveUser identity, DriveUser oldDriveUser, DriveUser newDriveUser) {
             this(identity, new Update<>(oldDriveUser, newDriveUser));
         }
     }
 
-    public record DriveUserDeletedProps(AuthIdentity identity, SequencedCollection<DriveUser> driveUsers)
+    public record DriveUserDeletedProps(DriveUser identity, SequencedCollection<DriveUser> driveUsers)
             implements EventProps {
-        public DriveUserDeletedProps(AuthIdentity identity, DriveUser driveUser) {
+        public DriveUserDeletedProps(DriveUser identity, DriveUser driveUser) {
             this(identity, Collections.singletonList(driveUser));
         }
     }

@@ -8,11 +8,11 @@ import app.ludrive.core.ports.DriveUserServicePort;
 
 public interface DriveUserServicePortIn extends DriveUserServicePort {
 
-    DriveUser createDriveUser(DriveUser driveUser);
+    DriveUser createDriveUser(AuthIdentity identity, DriveUser driveUser);
 
-    DriveUser getDriveUser(AuthIdentity identity, UUID driveUserId);
+    DriveUser getDriveUser(DriveUser driveUser, UUID driveUserId);
 
-    DriveUser updateDriveUser(AuthIdentity identity, UUID driveUserId, DriveUser driveUser);
+    DriveUser updateDriveUser(DriveUser driveUser, UUID driveUserId, DriveUser updatedDriveUser);
 
-    DriveUser deleteDriveUser(AuthIdentity identity, UUID driveUserId);
+    DriveUser deleteDriveUser(DriveUser driveUser, UUID driveUserId);
 }

@@ -10,7 +10,6 @@ import jakarta.ws.rs.core.Response;
 import app.ludrive.adapters.in.api.rest.context.RestContextService;
 import app.ludrive.adapters.in.api.rest.json.JsonDriveUser;
 import app.ludrive.adapters.in.api.rest.service.RestDriveUserService;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.management.auth.DriveUser;
 
 @Path("/users")
@@ -39,9 +38,9 @@ public class DriveUserResource {
     @Path("/{driveUserId}")
     public Response getDriveUser(@PathParam("driveUserId") UUID driveUserId) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        JsonDriveUser result = restDriveUserService.getDriveUser(identity, driveUserId);
+        JsonDriveUser result = restDriveUserService.getDriveUser(driveUser, driveUserId);
 
         return Response.ok(result).build();
     }
@@ -50,9 +49,9 @@ public class DriveUserResource {
     @Path("/{driveUserId}")
     public Response updateDriveUser(@PathParam("driveUserId") UUID driveUserId, JsonDriveUser jsonDriveUser) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        JsonDriveUser result = restDriveUserService.updateDriveUser(identity, driveUserId, jsonDriveUser);
+        JsonDriveUser result = restDriveUserService.updateDriveUser(driveUser, driveUserId, jsonDriveUser);
 
         return Response.ok(result).build();
     }
@@ -61,9 +60,9 @@ public class DriveUserResource {
     @Path("/{driveUserId}")
     public Response deleteDriveUser(@PathParam("driveUserId") UUID driveUserId) {
 
-        AuthIdentity identity = restContextService.getAuthIdentity();
+        DriveUser driveUser = restContextService.getAuthIdentity();
 
-        DriveUser result = restDriveUserService.deleteDriveUser(identity, driveUserId);
+        DriveUser result = restDriveUserService.deleteDriveUser(driveUser, driveUserId);
         if (result == null) {
             throw new NotFoundException();
         }
