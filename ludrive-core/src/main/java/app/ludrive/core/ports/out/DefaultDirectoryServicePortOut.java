@@ -3,7 +3,7 @@ package app.ludrive.core.ports.out;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
@@ -29,48 +29,48 @@ public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
     }
 
     @Override
-    public Directory createDirectory(AuthIdentity identity, UUID entryId, Directory directory) {
+    public Directory createDirectory(DriveUser driveUser, UUID entryId, Directory directory) {
 
         migrationHandler.checkRunMigration();
 
         virtualFileSystemService.createDirectory(directory);
 
-        return directoryRepository.createDirectory(identity, directory);
+        return directoryRepository.createDirectory(driveUser, directory);
     }
 
     @Override
-    public Stream<Directory> getDirectories(AuthIdentity identity, UUID entryId, String path) {
+    public Stream<Directory> getDirectories(DriveUser driveUser, UUID entryId, String path) {
 
         migrationHandler.checkRunMigration();
 
-        return directoryRepository.getDirectories(identity, path);
+        return directoryRepository.getDirectories(driveUser, path);
     }
 
     @Override
-    public Directory getDirectory(AuthIdentity identity, UUID entryId, String path) {
+    public Directory getDirectory(DriveUser driveUser, UUID entryId, String path) {
 
         migrationHandler.checkRunMigration();
 
-        return directoryRepository.getDirectory(identity, path);
+        return directoryRepository.getDirectory(driveUser, path);
     }
 
     @Override
-    public Directory updateDirectory(AuthIdentity identity, UUID entryId, String path, Directory directory) {
+    public Directory updateDirectory(DriveUser driveUser, UUID entryId, String path, Directory directory) {
 
         migrationHandler.checkRunMigration();
 
         virtualFileSystemService.updateDirectory(path, directory);
 
-        return directoryRepository.updateDirectory(identity, path, directory);
+        return directoryRepository.updateDirectory(driveUser, path, directory);
     }
 
     @Override
-    public Directory deleteDirectory(AuthIdentity identity, UUID entryId, String path) {
+    public Directory deleteDirectory(DriveUser driveUser, UUID entryId, String path) {
 
         migrationHandler.checkRunMigration();
 
         virtualFileSystemService.deleteDirectory(path);
 
-        return directoryRepository.deleteDirectory(identity, path);
+        return directoryRepository.deleteDirectory(driveUser, path);
     }
 }

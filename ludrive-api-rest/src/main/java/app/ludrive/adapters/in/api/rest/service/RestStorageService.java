@@ -12,7 +12,7 @@ import app.ludrive.adapters.in.api.rest.json.JsonDirectory;
 import app.ludrive.adapters.in.api.rest.json.JsonEntryItem;
 import app.ludrive.adapters.in.api.rest.json.JsonFile;
 import app.ludrive.adapters.in.api.rest.json.converter.JsonConverter;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.File;
@@ -36,46 +36,46 @@ public class RestStorageService {
         this.fileServicePortIn = fileServicePortIn;
     }
 
-    public JsonDirectory createDirectory(AuthIdentity identity, UUID entryId, JsonDirectory jsonDirectory) {
+    public JsonDirectory createDirectory(DriveUser driveUser, UUID entryId, JsonDirectory jsonDirectory) {
 
         Directory directory = jsonConverter.toDirectory(jsonDirectory);
 
-        Directory result = directoryServicePortIn.createDirectory(identity, entryId, directory);
+        Directory result = directoryServicePortIn.createDirectory(driveUser, entryId, directory);
 
         return jsonConverter.toJsonDirectory(result);
     }
 
-    public JsonFile createFile(AuthIdentity identity, UUID entryId, JsonFile jsonFile, InputStream content) {
+    public JsonFile createFile(DriveUser driveUser, UUID entryId, JsonFile jsonFile, InputStream content) {
 
         File file = jsonConverter.toFile(jsonFile);
 
-        File result = fileServicePortIn.createFile(identity, entryId, file, Content.from(content));
+        File result = fileServicePortIn.createFile(driveUser, entryId, file, Content.from(content));
 
         return jsonConverter.toJsonFile(result);
     }
 
-    public List<? extends JsonEntryItem> getEntryItems(AuthIdentity identity, UUID entryId, String path) {
+    public List<? extends JsonEntryItem> getEntryItems(DriveUser driveUser, UUID entryId, String path) {
 
         Stream<JsonDirectory> directoryStream =
-                directoryServicePortIn.getDirectories(identity, entryId, path).map(jsonConverter::toJsonDirectory);
+                directoryServicePortIn.getDirectories(driveUser, entryId, path).map(jsonConverter::toJsonDirectory);
         Stream<JsonFile> fileStream =
-                fileServicePortIn.getFiles(identity, entryId, path).map(jsonConverter::toJsonFile);
+                fileServicePortIn.getFiles(driveUser, entryId, path).map(jsonConverter::toJsonFile);
 
         return Stream.concat(directoryStream, fileStream).toList();
     }
 
-    public List<JsonDirectory> getDirectories(AuthIdentity identity, UUID entryId, String path) {
+    public List<JsonDirectory> getDirectories(DriveUser driveUser, UUID entryId, String path) {
 
         return directoryServicePortIn
-                .getDirectories(identity, entryId, path)
+                .getDirectories(driveUser, entryId, path)
                 .map(jsonConverter::toJsonDirectory)
                 .toList();
     }
 
-    public List<JsonFile> getFiles(AuthIdentity identity, UUID entryId, String path) {
+    public List<JsonFile> getFiles(DriveUser driveUser, UUID entryId, String path) {
 
         return fileServicePortIn
-                .getFiles(identity, entryId, path)
+                .getFiles(driveUser, entryId, path)
                 .map(jsonConverter::toJsonFile)
                 .toList();
     }

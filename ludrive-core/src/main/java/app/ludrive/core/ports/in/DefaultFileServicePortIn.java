@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.domain.vfs.FileContent;
@@ -37,109 +37,109 @@ public class DefaultFileServicePortIn implements FileServicePortIn {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file) {
+    public File createFile(DriveUser driveUser, UUID entryId, File file) {
 
-        authService.checkEntryAccess(identity, entryId);
+        authService.checkEntryAccess(driveUser, entryId);
         validator.validateFile(file);
 
-        File result = fileServicePortOut.createFile(identity, entryId, file);
+        File result = fileServicePortOut.createFile(driveUser, entryId, file);
 
-        eventManager.onFileCreated(new Events.FileCreatedProps(identity, entryId, result));
+        eventManager.onFileCreated(new Events.FileCreatedProps(driveUser, entryId, result));
 
         return result;
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file, Content content) {
+    public File createFile(DriveUser driveUser, UUID entryId, File file, Content content) {
 
-        authService.checkEntryAccess(identity, entryId);
+        authService.checkEntryAccess(driveUser, entryId);
         validator.validateFile(file);
         validator.validateFile(content);
 
-        File result = fileServicePortOut.createFile(identity, entryId, file, content);
+        File result = fileServicePortOut.createFile(driveUser, entryId, file, content);
 
-        eventManager.onFileCreated(new Events.FileCreatedProps(identity, entryId, result));
-
-        return result;
-    }
-
-    @Override
-    public Stream<File> getFiles(AuthIdentity identity, UUID entryId, String path) {
-
-        authService.checkEntryAccess(identity, entryId);
-        validator.validatePath(path);
-
-        Consumer<File> onFileRead = file -> eventManager.onFileRead(new Events.FileReadProps(identity, entryId, file));
-
-        return fileServicePortOut.getFiles(identity, entryId, path).peek(onFileRead);
-    }
-
-    @Override
-    public File getFile(AuthIdentity identity, UUID entryId, String path) {
-
-        authService.checkEntryAccess(identity, entryId);
-        validator.validatePath(path);
-
-        File result = fileServicePortOut.getFile(identity, entryId, path);
-
-        eventManager.onFileRead(new Events.FileReadProps(identity, entryId, result));
+        eventManager.onFileCreated(new Events.FileCreatedProps(driveUser, entryId, result));
 
         return result;
     }
 
     @Override
-    public FileContent getFileContent(AuthIdentity identity, UUID entryId, String path) {
+    public Stream<File> getFiles(DriveUser driveUser, UUID entryId, String path) {
 
-        authService.checkEntryAccess(identity, entryId);
+        authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
 
-        FileContent result = fileServicePortOut.getFileContent(identity, entryId, path);
+        Consumer<File> onFileRead = file -> eventManager.onFileRead(new Events.FileReadProps(driveUser, entryId, file));
 
-        eventManager.onFileRead(new Events.FileReadProps(identity, entryId, result.file()));
+        return fileServicePortOut.getFiles(driveUser, entryId, path).peek(onFileRead);
+    }
+
+    @Override
+    public File getFile(DriveUser driveUser, UUID entryId, String path) {
+
+        authService.checkEntryAccess(driveUser, entryId);
+        validator.validatePath(path);
+
+        File result = fileServicePortOut.getFile(driveUser, entryId, path);
+
+        eventManager.onFileRead(new Events.FileReadProps(driveUser, entryId, result));
 
         return result;
     }
 
     @Override
-    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file) {
+    public FileContent getFileContent(DriveUser driveUser, UUID entryId, String path) {
 
-        authService.checkEntryAccess(identity, entryId);
+        authService.checkEntryAccess(driveUser, entryId);
+        validator.validatePath(path);
+
+        FileContent result = fileServicePortOut.getFileContent(driveUser, entryId, path);
+
+        eventManager.onFileRead(new Events.FileReadProps(driveUser, entryId, result.file()));
+
+        return result;
+    }
+
+    @Override
+    public File updateFile(DriveUser driveUser, UUID entryId, String path, File file) {
+
+        authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
         validator.validateFile(file);
 
-        File oldFile = fileServicePortOut.getFile(identity, entryId, path);
-        File newFile = fileServicePortOut.updateFile(identity, entryId, path, file);
+        File oldFile = fileServicePortOut.getFile(driveUser, entryId, path);
+        File newFile = fileServicePortOut.updateFile(driveUser, entryId, path, file);
 
-        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, oldFile, newFile));
+        eventManager.onFileUpdated(new Events.FileUpdatedProps(driveUser, entryId, oldFile, newFile));
 
         return newFile;
     }
 
     @Override
-    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file, Content content) {
+    public File updateFile(DriveUser driveUser, UUID entryId, String path, File file, Content content) {
 
-        authService.checkEntryAccess(identity, entryId);
+        authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
         validator.validateFile(file);
         validator.validateFile(content);
 
-        File oldFile = fileServicePortOut.getFile(identity, entryId, path);
-        File newFile = fileServicePortOut.updateFile(identity, entryId, path, file, content);
+        File oldFile = fileServicePortOut.getFile(driveUser, entryId, path);
+        File newFile = fileServicePortOut.updateFile(driveUser, entryId, path, file, content);
 
-        eventManager.onFileUpdated(new Events.FileUpdatedProps(identity, entryId, oldFile, newFile));
+        eventManager.onFileUpdated(new Events.FileUpdatedProps(driveUser, entryId, oldFile, newFile));
 
         return newFile;
     }
 
     @Override
-    public File deleteFile(AuthIdentity identity, UUID entryId, String path) {
+    public File deleteFile(DriveUser driveUser, UUID entryId, String path) {
 
-        authService.checkEntryAccess(identity, entryId);
+        authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
 
-        File result = fileServicePortOut.deleteFile(identity, entryId, path);
+        File result = fileServicePortOut.deleteFile(driveUser, entryId, path);
 
-        eventManager.onFileDeleted(new Events.FileDeletedProps(identity, entryId, result));
+        eventManager.onFileDeleted(new Events.FileDeletedProps(driveUser, entryId, result));
 
         return result;
     }

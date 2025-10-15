@@ -52,100 +52,99 @@ public final class Events {
         }
     }
 
-    public record EntryCreatedProps(AuthIdentity identity, SequencedCollection<Entry> entries) implements EventProps {
-        public EntryCreatedProps(AuthIdentity identity, Entry entry) {
+    public record EntryCreatedProps(DriveUser identity, SequencedCollection<Entry> entries) implements EventProps {
+        public EntryCreatedProps(DriveUser identity, Entry entry) {
             this(identity, Collections.singletonList(entry));
         }
     }
 
-    public record EntryReadProps(AuthIdentity identity, SequencedCollection<Entry> entries) implements EventProps {
-        public EntryReadProps(AuthIdentity identity, Entry entry) {
+    public record EntryReadProps(DriveUser identity, SequencedCollection<Entry> entries) implements EventProps {
+        public EntryReadProps(DriveUser identity, Entry entry) {
             this(identity, Collections.singletonList(entry));
         }
     }
 
-    public record EntryUpdatedProps(AuthIdentity identity, SequencedCollection<Update<Entry>> entryUpdates)
+    public record EntryUpdatedProps(DriveUser identity, SequencedCollection<Update<Entry>> entryUpdates)
             implements EventProps {
 
-        public EntryUpdatedProps(AuthIdentity identity, Update<Entry> entryUpdate) {
+        public EntryUpdatedProps(DriveUser identity, Update<Entry> entryUpdate) {
             this(identity, Collections.singletonList(entryUpdate));
         }
 
-        public EntryUpdatedProps(AuthIdentity identity, Entry oldEntry, Entry newEntry) {
+        public EntryUpdatedProps(DriveUser identity, Entry oldEntry, Entry newEntry) {
             this(identity, new Update<>(oldEntry, newEntry));
         }
     }
 
-    public record EntryDeletedProps(AuthIdentity identity, SequencedCollection<Entry> entries) implements EventProps {
-        public EntryDeletedProps(AuthIdentity identity, Entry entry) {
+    public record EntryDeletedProps(DriveUser identity, SequencedCollection<Entry> entries) implements EventProps {
+        public EntryDeletedProps(DriveUser identity, Entry entry) {
             this(identity, Collections.singletonList(entry));
         }
     }
 
-    public record DirectoryCreatedProps(AuthIdentity identity, UUID entryId, SequencedCollection<Directory> directories)
+    public record DirectoryCreatedProps(DriveUser identity, UUID entryId, SequencedCollection<Directory> directories)
             implements EventProps {
-        public DirectoryCreatedProps(AuthIdentity identity, UUID entryId, Directory directory) {
+        public DirectoryCreatedProps(DriveUser identity, UUID entryId, Directory directory) {
             this(identity, entryId, Collections.singletonList(directory));
         }
     }
 
-    public record DirectoryReadProps(AuthIdentity identity, UUID entryId, SequencedCollection<Directory> directories)
+    public record DirectoryReadProps(DriveUser identity, UUID entryId, SequencedCollection<Directory> directories)
             implements EventProps {
-        public DirectoryReadProps(AuthIdentity identity, UUID entryId, Directory directory) {
+        public DirectoryReadProps(DriveUser identity, UUID entryId, Directory directory) {
             this(identity, entryId, Collections.singletonList(directory));
         }
     }
 
     public record DirectoryUpdatedProps(
-            AuthIdentity identity, UUID entryId, SequencedCollection<Update<Directory>> directoryUpdates)
+            DriveUser identity, UUID entryId, SequencedCollection<Update<Directory>> directoryUpdates)
             implements EventProps {
 
-        public DirectoryUpdatedProps(AuthIdentity identity, UUID entryId, Update<Directory> directoryUpdate) {
+        public DirectoryUpdatedProps(DriveUser identity, UUID entryId, Update<Directory> directoryUpdate) {
             this(identity, entryId, Collections.singletonList(directoryUpdate));
         }
 
-        public DirectoryUpdatedProps(
-                AuthIdentity identity, UUID entryId, Directory oldDirectory, Directory newDirectory) {
+        public DirectoryUpdatedProps(DriveUser identity, UUID entryId, Directory oldDirectory, Directory newDirectory) {
             this(identity, entryId, new Update<>(oldDirectory, newDirectory));
         }
     }
 
-    public record DirectoryDeletedProps(AuthIdentity identity, UUID entryId, SequencedCollection<Directory> directories)
+    public record DirectoryDeletedProps(DriveUser identity, UUID entryId, SequencedCollection<Directory> directories)
             implements EventProps {
-        public DirectoryDeletedProps(AuthIdentity identity, UUID entryId, Directory directory) {
+        public DirectoryDeletedProps(DriveUser identity, UUID entryId, Directory directory) {
             this(identity, entryId, Collections.singletonList(directory));
         }
     }
 
-    public record FileCreatedProps(AuthIdentity identity, UUID entryId, SequencedCollection<File> files)
+    public record FileCreatedProps(DriveUser identity, UUID entryId, SequencedCollection<File> files)
             implements EventProps {
-        public FileCreatedProps(AuthIdentity identity, UUID entryId, File file) {
+        public FileCreatedProps(DriveUser identity, UUID entryId, File file) {
             this(identity, entryId, Collections.singletonList(file));
         }
     }
 
-    public record FileReadProps(AuthIdentity identity, UUID entryId, SequencedCollection<File> files)
+    public record FileReadProps(DriveUser identity, UUID entryId, SequencedCollection<File> files)
             implements EventProps {
-        public FileReadProps(AuthIdentity identity, UUID entryId, File file) {
+        public FileReadProps(DriveUser identity, UUID entryId, File file) {
             this(identity, entryId, Collections.singletonList(file));
         }
     }
 
-    public record FileUpdatedProps(AuthIdentity identity, UUID entryId, SequencedCollection<Update<File>> fileUpdates)
+    public record FileUpdatedProps(DriveUser identity, UUID entryId, SequencedCollection<Update<File>> fileUpdates)
             implements EventProps {
 
-        public FileUpdatedProps(AuthIdentity identity, UUID entryId, Update<File> fileUpdate) {
+        public FileUpdatedProps(DriveUser identity, UUID entryId, Update<File> fileUpdate) {
             this(identity, entryId, Collections.singletonList(fileUpdate));
         }
 
-        public FileUpdatedProps(AuthIdentity identity, UUID entryId, File oldFile, File newFile) {
+        public FileUpdatedProps(DriveUser identity, UUID entryId, File oldFile, File newFile) {
             this(identity, entryId, new Update<>(oldFile, newFile));
         }
     }
 
-    public record FileDeletedProps(AuthIdentity identity, UUID entryId, SequencedCollection<File> files)
+    public record FileDeletedProps(DriveUser identity, UUID entryId, SequencedCollection<File> files)
             implements EventProps {
-        public FileDeletedProps(AuthIdentity identity, UUID entryId, File file) {
+        public FileDeletedProps(DriveUser identity, UUID entryId, File file) {
             this(identity, entryId, Collections.singletonList(file));
         }
     }

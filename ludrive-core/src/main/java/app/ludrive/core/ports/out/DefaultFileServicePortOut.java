@@ -3,7 +3,7 @@ package app.ludrive.core.ports.out;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.domain.vfs.FileContent;
@@ -31,87 +31,87 @@ public class DefaultFileServicePortOut implements FileServicePortOut {
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file) {
+    public File createFile(DriveUser driveUser, UUID entryId, File file) {
 
         migrationHandler.checkRunMigration();
 
         virtualFileSystemService.createFile(file);
 
-        return fileRepository.createFile(identity, file);
+        return fileRepository.createFile(driveUser, file);
     }
 
     @Override
-    public File createFile(AuthIdentity identity, UUID entryId, File file, Content content) {
+    public File createFile(DriveUser driveUser, UUID entryId, File file, Content content) {
 
         migrationHandler.checkRunMigration();
 
         virtualFileSystemService.createFile(file);
         virtualFileSystemService.updateFileContent(file.getPath(), content);
 
-        return fileRepository.createFile(identity, file);
+        return fileRepository.createFile(driveUser, file);
     }
 
     @Override
-    public Stream<File> getFiles(AuthIdentity identity, UUID entryId, String path) {
+    public Stream<File> getFiles(DriveUser driveUser, UUID entryId, String path) {
 
         migrationHandler.checkRunMigration();
 
-        return fileRepository.getFiles(identity, path);
+        return fileRepository.getFiles(driveUser, path);
     }
 
     @Override
-    public File getFile(AuthIdentity identity, UUID entryId, String path) {
+    public File getFile(DriveUser driveUser, UUID entryId, String path) {
 
         migrationHandler.checkRunMigration();
 
-        return fileRepository.getFile(identity, path);
+        return fileRepository.getFile(driveUser, path);
     }
 
     @Override
-    public FileContent getFileContent(AuthIdentity identity, UUID entryId, String path) {
+    public FileContent getFileContent(DriveUser driveUser, UUID entryId, String path) {
 
         migrationHandler.checkRunMigration();
 
-        File file = fileRepository.getFile(identity, path);
+        File file = fileRepository.getFile(driveUser, path);
         Content content = virtualFileSystemService.getFileContent(path);
 
         return new FileContent(file, content);
     }
 
     @Override
-    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file) {
+    public File updateFile(DriveUser driveUser, UUID entryId, String path, File file) {
 
         migrationHandler.checkRunMigration();
 
-        File originalFile = fileRepository.getFile(identity, path);
+        File originalFile = fileRepository.getFile(driveUser, path);
         String originalFilePath = originalFile.getPath();
 
         virtualFileSystemService.updateFile(originalFilePath, file);
 
-        return fileRepository.updateFile(identity, originalFilePath, file);
+        return fileRepository.updateFile(driveUser, originalFilePath, file);
     }
 
     @Override
-    public File updateFile(AuthIdentity identity, UUID entryId, String path, File file, Content content) {
+    public File updateFile(DriveUser driveUser, UUID entryId, String path, File file, Content content) {
 
         migrationHandler.checkRunMigration();
 
-        File originalFile = fileRepository.getFile(identity, path);
+        File originalFile = fileRepository.getFile(driveUser, path);
         String originalFilePath = originalFile.getPath();
 
         virtualFileSystemService.updateFile(originalFilePath, file);
         virtualFileSystemService.updateFileContent(originalFilePath, content);
 
-        return fileRepository.updateFile(identity, originalFilePath, file);
+        return fileRepository.updateFile(driveUser, originalFilePath, file);
     }
 
     @Override
-    public File deleteFile(AuthIdentity identity, UUID entryId, String path) {
+    public File deleteFile(DriveUser driveUser, UUID entryId, String path) {
 
         migrationHandler.checkRunMigration();
 
         virtualFileSystemService.deleteFile(path);
 
-        return fileRepository.deleteFile(identity, path);
+        return fileRepository.deleteFile(driveUser, path);
     }
 }
