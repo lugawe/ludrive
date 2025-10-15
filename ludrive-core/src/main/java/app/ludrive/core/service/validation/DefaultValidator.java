@@ -48,7 +48,7 @@ public class DefaultValidator implements Validator {
     @Override
     public void validatePath(String path) throws ValidationException {
         if (!isValidPath(path)) {
-            throw new ValidationException("invalid path");
+            throw new ValidationException("Invalid path");
         }
     }
 
