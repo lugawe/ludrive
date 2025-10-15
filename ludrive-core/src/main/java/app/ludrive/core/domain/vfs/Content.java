@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public record Content(ReadableByteChannel content) implements Closeable {
@@ -21,6 +22,17 @@ public record Content(ReadableByteChannel content) implements Closeable {
             outputStream.write(buffer.array(), 0, buffer.limit());
             buffer.clear();
         }
+    }
+
+    public byte[] readAsByteArray() throws IOException {
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+            writeTo(byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+        }
+    }
+
+    public String readAsString() throws IOException {
+        return new String(readAsByteArray(), StandardCharsets.UTF_8);
     }
 
     @Override
