@@ -25,7 +25,7 @@ public class VFS2Service implements VirtualFileSystemService {
             this.fileSystemManager = VFS.getManager();
             this.root = fileSystemManager.resolveFile(rootLocation);
         } catch (Exception e) {
-            throw new VFSException("failed to initialize VFS2Service", e);
+            throw new VFSException("Failed to initialize VFS2Service", e);
         }
     }
 
@@ -48,7 +48,7 @@ public class VFS2Service implements VirtualFileSystemService {
 
             FileObject newDirectory = resolve(directory.getPath());
             if (newDirectory.exists()) {
-                throw new VFSException("directory already exists");
+                throw new VFSException("Directory already exists");
             }
 
             newDirectory.createFolder();
@@ -56,7 +56,7 @@ public class VFS2Service implements VirtualFileSystemService {
             checkClose(newDirectory);
 
         } catch (Exception e) {
-            throw new VFSException("failed to create directory", e);
+            throw new VFSException("Failed to create directory", e);
         }
     }
 
@@ -66,7 +66,7 @@ public class VFS2Service implements VirtualFileSystemService {
 
             FileObject existingDirectory = resolve(path);
             if (!existingDirectory.exists() || !existingDirectory.isFolder()) {
-                throw new VFSException("cannot resolve existing directory");
+                throw new VFSException("Cannot resolve existing directory");
             }
 
             FileObject newDirectory = resolve(directory.getPath());
@@ -76,7 +76,7 @@ public class VFS2Service implements VirtualFileSystemService {
             checkClose(existingDirectory);
 
         } catch (Exception e) {
-            throw new VFSException("failed to update directory", e);
+            throw new VFSException("Failed to update directory", e);
         }
     }
 
@@ -86,7 +86,7 @@ public class VFS2Service implements VirtualFileSystemService {
 
             FileObject existingDirectory = resolve(path);
             if (!existingDirectory.exists() || !existingDirectory.isFolder()) {
-                throw new VFSException("cannot resolve existing directory");
+                throw new VFSException("Cannot resolve existing directory");
             }
 
             existingDirectory.delete(Selectors.SELECT_ALL);
@@ -94,7 +94,7 @@ public class VFS2Service implements VirtualFileSystemService {
             checkClose(existingDirectory);
 
         } catch (Exception e) {
-            throw new VFSException("failed to delete directory", e);
+            throw new VFSException("Failed to delete directory", e);
         }
     }
 
@@ -104,7 +104,7 @@ public class VFS2Service implements VirtualFileSystemService {
 
             FileObject newFile = resolve(file.getPath());
             if (newFile.exists()) {
-                throw new VFSException("file already exists");
+                throw new VFSException("File already exists");
             }
 
             newFile.createFile();
@@ -112,7 +112,7 @@ public class VFS2Service implements VirtualFileSystemService {
             checkClose(newFile);
 
         } catch (Exception e) {
-            throw new VFSException("failed to create file", e);
+            throw new VFSException("Failed to create file", e);
         }
     }
 
@@ -122,7 +122,7 @@ public class VFS2Service implements VirtualFileSystemService {
 
             FileObject existingFile = resolve(path);
             if (!existingFile.exists() || !existingFile.isFile()) {
-                throw new VFSException("cannot resolve existing file");
+                throw new VFSException("Cannot resolve existing file");
             }
 
             FileObject newFile = resolve(file.getPath());
@@ -132,7 +132,7 @@ public class VFS2Service implements VirtualFileSystemService {
             checkClose(existingFile);
 
         } catch (Exception e) {
-            throw new VFSException("failed to update file", e);
+            throw new VFSException("Failed to update file", e);
         }
     }
 
@@ -142,7 +142,7 @@ public class VFS2Service implements VirtualFileSystemService {
 
             FileObject existingFile = resolve(path);
             if (!existingFile.exists() || !existingFile.isFile()) {
-                throw new VFSException("cannot resolve existing file");
+                throw new VFSException("Cannot resolve existing file");
             }
 
             existingFile.delete();
@@ -150,7 +150,7 @@ public class VFS2Service implements VirtualFileSystemService {
             checkClose(existingFile);
 
         } catch (Exception e) {
-            throw new VFSException("failed to delete file", e);
+            throw new VFSException("Failed to delete file", e);
         }
     }
 
@@ -160,7 +160,7 @@ public class VFS2Service implements VirtualFileSystemService {
 
             FileObject existingFile = resolve(path);
             if (!existingFile.exists() || !existingFile.isFile()) {
-                throw new VFSException("cannot resolve existing file");
+                throw new VFSException("Cannot resolve existing file");
             }
 
             try (OutputStream outputStream = existingFile.getContent().getOutputStream()) {
@@ -170,7 +170,7 @@ public class VFS2Service implements VirtualFileSystemService {
             checkClose(existingFile);
 
         } catch (Exception e) {
-            throw new VFSException("failed to update file content", e);
+            throw new VFSException("Failed to update file content", e);
         }
     }
 
@@ -180,7 +180,7 @@ public class VFS2Service implements VirtualFileSystemService {
 
             FileObject existingFile = resolve(path);
             if (!existingFile.exists() || !existingFile.isFile()) {
-                throw new VFSException("cannot resolve existing file");
+                throw new VFSException("Cannot resolve existing file");
             }
 
             InputStream inputStream = existingFile.getContent().getInputStream();
@@ -191,7 +191,7 @@ public class VFS2Service implements VirtualFileSystemService {
             return content;
 
         } catch (Exception e) {
-            throw new VFSException("failed to get file content", e);
+            throw new VFSException("Failed to get file content", e);
         }
     }
 }
