@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.exception.NotFoundException;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
@@ -27,7 +27,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     }
 
     @Override
-    public Directory createDirectory(AuthIdentity identity, Directory directory) {
+    public Directory createDirectory(DriveUser driveUser, Directory directory) {
 
         String path = directory.getPath();
 
@@ -37,19 +37,19 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     }
 
     @Override
-    public Stream<Directory> getDirectories(AuthIdentity identity, String path) {
+    public Stream<Directory> getDirectories(DriveUser driveUser, String path) {
 
         return tree.listDirectories(path).stream();
     }
 
     @Override
-    public Directory getDirectory(AuthIdentity identity, String path) {
+    public Directory getDirectory(DriveUser driveUser, String path) {
 
         return tree.getDirectory(path).orElseThrow(this::createNotFoundException);
     }
 
     @Override
-    public Directory updateDirectory(AuthIdentity identity, String path, Directory directory) {
+    public Directory updateDirectory(DriveUser driveUser, String path, Directory directory) {
 
         tree.put(path, directory);
 
@@ -57,7 +57,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     }
 
     @Override
-    public Directory deleteDirectory(AuthIdentity identity, String path) {
+    public Directory deleteDirectory(DriveUser driveUser, String path) {
 
         Directory directory = tree.getDirectory(path).orElseThrow(this::createNotFoundException);
 

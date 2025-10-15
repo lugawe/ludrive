@@ -11,7 +11,6 @@ import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntry;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntryConfiguration;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.EntryConfiguration;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.domain.management.auth.DriveUser;
 
 @ApplicationScoped
@@ -19,10 +18,6 @@ public class JpaConverter {
 
     @Inject
     public JpaConverter() {}
-
-    public JpaDriveUser resolveAuthIdentity(AuthIdentity identity) {
-        return toJpaDriveUser((DriveUser) identity);
-    }
 
     public JpaDriveUser toJpaDriveUser(DriveUser driveUser) {
 

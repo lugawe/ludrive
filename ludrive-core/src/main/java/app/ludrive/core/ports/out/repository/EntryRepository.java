@@ -4,17 +4,17 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.Entry;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 
 public interface EntryRepository {
 
-    Entry createEntry(AuthIdentity identity, Entry entry);
+    Entry createEntry(DriveUser driveUser, Entry entry);
 
-    Stream<Entry> getEntries(AuthIdentity identity);
+    Stream<Entry> getEntries(DriveUser driveUser);
 
-    Entry getEntry(AuthIdentity identity, UUID entryId);
+    Entry getEntry(DriveUser driveUser, UUID entryId);
 
-    Entry updateEntry(AuthIdentity identity, UUID entryId, Entry entry);
+    Entry updateEntry(DriveUser driveUser, UUID entryId, Entry entry);
 
-    Entry deleteEntry(AuthIdentity identity, UUID entryId);
+    Entry deleteEntry(DriveUser driveUser, UUID entryId);
 }

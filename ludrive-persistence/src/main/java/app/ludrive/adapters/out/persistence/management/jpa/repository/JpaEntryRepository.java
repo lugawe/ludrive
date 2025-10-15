@@ -14,7 +14,7 @@ import app.ludrive.adapters.out.persistence.management.jpa.converter.JpaConverte
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaDriveUser;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntry;
 import app.ludrive.core.domain.management.Entry;
-import app.ludrive.core.domain.management.auth.AuthIdentity;
+import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.exception.NotFoundException;
 import app.ludrive.core.ports.out.repository.EntryRepository;
 
@@ -33,9 +33,9 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
         return new NotFoundException(String.format("entry not found: %s", entryId));
     }
 
-    protected JpaEntry getEntryById(AuthIdentity identity, UUID entryId) {
+    protected JpaEntry getEntryById(DriveUser driveUser, UUID entryId) {
 
-        JpaDriveUser jpaDriveUser = jpaConverter.resolveAuthIdentity(identity);
+        JpaDriveUser jpaDriveUser = jpaConverter.toJpaDriveUser(driveUser);
 
         Object result = getEntityManager()
                 .createQuery("from JpaEntry where id = :id and owner.id = :owner_id")
@@ -50,9 +50,9 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
     @Override
     @Transactional
-    public Entry createEntry(AuthIdentity identity, Entry entry) {
+    public Entry createEntry(DriveUser driveUser, Entry entry) {
 
-        JpaDriveUser jpaDriveUser = jpaConverter.resolveAuthIdentity(identity);
+        JpaDriveUser jpaDriveUser = jpaConverter.toJpaDriveUser(driveUser);
 
         JpaEntry jpaEntry = jpaConverter.toJpaEntry(entry);
         jpaEntry.setOwner(jpaDriveUser);
@@ -64,9 +64,9 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
     @Override
     @Transactional
-    public Stream<Entry> getEntries(AuthIdentity identity) {
+    public Stream<Entry> getEntries(DriveUser driveUser) {
 
-        JpaDriveUser jpaDriveUser = jpaConverter.resolveAuthIdentity(identity);
+        JpaDriveUser jpaDriveUser = jpaConverter.toJpaDriveUser(driveUser);
 
         EntityManager entityManager = getEntityManager();
 
@@ -80,18 +80,18 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
     @Override
     @Transactional
-    public Entry getEntry(AuthIdentity identity, UUID entryId) {
+    public Entry getEntry(DriveUser driveUser, UUID entryId) {
 
-        JpaEntry jpaEntry = getEntryById(identity, entryId);
+        JpaEntry jpaEntry = getEntryById(driveUser, entryId);
 
         return jpaConverter.toEntry(jpaEntry);
     }
 
     @Override
     @Transactional
-    public Entry updateEntry(AuthIdentity identity, UUID entryId, Entry entry) {
+    public Entry updateEntry(DriveUser driveUser, UUID entryId, Entry entry) {
 
-        JpaEntry jpaEntry = getEntryById(identity, entryId);
+        JpaEntry jpaEntry = getEntryById(driveUser, entryId);
 
         jpaConverter.updateJpaEntry(jpaEntry, entry);
 
@@ -102,9 +102,9 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
     @Override
     @Transactional
-    public Entry deleteEntry(AuthIdentity identity, UUID entryId) {
+    public Entry deleteEntry(DriveUser driveUser, UUID entryId) {
 
-        JpaEntry jpaEntry = getEntryById(identity, entryId);
+        JpaEntry jpaEntry = getEntryById(driveUser, entryId);
 
         delete(jpaEntry);
 
