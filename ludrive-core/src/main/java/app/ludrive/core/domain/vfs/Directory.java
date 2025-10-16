@@ -1,7 +1,6 @@
 package app.ludrive.core.domain.vfs;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public final class Directory extends EntryItem implements Serializable {
 
@@ -11,8 +10,8 @@ public final class Directory extends EntryItem implements Serializable {
         super(entryItemId);
     }
 
-    public Directory(UUID entryId, String path) {
-        this(new EntryItemId(entryId, path));
+    public Directory(String path) {
+        this(new EntryItemId(path));
     }
 
     @Override

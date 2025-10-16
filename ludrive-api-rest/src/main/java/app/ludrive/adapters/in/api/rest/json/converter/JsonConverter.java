@@ -2,7 +2,6 @@ package app.ludrive.adapters.in.api.rest.json.converter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -45,7 +44,6 @@ public class JsonConverter {
 
         JsonEntryItemId result = new JsonEntryItemId();
 
-        result.setEntryId(entryItemId.entryId());
         result.setPath(entryItemId.path());
 
         return result;
@@ -53,10 +51,9 @@ public class JsonConverter {
 
     public EntryItemId toEntryItemId(JsonEntryItemId entryItemId) {
 
-        UUID entryId = entryItemId.getEntryId();
         String path = entryItemId.getPath();
 
-        return new EntryItemId(entryId, path);
+        return new EntryItemId(path);
     }
 
     public JsonEntry toJsonEntry(Entry entry) {

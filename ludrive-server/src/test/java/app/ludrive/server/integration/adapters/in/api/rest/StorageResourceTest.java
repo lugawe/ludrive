@@ -71,7 +71,7 @@ public class StorageResourceTest {
     @Order(1)
     public void createDirectory() {
 
-        JsonDirectory jsonDirectory1 = new JsonDirectory(entryId, "/dir0");
+        JsonDirectory jsonDirectory1 = new JsonDirectory("/dir0");
 
         JsonDirectory ret1 = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -89,7 +89,7 @@ public class StorageResourceTest {
 
         Assertions.assertNotNull(ret1);
 
-        JsonDirectory jsonDirectory2 = new JsonDirectory(entryId, "/dir1");
+        JsonDirectory jsonDirectory2 = new JsonDirectory("/dir1");
 
         JsonDirectory ret2 = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -112,7 +112,7 @@ public class StorageResourceTest {
     @Order(2)
     public void createFile() {
 
-        JsonFile jsonFile = new JsonFile(entryId, "/dir1/hello.txt");
+        JsonFile jsonFile = new JsonFile("/dir1/hello.txt");
 
         JsonFile ret1 = RestAssured.given()
                 .contentType(ContentType.MULTIPART)

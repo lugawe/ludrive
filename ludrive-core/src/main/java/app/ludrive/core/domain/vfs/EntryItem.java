@@ -1,7 +1,6 @@
 package app.ludrive.core.domain.vfs;
 
 import java.util.Objects;
-import java.util.UUID;
 
 import app.ludrive.core.domain.Identifiable;
 
@@ -36,10 +35,6 @@ public abstract sealed class EntryItem implements Identifiable permits Directory
 
     public void setId(EntryItemId id) {
         this.id = id;
-    }
-
-    public UUID getEntryId() {
-        return id.entryId();
     }
 
     public String getPath() {

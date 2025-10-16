@@ -1,7 +1,5 @@
 package app.ludrive.adapters.in.api.rest.json;
 
-import java.util.UUID;
-
 import app.ludrive.core.domain.vfs.EntryItem;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -14,8 +12,8 @@ public class JsonDirectory extends JsonEntryItem {
 
     public JsonDirectory() {}
 
-    public JsonDirectory(UUID entryId, String path) {
-        super(new JsonEntryItemId(entryId, path));
+    public JsonDirectory(String path) {
+        super(new JsonEntryItemId(path));
     }
 
     @Override
