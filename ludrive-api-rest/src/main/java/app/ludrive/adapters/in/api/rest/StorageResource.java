@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -38,7 +39,7 @@ public class StorageResource {
 
     @POST
     @Path("/{entryId}/vfs/directories")
-    public Response createDirectory(@PathParam("entryId") UUID entryId, JsonDirectory jsonDirectory) {
+    public Response createDirectory(@PathParam("entryId") UUID entryId, @Valid JsonDirectory jsonDirectory) {
 
         DriveUser driveUser = restContextService.getAuthIdentity();
 
@@ -52,7 +53,7 @@ public class StorageResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response createFile(
             @PathParam("entryId") UUID entryId,
-            @RestForm("file") @PartType(MediaType.APPLICATION_JSON) JsonFile jsonFile,
+            @RestForm("file") @PartType(MediaType.APPLICATION_JSON) @Valid JsonFile jsonFile,
             @RestForm("content") @PartType(MediaType.APPLICATION_OCTET_STREAM) InputStream content) {
 
         DriveUser driveUser = restContextService.getAuthIdentity();

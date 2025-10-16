@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -32,7 +33,7 @@ public class EntryResource {
     }
 
     @POST
-    public Response createEntry(JsonEntry jsonEntry) {
+    public Response createEntry(@Valid JsonEntry jsonEntry) {
 
         DriveUser driveUser = restContextService.getAuthIdentity();
 
@@ -64,7 +65,7 @@ public class EntryResource {
 
     @PUT
     @Path("/{entryId}")
-    public Response updateEntry(@PathParam("entryId") UUID entryId, JsonEntry jsonEntry) {
+    public Response updateEntry(@PathParam("entryId") UUID entryId, @Valid JsonEntry jsonEntry) {
 
         DriveUser driveUser = restContextService.getAuthIdentity();
 

@@ -3,6 +3,7 @@ package app.ludrive.adapters.in.api.rest;
 import java.util.UUID;
 
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -27,7 +28,7 @@ public class DriveUserResource {
     }
 
     @POST
-    public Response createDriveUser(JsonDriveUser jsonDriveUser) {
+    public Response createDriveUser(@Valid JsonDriveUser jsonDriveUser) {
 
         JsonDriveUser result = restDriveUserService.createDriveUser(jsonDriveUser);
 
@@ -47,7 +48,7 @@ public class DriveUserResource {
 
     @PUT
     @Path("/{driveUserId}")
-    public Response updateDriveUser(@PathParam("driveUserId") UUID driveUserId, JsonDriveUser jsonDriveUser) {
+    public Response updateDriveUser(@PathParam("driveUserId") UUID driveUserId, @Valid JsonDriveUser jsonDriveUser) {
 
         DriveUser driveUser = restContextService.getAuthIdentity();
 
