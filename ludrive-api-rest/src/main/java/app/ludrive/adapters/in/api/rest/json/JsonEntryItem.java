@@ -1,5 +1,8 @@
 package app.ludrive.adapters.in.api.rest.json;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import app.ludrive.core.domain.vfs.EntryItem;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,9 +16,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public abstract class JsonEntryItem {
 
+    @NotNull(message = "This id cannot be null")
     @JsonProperty("id")
     private JsonEntryItemId id;
 
+    @NotEmpty(message = "This type cannot be empty")
     @JsonProperty("type")
     private String type;
 

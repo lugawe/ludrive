@@ -1,9 +1,12 @@
 package app.ludrive.adapters.in.api.rest.json;
 
+import jakarta.validation.constraints.NotEmpty;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class JsonEntryItemId {
 
+    @NotEmpty(message = "This path cannot be empty")
     @JsonProperty("path")
     private String path;
 
