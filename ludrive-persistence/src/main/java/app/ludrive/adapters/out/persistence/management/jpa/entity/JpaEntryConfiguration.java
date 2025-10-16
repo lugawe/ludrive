@@ -12,6 +12,9 @@ public class JpaEntryConfiguration {
     @Column(name = "type", nullable = false)
     private String type;
 
+    @Column(name = "storage_plugin_id", nullable = false)
+    private String storagePluginId;
+
     @Column(name = "root_location", nullable = false)
     private String rootLocation;
 
@@ -27,6 +30,14 @@ public class JpaEntryConfiguration {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStoragePluginId() {
+        return storagePluginId;
+    }
+
+    public void setStoragePluginId(String storagePluginId) {
+        this.storagePluginId = storagePluginId;
     }
 
     public String getRootLocation() {

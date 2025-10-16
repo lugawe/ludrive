@@ -12,6 +12,7 @@ CREATE TABLE entry (
   name TEXT NOT NULL,
   description TEXT,
   type TEXT NOT NULL,
+  storage_plugin_id TEXT NOT NULL,
   root_location TEXT NOT NULL,
   config TEXT,
   credentials TEXT,

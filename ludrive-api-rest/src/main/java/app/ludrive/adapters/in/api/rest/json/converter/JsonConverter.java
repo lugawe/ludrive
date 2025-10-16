@@ -89,6 +89,7 @@ public class JsonConverter {
         JsonEntryConfiguration result = new JsonEntryConfiguration();
 
         result.setType(entryConfiguration.getType());
+        result.setStoragePluginId(entryConfiguration.getStoragePluginId());
         result.setRootLocation(entryConfiguration.getRootLocation());
 
         Map<String, String> credentials = entryConfiguration.getCredentials();
@@ -108,6 +109,7 @@ public class JsonConverter {
         EntryConfiguration result = new EntryConfiguration();
 
         result.setType(entryConfiguration.getType());
+        result.setStoragePluginId(entryConfiguration.getStoragePluginId());
         result.setRootLocation(entryConfiguration.getRootLocation());
 
         Map<String, String> credentials = entryConfiguration.getCredentials();

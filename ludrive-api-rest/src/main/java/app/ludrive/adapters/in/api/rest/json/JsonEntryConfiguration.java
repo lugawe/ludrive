@@ -11,13 +11,15 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 public class JsonEntryConfiguration {
 
     private String type;
+    private String storagePluginId;
     private String rootLocation;
     private Map<String, String> credentials;
 
     public JsonEntryConfiguration() {}
 
-    public JsonEntryConfiguration(String type, String rootLocation) {
+    public JsonEntryConfiguration(String type, String storagePluginId, String rootLocation) {
         this.type = type;
+        this.storagePluginId = storagePluginId;
         this.rootLocation = rootLocation;
     }
 
@@ -27,6 +29,14 @@ public class JsonEntryConfiguration {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStoragePluginId() {
+        return storagePluginId;
+    }
+
+    public void setStoragePluginId(String storagePluginId) {
+        this.storagePluginId = storagePluginId;
     }
 
     public String getRootLocation() {

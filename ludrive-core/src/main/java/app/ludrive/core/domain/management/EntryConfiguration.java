@@ -6,14 +6,16 @@ import java.util.Map;
 public final class EntryConfiguration implements Serializable {
 
     private String type;
+    private String storagePluginId;
     private String rootLocation;
     private Map<String, String> config;
     private Map<String, String> credentials;
 
     public EntryConfiguration() {}
 
-    public EntryConfiguration(String type, String rootLocation) {
+    public EntryConfiguration(String type, String storagePluginId, String rootLocation) {
         this.type = type;
+        this.storagePluginId = storagePluginId;
         this.rootLocation = rootLocation;
     }
 
@@ -23,6 +25,14 @@ public final class EntryConfiguration implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStoragePluginId() {
+        return storagePluginId;
+    }
+
+    public void setStoragePluginId(String storagePluginId) {
+        this.storagePluginId = storagePluginId;
     }
 
     public String getRootLocation() {

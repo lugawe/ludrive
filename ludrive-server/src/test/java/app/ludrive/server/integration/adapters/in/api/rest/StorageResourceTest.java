@@ -44,7 +44,7 @@ public class StorageResourceTest {
     public StorageResourceTest() {}
 
     private EntryConfiguration entryConfiguration() {
-        return new EntryConfiguration("VFS2", "ram:///");
+        return new EntryConfiguration("VFS2", "VFS2", "ram:///");
     }
 
     @BeforeAll

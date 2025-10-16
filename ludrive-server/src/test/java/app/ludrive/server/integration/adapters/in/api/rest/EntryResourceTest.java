@@ -35,7 +35,7 @@ public class EntryResourceTest {
     public EntryResourceTest() {}
 
     private JsonEntryConfiguration jsonEntryConfiguration() {
-        return new JsonEntryConfiguration("VFS2", "ram:///");
+        return new JsonEntryConfiguration("VFS2", "VFS2", "ram:///");
     }
 
     @BeforeAll
