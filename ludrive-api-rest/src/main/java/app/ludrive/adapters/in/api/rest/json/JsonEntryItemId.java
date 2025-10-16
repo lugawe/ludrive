@@ -1,11 +1,10 @@
 package app.ludrive.adapters.in.api.rest.json;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class JsonEntryItemId {
 
+    @JsonProperty("path")
     private String path;
 
     public JsonEntryItemId() {}

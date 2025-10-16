@@ -2,6 +2,7 @@ package app.ludrive.adapters.in.api.rest.json;
 
 import app.ludrive.core.domain.vfs.EntryItem;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public abstract class JsonEntryItem {
 
+    @JsonProperty("id")
     private JsonEntryItemId id;
 
     public JsonEntryItem() {}
