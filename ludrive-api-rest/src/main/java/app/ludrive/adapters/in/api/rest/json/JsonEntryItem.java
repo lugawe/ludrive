@@ -16,13 +16,15 @@ public abstract class JsonEntryItem {
     @JsonProperty("id")
     private JsonEntryItemId id;
 
-    public JsonEntryItem() {}
+    @JsonProperty("type")
+    private String type;
 
-    public JsonEntryItem(JsonEntryItemId id) {
-        this.id = id;
+    public JsonEntryItem(String path, String type) {
+        if (path != null) {
+            this.id = new JsonEntryItemId(path);
+        }
+        this.type = type;
     }
-
-    public abstract String getType();
 
     public JsonEntryItemId getId() {
         return id;
@@ -30,5 +32,13 @@ public abstract class JsonEntryItem {
 
     public void setId(JsonEntryItemId id) {
         this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

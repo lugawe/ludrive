@@ -2,21 +2,13 @@ package app.ludrive.adapters.in.api.rest.json;
 
 import app.ludrive.core.domain.vfs.EntryItem;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class JsonFile extends JsonEntryItem {
 
-    public JsonFile() {}
-
-    public JsonFile(String path) {
-        super(new JsonEntryItemId(path));
+    public JsonFile() {
+        this(null);
     }
 
-    @Override
-    @JsonProperty("type")
-    public String getType() {
-        return EntryItem.TYPE_FILE;
+    public JsonFile(String path) {
+        super(path, EntryItem.TYPE_FILE);
     }
 }
