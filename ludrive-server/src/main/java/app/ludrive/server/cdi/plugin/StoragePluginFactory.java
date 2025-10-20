@@ -1,7 +1,7 @@
 package app.ludrive.server.cdi.plugin;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -19,18 +19,18 @@ import app.ludrive.core.service.vfs.VirtualFileSystemService;
 import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
 @ApplicationScoped
-public class PluginFactory {
+public class StoragePluginFactory {
 
-    private final Map<String, Plugin> pluginCache = new ConcurrentHashMap<>();
+    private final Map<String, StoragePlugin> pluginCache = new LinkedHashMap<>();
 
     @Inject
-    private Instance<Plugin> plugins;
+    private Instance<StoragePlugin> plugins;
 
-    public PluginFactory() {}
+    public StoragePluginFactory() {}
 
     @PostConstruct
     public void initializePlugins() {
-        for (Plugin plugin : plugins) {
+        for (StoragePlugin plugin : plugins) {
             String pluginId = plugin.getPluginId();
             Plugin previous = pluginCache.putIfAbsent(pluginId, plugin);
             if (previous != null) {
