@@ -13,11 +13,11 @@ public class AsyncEventManager implements EventManager {
     protected final ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
 
     protected final Logger logger;
-    protected final Collection<? extends EventManager> eventManagers;
+    protected final SequencedCollection<? extends EventManager> eventManagers;
 
-    public AsyncEventManager(Logger logger, Collection<? extends EventManager> eventManagers) {
+    public AsyncEventManager(Logger logger, SequencedCollection<? extends EventManager> eventManagers) {
         this.logger = Objects.requireNonNull(logger);
-        this.eventManagers = Collections.unmodifiableCollection(eventManagers);
+        this.eventManagers = Collections.unmodifiableSequencedCollection(eventManagers);
     }
 
     public AsyncEventManager(Logger logger, EventManager... eventManagers) {

@@ -1,7 +1,6 @@
 package app.ludrive.server.cdi.core;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -35,7 +34,7 @@ public class EventManagerProducer {
 
     public EventManagerProducer() {}
 
-    private Collection<? extends EventManager> eventManagers() {
+    private List<? extends EventManager> eventManagers() {
 
         List<EventManager> result = new ArrayList<>();
 
