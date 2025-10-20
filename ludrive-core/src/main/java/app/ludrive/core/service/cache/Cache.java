@@ -1,6 +1,7 @@
 package app.ludrive.core.service.cache;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 import java.util.SequencedCollection;
 
@@ -9,6 +10,8 @@ import app.ludrive.core.domain.Identifiable;
 public interface Cache<T extends Identifiable, ID> {
 
     void setValue(ID id, T value);
+
+    void setValues(Map<ID, T> values);
 
     Optional<T> getValue(ID id);
 

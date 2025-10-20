@@ -22,6 +22,16 @@ public class MemoryCache<T extends Identifiable, ID> implements Cache<T, ID> {
     }
 
     @Override
+    public void setValues(Map<ID, T> values) {
+
+        if (values == null) {
+            throw new CacheException("Values cannot be null");
+        }
+
+        cache.putAll(values);
+    }
+
+    @Override
     public Optional<T> getValue(ID id) {
 
         if (id == null) {
