@@ -27,138 +27,137 @@ public final class Events {
 
     public record DeletedEvent<T extends Identifiable>(T value) {}
 
-    public record DriveUserCreatedProps(AuthIdentity identity, SequencedCollection<CreatedEvent<DriveUser>> driveUsers)
+    public record DriveUserCreatedProps(
+            AuthIdentity identity, SequencedCollection<CreatedEvent<DriveUser>> createdDriveUsers)
             implements EventProps {
+
         public DriveUserCreatedProps(AuthIdentity identity, DriveUser driveUser) {
             this(identity, Collections.singletonList(new CreatedEvent<>(driveUser)));
         }
     }
 
-    public record DriveUserReadProps(DriveUser identity, SequencedCollection<ReadEvent<DriveUser>> driveUsers)
+    public record DriveUserReadProps(DriveUser identity, SequencedCollection<ReadEvent<DriveUser>> readDriveUsers)
             implements EventProps {
+
         public DriveUserReadProps(DriveUser identity, DriveUser driveUser) {
             this(identity, Collections.singletonList(new ReadEvent<>(driveUser)));
         }
     }
 
     public record DriveUserUpdatedProps(
-            DriveUser identity, SequencedCollection<UpdatedEvent<DriveUser>> driveUserUpdates) implements EventProps {
-
-        public DriveUserUpdatedProps(DriveUser identity, UpdatedEvent<DriveUser> driveUserUpdate) {
-            this(identity, Collections.singletonList(driveUserUpdate));
-        }
+            DriveUser identity, SequencedCollection<UpdatedEvent<DriveUser>> updatedDriveUsers) implements EventProps {
 
         public DriveUserUpdatedProps(DriveUser identity, DriveUser oldDriveUser, DriveUser newDriveUser) {
-            this(identity, new UpdatedEvent<>(oldDriveUser, newDriveUser));
+            this(identity, Collections.singletonList(new UpdatedEvent<>(oldDriveUser, newDriveUser)));
         }
     }
 
-    public record DriveUserDeletedProps(DriveUser identity, SequencedCollection<DeletedEvent<DriveUser>> driveUsers)
-            implements EventProps {
+    public record DriveUserDeletedProps(
+            DriveUser identity, SequencedCollection<DeletedEvent<DriveUser>> deletedDriveUsers) implements EventProps {
+
         public DriveUserDeletedProps(DriveUser identity, DriveUser driveUser) {
             this(identity, Collections.singletonList(new DeletedEvent<>(driveUser)));
         }
     }
 
-    public record EntryCreatedProps(DriveUser identity, SequencedCollection<CreatedEvent<Entry>> entries)
+    public record EntryCreatedProps(DriveUser identity, SequencedCollection<CreatedEvent<Entry>> createdEntries)
             implements EventProps {
+
         public EntryCreatedProps(DriveUser identity, Entry entry) {
             this(identity, Collections.singletonList(new CreatedEvent<>(entry)));
         }
     }
 
-    public record EntryReadProps(DriveUser identity, SequencedCollection<ReadEvent<Entry>> entries)
+    public record EntryReadProps(DriveUser identity, SequencedCollection<ReadEvent<Entry>> readEntries)
             implements EventProps {
+
         public EntryReadProps(DriveUser identity, Entry entry) {
             this(identity, Collections.singletonList(new ReadEvent<>(entry)));
         }
     }
 
-    public record EntryUpdatedProps(DriveUser identity, SequencedCollection<UpdatedEvent<Entry>> entryUpdates)
+    public record EntryUpdatedProps(DriveUser identity, SequencedCollection<UpdatedEvent<Entry>> updatedEntries)
             implements EventProps {
 
-        public EntryUpdatedProps(DriveUser identity, UpdatedEvent<Entry> entryUpdate) {
-            this(identity, Collections.singletonList(entryUpdate));
-        }
-
         public EntryUpdatedProps(DriveUser identity, Entry oldEntry, Entry newEntry) {
-            this(identity, new UpdatedEvent<>(oldEntry, newEntry));
+            this(identity, Collections.singletonList(new UpdatedEvent<>(oldEntry, newEntry)));
         }
     }
 
-    public record EntryDeletedProps(DriveUser identity, SequencedCollection<DeletedEvent<Entry>> entries)
+    public record EntryDeletedProps(DriveUser identity, SequencedCollection<DeletedEvent<Entry>> deletedEntries)
             implements EventProps {
+
         public EntryDeletedProps(DriveUser identity, Entry entry) {
             this(identity, Collections.singletonList(new DeletedEvent<>(entry)));
         }
     }
 
     public record DirectoryCreatedProps(
-            DriveUser identity, UUID entryId, SequencedCollection<CreatedEvent<Directory>> directories)
+            DriveUser identity, UUID entryId, SequencedCollection<CreatedEvent<Directory>> createdDirectories)
             implements EventProps {
+
         public DirectoryCreatedProps(DriveUser identity, UUID entryId, Directory directory) {
             this(identity, entryId, Collections.singletonList(new CreatedEvent<>(directory)));
         }
     }
 
     public record DirectoryReadProps(
-            DriveUser identity, UUID entryId, SequencedCollection<ReadEvent<Directory>> directories)
+            DriveUser identity, UUID entryId, SequencedCollection<ReadEvent<Directory>> readDirectories)
             implements EventProps {
+
         public DirectoryReadProps(DriveUser identity, UUID entryId, Directory directory) {
             this(identity, entryId, Collections.singletonList(new ReadEvent<>(directory)));
         }
     }
 
     public record DirectoryUpdatedProps(
-            DriveUser identity, UUID entryId, SequencedCollection<UpdatedEvent<Directory>> directoryUpdates)
+            DriveUser identity, UUID entryId, SequencedCollection<UpdatedEvent<Directory>> updatedDirectories)
             implements EventProps {
 
-        public DirectoryUpdatedProps(DriveUser identity, UUID entryId, UpdatedEvent<Directory> directoryUpdate) {
-            this(identity, entryId, Collections.singletonList(directoryUpdate));
-        }
-
         public DirectoryUpdatedProps(DriveUser identity, UUID entryId, Directory oldDirectory, Directory newDirectory) {
-            this(identity, entryId, new UpdatedEvent<>(oldDirectory, newDirectory));
+            this(identity, entryId, Collections.singletonList(new UpdatedEvent<>(oldDirectory, newDirectory)));
         }
     }
 
     public record DirectoryDeletedProps(
-            DriveUser identity, UUID entryId, SequencedCollection<DeletedEvent<Directory>> directories)
+            DriveUser identity, UUID entryId, SequencedCollection<DeletedEvent<Directory>> deletedDirectories)
             implements EventProps {
+
         public DirectoryDeletedProps(DriveUser identity, UUID entryId, Directory directory) {
             this(identity, entryId, Collections.singletonList(new DeletedEvent<>(directory)));
         }
     }
 
-    public record FileCreatedProps(DriveUser identity, UUID entryId, SequencedCollection<CreatedEvent<File>> files)
+    public record FileCreatedProps(
+            DriveUser identity, UUID entryId, SequencedCollection<CreatedEvent<File>> createdFiles)
             implements EventProps {
+
         public FileCreatedProps(DriveUser identity, UUID entryId, File file) {
             this(identity, entryId, Collections.singletonList(new CreatedEvent<>(file)));
         }
     }
 
-    public record FileReadProps(DriveUser identity, UUID entryId, SequencedCollection<ReadEvent<File>> files)
+    public record FileReadProps(DriveUser identity, UUID entryId, SequencedCollection<ReadEvent<File>> readFiles)
             implements EventProps {
+
         public FileReadProps(DriveUser identity, UUID entryId, File file) {
             this(identity, entryId, Collections.singletonList(new ReadEvent<>(file)));
         }
     }
 
     public record FileUpdatedProps(
-            DriveUser identity, UUID entryId, SequencedCollection<UpdatedEvent<File>> fileUpdates)
+            DriveUser identity, UUID entryId, SequencedCollection<UpdatedEvent<File>> updatedFiles)
             implements EventProps {
 
-        public FileUpdatedProps(DriveUser identity, UUID entryId, UpdatedEvent<File> fileUpdate) {
-            this(identity, entryId, Collections.singletonList(fileUpdate));
-        }
-
         public FileUpdatedProps(DriveUser identity, UUID entryId, File oldFile, File newFile) {
-            this(identity, entryId, new UpdatedEvent<>(oldFile, newFile));
+            this(identity, entryId, Collections.singletonList(new UpdatedEvent<>(oldFile, newFile)));
         }
     }
 
-    public record FileDeletedProps(DriveUser identity, UUID entryId, SequencedCollection<DeletedEvent<File>> files)
+    public record FileDeletedProps(
+            DriveUser identity, UUID entryId, SequencedCollection<DeletedEvent<File>> deletedFiles)
             implements EventProps {
+
         public FileDeletedProps(DriveUser identity, UUID entryId, File file) {
             this(identity, entryId, Collections.singletonList(new DeletedEvent<>(file)));
         }
