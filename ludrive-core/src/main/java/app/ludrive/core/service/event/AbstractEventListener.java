@@ -1,6 +1,6 @@
 package app.ludrive.core.service.event;
 
-public interface AbstractEventManager extends EventManager {
+public interface AbstractEventListener extends EventListener {
 
     @Override
     default void onDriveUserCreated(Events.DriveUserCreatedProps props) {}

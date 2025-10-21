@@ -2,35 +2,35 @@ package app.ludrive.core.service.event;
 
 public interface EventManager {
 
-    void onDriveUserCreated(Events.DriveUserCreatedProps props);
+    void triggerDriveUserCreated(Events.DriveUserCreatedProps props);
 
-    void onDriveUserRead(Events.DriveUserReadProps props);
+    void triggerDriveUserRead(Events.DriveUserReadProps props);
 
-    void onDriveUserUpdated(Events.DriveUserUpdatedProps props);
+    void triggerDriveUserUpdated(Events.DriveUserUpdatedProps props);
 
-    void onDriveUserDeleted(Events.DriveUserDeletedProps props);
+    void triggerDriveUserDeleted(Events.DriveUserDeletedProps props);
 
-    void onEntryCreated(Events.EntryCreatedProps props);
+    void triggerEntryCreated(Events.EntryCreatedProps props);
 
-    void onEntryRead(Events.EntryReadProps props);
+    void triggerEntryRead(Events.EntryReadProps props);
 
-    void onEntryUpdated(Events.EntryUpdatedProps props);
+    void triggerEntryUpdated(Events.EntryUpdatedProps props);
 
-    void onEntryDeleted(Events.EntryDeletedProps props);
+    void triggerEntryDeleted(Events.EntryDeletedProps props);
 
-    void onDirectoryCreated(Events.DirectoryCreatedProps props);
+    void triggerDirectoryCreated(Events.DirectoryCreatedProps props);
 
-    void onDirectoryRead(Events.DirectoryReadProps props);
+    void triggerDirectoryRead(Events.DirectoryReadProps props);
 
-    void onDirectoryUpdated(Events.DirectoryUpdatedProps props);
+    void triggerDirectoryUpdated(Events.DirectoryUpdatedProps props);
 
-    void onDirectoryDeleted(Events.DirectoryDeletedProps props);
+    void triggerDirectoryDeleted(Events.DirectoryDeletedProps props);
 
-    void onFileCreated(Events.FileCreatedProps props);
+    void triggerFileCreated(Events.FileCreatedProps props);
 
-    void onFileRead(Events.FileReadProps props);
+    void triggerFileRead(Events.FileReadProps props);
 
-    void onFileUpdated(Events.FileUpdatedProps props);
+    void triggerFileUpdated(Events.FileUpdatedProps props);
 
-    void onFileDeleted(Events.FileDeletedProps props);
+    void triggerFileDeleted(Events.FileDeletedProps props);
 }

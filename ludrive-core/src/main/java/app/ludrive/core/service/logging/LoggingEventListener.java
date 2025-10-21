@@ -1,93 +1,93 @@
-package app.ludrive.core.service.telemetry;
+package app.ludrive.core.service.logging;
 
-import app.ludrive.core.service.event.EventManager;
+import app.ludrive.core.service.event.EventListener;
 import app.ludrive.core.service.event.Events;
 
-public class TelemetryEventManager implements EventManager {
+public class LoggingEventListener implements EventListener {
 
-    protected final TelemetryService telemetryService;
+    protected final Logger logger;
 
-    public TelemetryEventManager(TelemetryService telemetryService) {
-        this.telemetryService = telemetryService;
+    public LoggingEventListener(Logger logger) {
+        this.logger = logger;
     }
 
     @Override
     public void onDriveUserCreated(Events.DriveUserCreatedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("drive-user created {}", props);
     }
 
     @Override
     public void onDriveUserRead(Events.DriveUserReadProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("drive-user read {}", props);
     }
 
     @Override
     public void onDriveUserUpdated(Events.DriveUserUpdatedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("drive-user updated {}", props);
     }
 
     @Override
     public void onDriveUserDeleted(Events.DriveUserDeletedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("drive-user deleted {}", props);
     }
 
     @Override
     public void onEntryCreated(Events.EntryCreatedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("entry created {}", props);
     }
 
     @Override
     public void onEntryRead(Events.EntryReadProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("entry read {}", props);
     }
 
     @Override
     public void onEntryUpdated(Events.EntryUpdatedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("entry updated {}", props);
     }
 
     @Override
     public void onEntryDeleted(Events.EntryDeletedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("entry deleted {}", props);
     }
 
     @Override
     public void onDirectoryCreated(Events.DirectoryCreatedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("directory created {}", props);
     }
 
     @Override
     public void onDirectoryRead(Events.DirectoryReadProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("directory read {}", props);
     }
 
     @Override
     public void onDirectoryUpdated(Events.DirectoryUpdatedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("directory updated {}", props);
     }
 
     @Override
     public void onDirectoryDeleted(Events.DirectoryDeletedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("directory deleted {}", props);
     }
 
     @Override
     public void onFileCreated(Events.FileCreatedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("file created {}", props);
     }
 
     @Override
     public void onFileRead(Events.FileReadProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("file read {}", props);
     }
 
     @Override
     public void onFileUpdated(Events.FileUpdatedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("file updated {}", props);
     }
 
     @Override
     public void onFileDeleted(Events.FileDeletedProps props) {
-        telemetryService.countSuccess(props.identity());
+        logger.info("file deleted {}", props);
     }
 }

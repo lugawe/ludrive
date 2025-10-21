@@ -13,122 +13,122 @@ public class AsyncEventManager implements EventManager {
     protected final ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor();
 
     protected final Logger logger;
-    protected final SequencedCollection<? extends EventManager> eventManagers;
+    protected final SequencedCollection<? extends EventListener> eventListeners;
 
-    public AsyncEventManager(Logger logger, SequencedCollection<? extends EventManager> eventManagers) {
+    public AsyncEventManager(Logger logger, SequencedCollection<? extends EventListener> eventListeners) {
         this.logger = Objects.requireNonNull(logger);
-        this.eventManagers = Collections.unmodifiableSequencedCollection(eventManagers);
+        this.eventListeners = Collections.unmodifiableSequencedCollection(eventListeners);
     }
 
-    public AsyncEventManager(Logger logger, EventManager... eventManagers) {
-        this(logger, Arrays.asList(eventManagers));
+    public AsyncEventManager(Logger logger, EventListener... eventListeners) {
+        this(logger, Arrays.asList(eventListeners));
     }
 
-    public AsyncEventManager(Logger logger, EventManager eventManager) {
-        this(logger, Collections.singletonList(eventManager));
+    public AsyncEventManager(Logger logger, EventListener eventListener) {
+        this(logger, Collections.singletonList(eventListener));
     }
 
-    protected void runAsync(Consumer<EventManager> consumer) {
-        logger.debug("runAsync on {} event managers", eventManagers.size());
-        for (EventManager eventManager : eventManagers) {
-            CompletableFuture.runAsync(() -> consumer.accept(eventManager), executorService)
-                    .thenRun(() -> logger.debug("runAsync on {} finished", eventManager));
+    protected void runAsync(Consumer<EventListener> consumer) {
+        logger.debug("runAsync on {} event managers", eventListeners.size());
+        for (EventListener eventListener : eventListeners) {
+            CompletableFuture.runAsync(() -> consumer.accept(eventListener), executorService)
+                    .thenRun(() -> logger.debug("runAsync on {} finished", eventListener));
         }
     }
 
     @Override
-    public void onDriveUserCreated(Events.DriveUserCreatedProps props) {
+    public void triggerDriveUserCreated(Events.DriveUserCreatedProps props) {
         logger.debug("onDriveUserCreated {}", props);
-        runAsync((eventManager) -> eventManager.onDriveUserCreated(props));
+        runAsync((eventListener) -> eventListener.onDriveUserCreated(props));
     }
 
     @Override
-    public void onDriveUserRead(Events.DriveUserReadProps props) {
+    public void triggerDriveUserRead(Events.DriveUserReadProps props) {
         logger.debug("onDriveUserRead {}", props);
-        runAsync((eventManager) -> eventManager.onDriveUserRead(props));
+        runAsync((eventListener) -> eventListener.onDriveUserRead(props));
     }
 
     @Override
-    public void onDriveUserUpdated(Events.DriveUserUpdatedProps props) {
+    public void triggerDriveUserUpdated(Events.DriveUserUpdatedProps props) {
         logger.debug("onDriveUserUpdated {}", props);
-        runAsync((eventManager) -> eventManager.onDriveUserUpdated(props));
+        runAsync((eventListener) -> eventListener.onDriveUserUpdated(props));
     }
 
     @Override
-    public void onDriveUserDeleted(Events.DriveUserDeletedProps props) {
+    public void triggerDriveUserDeleted(Events.DriveUserDeletedProps props) {
         logger.debug("onDriveUserDeleted {}", props);
-        runAsync((eventManager) -> eventManager.onDriveUserDeleted(props));
+        runAsync((eventListener) -> eventListener.onDriveUserDeleted(props));
     }
 
     @Override
-    public void onEntryCreated(Events.EntryCreatedProps props) {
+    public void triggerEntryCreated(Events.EntryCreatedProps props) {
         logger.debug("onEntryCreated {}", props);
-        runAsync((eventManager) -> eventManager.onEntryCreated(props));
+        runAsync((eventListener) -> eventListener.onEntryCreated(props));
     }
 
     @Override
-    public void onEntryRead(Events.EntryReadProps props) {
+    public void triggerEntryRead(Events.EntryReadProps props) {
         logger.debug("onEntryRead {}", props);
-        runAsync((eventManager) -> eventManager.onEntryRead(props));
+        runAsync((eventListener) -> eventListener.onEntryRead(props));
     }
 
     @Override
-    public void onEntryUpdated(Events.EntryUpdatedProps props) {
+    public void triggerEntryUpdated(Events.EntryUpdatedProps props) {
         logger.debug("onEntryUpdated {}", props);
-        runAsync((eventManager) -> eventManager.onEntryUpdated(props));
+        runAsync((eventListener) -> eventListener.onEntryUpdated(props));
     }
 
     @Override
-    public void onEntryDeleted(Events.EntryDeletedProps props) {
+    public void triggerEntryDeleted(Events.EntryDeletedProps props) {
         logger.debug("onEntryDeleted {}", props);
-        runAsync((eventManager) -> eventManager.onEntryDeleted(props));
+        runAsync((eventListener) -> eventListener.onEntryDeleted(props));
     }
 
     @Override
-    public void onDirectoryCreated(Events.DirectoryCreatedProps props) {
+    public void triggerDirectoryCreated(Events.DirectoryCreatedProps props) {
         logger.debug("onDirectoryCreated {}", props);
-        runAsync((eventManager) -> eventManager.onDirectoryCreated(props));
+        runAsync((eventListener) -> eventListener.onDirectoryCreated(props));
     }
 
     @Override
-    public void onDirectoryRead(Events.DirectoryReadProps props) {
+    public void triggerDirectoryRead(Events.DirectoryReadProps props) {
         logger.debug("onDirectoryRead {}", props);
-        runAsync((eventManager) -> eventManager.onDirectoryRead(props));
+        runAsync((eventListener) -> eventListener.onDirectoryRead(props));
     }
 
     @Override
-    public void onDirectoryUpdated(Events.DirectoryUpdatedProps props) {
+    public void triggerDirectoryUpdated(Events.DirectoryUpdatedProps props) {
         logger.debug("onDirectoryUpdated {}", props);
-        runAsync((eventManager) -> eventManager.onDirectoryUpdated(props));
+        runAsync((eventListener) -> eventListener.onDirectoryUpdated(props));
     }
 
     @Override
-    public void onDirectoryDeleted(Events.DirectoryDeletedProps props) {
+    public void triggerDirectoryDeleted(Events.DirectoryDeletedProps props) {
         logger.debug("onDirectoryDeleted {}", props);
-        runAsync((eventManager) -> eventManager.onDirectoryDeleted(props));
+        runAsync((eventListener) -> eventListener.onDirectoryDeleted(props));
     }
 
     @Override
-    public void onFileCreated(Events.FileCreatedProps props) {
+    public void triggerFileCreated(Events.FileCreatedProps props) {
         logger.debug("onFileCreated {}", props);
-        runAsync((eventManager) -> eventManager.onFileCreated(props));
+        runAsync((eventListener) -> eventListener.onFileCreated(props));
     }
 
     @Override
-    public void onFileRead(Events.FileReadProps props) {
+    public void triggerFileRead(Events.FileReadProps props) {
         logger.debug("onFileRead {}", props);
-        runAsync((eventManager) -> eventManager.onFileRead(props));
+        runAsync((eventListener) -> eventListener.onFileRead(props));
     }
 
     @Override
-    public void onFileUpdated(Events.FileUpdatedProps props) {
+    public void triggerFileUpdated(Events.FileUpdatedProps props) {
         logger.debug("onFileUpdated {}", props);
-        runAsync((eventManager) -> eventManager.onFileUpdated(props));
+        runAsync((eventListener) -> eventListener.onFileUpdated(props));
     }
 
     @Override
-    public void onFileDeleted(Events.FileDeletedProps props) {
+    public void triggerFileDeleted(Events.FileDeletedProps props) {
         logger.debug("onFileDeleted {}", props);
-        runAsync((eventManager) -> eventManager.onFileDeleted(props));
+        runAsync((eventListener) -> eventListener.onFileDeleted(props));
     }
 }

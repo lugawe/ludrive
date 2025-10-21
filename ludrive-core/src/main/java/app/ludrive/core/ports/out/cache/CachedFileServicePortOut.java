@@ -8,10 +8,10 @@ import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.domain.vfs.FileContent;
 import app.ludrive.core.ports.out.FileServicePortOut;
-import app.ludrive.core.service.event.AbstractEventManager;
+import app.ludrive.core.service.event.AbstractEventListener;
 
 // TODO
-public final class CachedFileServicePortOut implements FileServicePortOut, AbstractEventManager {
+public final class CachedFileServicePortOut implements FileServicePortOut, AbstractEventListener {
 
     private final FileServicePortOut fileServicePortOut;
     private final FileServiceFileCache fileServiceFileCache;

@@ -42,7 +42,7 @@ public final class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         Entry result = entryServicePortOut.createEntry(driveUser, entry);
 
-        eventManager.onEntryCreated(new Events.EntryCreatedProps(driveUser, result));
+        eventManager.triggerEntryCreated(new Events.EntryCreatedProps(driveUser, result));
 
         return result;
     }
@@ -52,7 +52,8 @@ public final class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         authService.checkAccess(driveUser);
 
-        Consumer<Entry> onEntryRead = entry -> eventManager.onEntryRead(new Events.EntryReadProps(driveUser, entry));
+        Consumer<Entry> onEntryRead =
+                entry -> eventManager.triggerEntryRead(new Events.EntryReadProps(driveUser, entry));
 
         return entryServicePortOut.getEntries(driveUser).peek(onEntryRead);
     }
@@ -64,7 +65,7 @@ public final class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         Entry result = entryServicePortOut.getEntry(driveUser, entryId);
 
-        eventManager.onEntryRead(new Events.EntryReadProps(driveUser, result));
+        eventManager.triggerEntryRead(new Events.EntryReadProps(driveUser, result));
 
         return result;
     }
@@ -78,7 +79,7 @@ public final class DefaultEntryServicePortIn implements EntryServicePortIn {
         Entry oldEntry = entryServicePortOut.getEntry(driveUser, entryId);
         Entry newEntry = entryServicePortOut.updateEntry(driveUser, entryId, updatedEntry);
 
-        eventManager.onEntryUpdated(new Events.EntryUpdatedProps(driveUser, oldEntry, newEntry));
+        eventManager.triggerEntryUpdated(new Events.EntryUpdatedProps(driveUser, oldEntry, newEntry));
 
         return newEntry;
     }
@@ -90,7 +91,7 @@ public final class DefaultEntryServicePortIn implements EntryServicePortIn {
 
         Entry result = entryServicePortOut.deleteEntry(driveUser, entryId);
 
-        eventManager.onEntryDeleted(new Events.EntryDeletedProps(driveUser, result));
+        eventManager.triggerEntryDeleted(new Events.EntryDeletedProps(driveUser, result));
 
         return result;
     }

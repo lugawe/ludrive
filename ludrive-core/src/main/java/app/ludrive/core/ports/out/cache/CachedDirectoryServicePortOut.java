@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.ports.out.DirectoryServicePortOut;
-import app.ludrive.core.service.event.AbstractEventManager;
+import app.ludrive.core.service.event.AbstractEventListener;
 
 // TODO
-public final class CachedDirectoryServicePortOut implements DirectoryServicePortOut, AbstractEventManager {
+public final class CachedDirectoryServicePortOut implements DirectoryServicePortOut, AbstractEventListener {
 
     private final DirectoryServicePortOut directoryServicePortOut;
     private final DirectoryServiceCache directoryServiceCache;

@@ -42,7 +42,7 @@ public final class DefaultDirectoryServicePortIn implements DirectoryServicePort
 
         Directory result = directoryServicePortOut.createDirectory(driveUser, entryId, directory);
 
-        eventManager.onDirectoryCreated(new Events.DirectoryCreatedProps(driveUser, entryId, result));
+        eventManager.triggerDirectoryCreated(new Events.DirectoryCreatedProps(driveUser, entryId, result));
 
         return result;
     }
@@ -53,8 +53,8 @@ public final class DefaultDirectoryServicePortIn implements DirectoryServicePort
         authService.checkEntryAccess(driveUser, entryId);
         validator.validatePath(path);
 
-        Consumer<Directory> onDirectoryRead =
-                directory -> eventManager.onDirectoryRead(new Events.DirectoryReadProps(driveUser, entryId, directory));
+        Consumer<Directory> onDirectoryRead = directory ->
+                eventManager.triggerDirectoryRead(new Events.DirectoryReadProps(driveUser, entryId, directory));
 
         return directoryServicePortOut.getDirectories(driveUser, entryId, path).peek(onDirectoryRead);
     }
@@ -67,7 +67,7 @@ public final class DefaultDirectoryServicePortIn implements DirectoryServicePort
 
         Directory result = directoryServicePortOut.getDirectory(driveUser, entryId, path);
 
-        eventManager.onDirectoryRead(new Events.DirectoryReadProps(driveUser, entryId, result));
+        eventManager.triggerDirectoryRead(new Events.DirectoryReadProps(driveUser, entryId, result));
 
         return result;
     }
@@ -82,7 +82,7 @@ public final class DefaultDirectoryServicePortIn implements DirectoryServicePort
         Directory oldDirectory = directoryServicePortOut.getDirectory(driveUser, entryId, path);
         Directory newDirectory = directoryServicePortOut.updateDirectory(driveUser, entryId, path, updatedDirectory);
 
-        eventManager.onDirectoryUpdated(
+        eventManager.triggerDirectoryUpdated(
                 new Events.DirectoryUpdatedProps(driveUser, entryId, oldDirectory, newDirectory));
 
         return newDirectory;
@@ -96,7 +96,7 @@ public final class DefaultDirectoryServicePortIn implements DirectoryServicePort
 
         Directory result = directoryServicePortOut.deleteDirectory(driveUser, entryId, path);
 
-        eventManager.onDirectoryDeleted(new Events.DirectoryDeletedProps(driveUser, entryId, result));
+        eventManager.triggerDirectoryDeleted(new Events.DirectoryDeletedProps(driveUser, entryId, result));
 
         return result;
     }

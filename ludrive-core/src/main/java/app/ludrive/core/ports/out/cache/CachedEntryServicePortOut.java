@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.EntryServicePortOut;
-import app.ludrive.core.service.event.AbstractEventManager;
+import app.ludrive.core.service.event.AbstractEventListener;
 
 // TODO
-public final class CachedEntryServicePortOut implements EntryServicePortOut, AbstractEventManager {
+public final class CachedEntryServicePortOut implements EntryServicePortOut, AbstractEventListener {
 
     private final EntryServicePortOut entryServicePortOut;
     private final EntryServiceCache entryServiceCache;

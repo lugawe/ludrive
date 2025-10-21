@@ -39,7 +39,7 @@ public final class DefaultDriveUserServicePortIn implements DriveUserServicePort
 
         DriveUser result = driveUserServicePortOut.createDriveUser(driveUser);
 
-        eventManager.onDriveUserCreated(new Events.DriveUserCreatedProps(identity, result));
+        eventManager.triggerDriveUserCreated(new Events.DriveUserCreatedProps(identity, result));
 
         return result;
     }
@@ -51,7 +51,7 @@ public final class DefaultDriveUserServicePortIn implements DriveUserServicePort
 
         DriveUser result = driveUserServicePortOut.getDriveUser(driveUserId);
 
-        eventManager.onDriveUserRead(new Events.DriveUserReadProps(driveUser, result));
+        eventManager.triggerDriveUserRead(new Events.DriveUserReadProps(driveUser, result));
 
         return result;
     }
@@ -65,7 +65,7 @@ public final class DefaultDriveUserServicePortIn implements DriveUserServicePort
         DriveUser oldDriveUser = driveUserServicePortOut.getDriveUser(driveUserId);
         DriveUser newDriveUser = driveUserServicePortOut.updateDriveUser(driveUserId, updatedDriveUser);
 
-        eventManager.onDriveUserUpdated(new Events.DriveUserUpdatedProps(driveUser, oldDriveUser, newDriveUser));
+        eventManager.triggerDriveUserUpdated(new Events.DriveUserUpdatedProps(driveUser, oldDriveUser, newDriveUser));
 
         return newDriveUser;
     }
@@ -77,7 +77,7 @@ public final class DefaultDriveUserServicePortIn implements DriveUserServicePort
 
         DriveUser result = driveUserServicePortOut.deleteDriveUser(driveUserId);
 
-        eventManager.onDriveUserDeleted(new Events.DriveUserDeletedProps(driveUser, result));
+        eventManager.triggerDriveUserDeleted(new Events.DriveUserDeletedProps(driveUser, result));
 
         return result;
     }
