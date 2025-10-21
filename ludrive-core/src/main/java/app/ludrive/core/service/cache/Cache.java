@@ -7,6 +7,8 @@ import java.util.SequencedCollection;
 
 public interface Cache<T, ID> {
 
+    // ---
+
     void setValue(ID id, T value);
 
     void setValues(Map<ID, T> values);
@@ -15,7 +17,7 @@ public interface Cache<T, ID> {
 
     SequencedCollection<T> getValues(Collection<ID> ids);
 
-    boolean containsValue(ID id);
+    boolean containsKey(ID id);
 
     void evict(ID id);
 

@@ -53,7 +53,7 @@ public class MemoryCache<T, ID> implements Cache<T, ID> {
     }
 
     @Override
-    public boolean containsValue(ID id) {
+    public boolean containsKey(ID id) {
 
         if (id == null) {
             throw new CacheException("Id cannot be null");
