@@ -9,10 +9,11 @@ import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
 import app.ludrive.core.service.event.AsyncEventManager;
+import app.ludrive.core.service.event.EventListener;
 import app.ludrive.core.service.event.EventManager;
-import app.ludrive.core.service.event.LoggingEventManager;
 import app.ludrive.core.service.logging.Logger;
-import app.ludrive.core.service.telemetry.TelemetryEventManager;
+import app.ludrive.core.service.logging.LoggingEventListener;
+import app.ludrive.core.service.telemetry.TelemetryEventListener;
 import app.ludrive.server.cdi.util.ClassNamed;
 import app.ludrive.server.otel.OpenTelemetryService;
 
@@ -26,25 +27,32 @@ public class EventManagerProducer {
     private Logger logger;
 
     @Inject
-    @ClassNamed(LoggingEventManager.class)
+    @ClassNamed(LoggingEventListener.class)
     private Logger logger2;
+
+    @Inject
+    private Instance<EventListener> eventListeners;
 
     @Inject
     private Instance<Meter> meter;
 
     public EventManagerProducer() {}
 
-    private List<? extends EventManager> eventManagers() {
+    private List<? extends EventListener> eventListeners() {
 
-        List<EventManager> result = new ArrayList<>();
+        List<EventListener> result = new ArrayList<>();
 
-        LoggingEventManager loggingEventManager = new LoggingEventManager(logger2);
-        result.add(loggingEventManager);
+        LoggingEventListener loggingEventListener = new LoggingEventListener(logger2);
+        result.add(loggingEventListener);
+
+        for (EventListener eventListener : eventListeners) {
+            result.add(eventListener);
+        }
 
         if (meter.isResolvable()) {
-            TelemetryEventManager telemetryEventManager =
-                    new TelemetryEventManager(new OpenTelemetryService(meter.get()));
-            result.add(telemetryEventManager);
+            TelemetryEventListener telemetryEventListener =
+                    new TelemetryEventListener(new OpenTelemetryService(meter.get()));
+            result.add(telemetryEventListener);
         }
 
         return result;
@@ -53,6 +61,6 @@ public class EventManagerProducer {
     @Produces
     public EventManager produce() {
 
-        return new AsyncEventManager(logger, eventManagers());
+        return new AsyncEventManager(logger, eventListeners());
     }
 }
