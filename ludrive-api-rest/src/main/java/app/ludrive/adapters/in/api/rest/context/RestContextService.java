@@ -8,8 +8,8 @@ import jakarta.inject.Inject;
 import app.ludrive.adapters.in.api.rest.auth.Jwts;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.DriveUser;
+import app.ludrive.core.ports.in.EntryServicePortIn;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
-import app.ludrive.core.ports.out.EntryServicePortOut;
 import app.ludrive.core.service.context.ContextService;
 
 import io.vertx.ext.web.RoutingContext;
@@ -29,7 +29,7 @@ public class RestContextService implements ContextService {
     private DriveUserServicePortOut driveUserServicePortOut;
 
     @Inject
-    private EntryServicePortOut entryServicePortOut;
+    private EntryServicePortIn entryServicePortIn;
 
     public RestContextService() {}
 
@@ -47,6 +47,6 @@ public class RestContextService implements ContextService {
 
         UUID entryId = UUID.fromString(parts[3]);
 
-        return entryServicePortOut.getEntry(getAuthIdentity(), entryId);
+        return entryServicePortIn.getEntry(getAuthIdentity(), entryId);
     }
 }
