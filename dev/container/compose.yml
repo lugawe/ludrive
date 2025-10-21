@@ -15,7 +15,7 @@ services:
       - POSTGRES_PASSWORD=ludrive-dev
 
   ludrive-dev-pgadmin4:
-    image: dpage/pgadmin4:9.8
+    image: dpage/pgadmin4:9
     container_name: ludrive-dev-pgadmin4
     restart: unless-stopped
     depends_on:
