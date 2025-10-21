@@ -38,7 +38,7 @@ public class EventManagerProducer {
 
     public EventManagerProducer() {}
 
-    private List<? extends EventListener> eventListeners() {
+    private List<? extends EventListener> createEventListeners() {
 
         List<EventListener> result = new ArrayList<>();
 
@@ -61,6 +61,6 @@ public class EventManagerProducer {
     @Produces
     public EventManager produce() {
 
-        return new AsyncEventManager(logger, eventListeners());
+        return new AsyncEventManager(logger, createEventListeners());
     }
 }
