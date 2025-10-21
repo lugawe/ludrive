@@ -11,11 +11,11 @@ import app.ludrive.core.service.cache.Cache;
 import app.ludrive.core.service.event.AbstractEventManager;
 
 // TODO
-public class CachedFileServicePortOut implements FileServicePortOut, AbstractEventManager {
+public final class CachedFileServicePortOut implements FileServicePortOut, AbstractEventManager {
 
-    protected final FileServicePortOut fileServicePortOut;
-    protected final Cache<File, String> fileCache;
-    protected final Cache<Content, String> contentCache;
+    private final FileServicePortOut fileServicePortOut;
+    private final Cache<File, String> fileCache;
+    private final Cache<Content, String> contentCache;
 
     public CachedFileServicePortOut(
             FileServicePortOut fileServicePortOut, Cache<File, String> fileCache, Cache<Content, String> contentCache) {

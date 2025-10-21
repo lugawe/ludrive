@@ -7,11 +7,11 @@ import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.DriveUserRepository;
 import app.ludrive.core.service.logging.Logger;
 
-public class DefaultDriveUserServicePortOut implements DriveUserServicePortOut {
+public final class DefaultDriveUserServicePortOut implements DriveUserServicePortOut {
 
-    protected final Logger logger;
-    protected final MigrationHandler migrationHandler;
-    protected final DriveUserRepository driveUserRepository;
+    private final Logger logger;
+    private final MigrationHandler migrationHandler;
+    private final DriveUserRepository driveUserRepository;
 
     public DefaultDriveUserServicePortOut(
             Logger logger, MigrationHandler migrationHandler, DriveUserRepository driveUserRepository) {

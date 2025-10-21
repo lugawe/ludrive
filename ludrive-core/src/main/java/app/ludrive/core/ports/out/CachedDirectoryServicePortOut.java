@@ -9,10 +9,10 @@ import app.ludrive.core.service.cache.Cache;
 import app.ludrive.core.service.event.AbstractEventManager;
 
 // TODO
-public class CachedDirectoryServicePortOut implements DirectoryServicePortOut, AbstractEventManager {
+public final class CachedDirectoryServicePortOut implements DirectoryServicePortOut, AbstractEventManager {
 
-    protected final DirectoryServicePortOut directoryServicePortOut;
-    protected final Cache<Directory, String> cache;
+    private final DirectoryServicePortOut directoryServicePortOut;
+    private final Cache<Directory, String> cache;
 
     public CachedDirectoryServicePortOut(
             DirectoryServicePortOut directoryServicePortOut, Cache<Directory, String> cache) {

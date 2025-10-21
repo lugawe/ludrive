@@ -7,10 +7,10 @@ import app.ludrive.core.service.cache.Cache;
 import app.ludrive.core.service.event.AbstractEventManager;
 
 // TODO
-public class CachedDriveUserServicePortOut implements DriveUserServicePortOut, AbstractEventManager {
+public final class CachedDriveUserServicePortOut implements DriveUserServicePortOut, AbstractEventManager {
 
-    protected final DriveUserServicePortOut driveUserServicePortOut;
-    protected final Cache<DriveUser, UUID> cache;
+    private final DriveUserServicePortOut driveUserServicePortOut;
+    private final Cache<DriveUser, UUID> cache;
 
     public CachedDriveUserServicePortOut(
             DriveUserServicePortOut driveUserServicePortOut, Cache<DriveUser, UUID> cache) {

@@ -13,13 +13,13 @@ import app.ludrive.core.service.event.Events;
 import app.ludrive.core.service.logging.Logger;
 import app.ludrive.core.service.validation.Validator;
 
-public class DefaultDirectoryServicePortIn implements DirectoryServicePortIn {
+public final class DefaultDirectoryServicePortIn implements DirectoryServicePortIn {
 
-    protected final Logger logger;
-    protected final AuthService authService;
-    protected final Validator validator;
-    protected final EventManager eventManager;
-    protected final DirectoryServicePortOut directoryServicePortOut;
+    private final Logger logger;
+    private final AuthService authService;
+    private final Validator validator;
+    private final EventManager eventManager;
+    private final DirectoryServicePortOut directoryServicePortOut;
 
     public DefaultDirectoryServicePortIn(
             Logger logger,

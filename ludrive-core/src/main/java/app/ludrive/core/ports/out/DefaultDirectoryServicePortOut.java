@@ -10,12 +10,12 @@ import app.ludrive.core.ports.out.repository.DirectoryRepository;
 import app.ludrive.core.service.logging.Logger;
 import app.ludrive.core.service.vfs.VirtualFileSystemService;
 
-public class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
+public final class DefaultDirectoryServicePortOut implements DirectoryServicePortOut {
 
-    protected final Logger logger;
-    protected final MigrationHandler migrationHandler;
-    protected final DirectoryRepository directoryRepository;
-    protected final VirtualFileSystemService virtualFileSystemService;
+    private final Logger logger;
+    private final MigrationHandler migrationHandler;
+    private final DirectoryRepository directoryRepository;
+    private final VirtualFileSystemService virtualFileSystemService;
 
     public DefaultDirectoryServicePortOut(
             Logger logger,

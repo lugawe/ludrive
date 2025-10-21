@@ -9,11 +9,11 @@ import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.EntryRepository;
 import app.ludrive.core.service.logging.Logger;
 
-public class DefaultEntryServicePortOut implements EntryServicePortOut {
+public final class DefaultEntryServicePortOut implements EntryServicePortOut {
 
-    protected final Logger logger;
-    protected final MigrationHandler migrationHandler;
-    protected final EntryRepository entryRepository;
+    private final Logger logger;
+    private final MigrationHandler migrationHandler;
+    private final EntryRepository entryRepository;
 
     public DefaultEntryServicePortOut(
             Logger logger, MigrationHandler migrationHandler, EntryRepository entryRepository) {

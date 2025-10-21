@@ -12,12 +12,12 @@ import app.ludrive.core.ports.out.repository.FileRepository;
 import app.ludrive.core.service.logging.Logger;
 import app.ludrive.core.service.vfs.VirtualFileSystemService;
 
-public class DefaultFileServicePortOut implements FileServicePortOut {
+public final class DefaultFileServicePortOut implements FileServicePortOut {
 
-    protected final Logger logger;
-    protected final MigrationHandler migrationHandler;
-    protected final FileRepository fileRepository;
-    protected final VirtualFileSystemService virtualFileSystemService;
+    private final Logger logger;
+    private final MigrationHandler migrationHandler;
+    private final FileRepository fileRepository;
+    private final VirtualFileSystemService virtualFileSystemService;
 
     public DefaultFileServicePortOut(
             Logger logger,
