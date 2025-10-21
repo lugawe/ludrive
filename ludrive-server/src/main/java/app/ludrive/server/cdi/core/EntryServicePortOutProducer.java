@@ -1,19 +1,16 @@
 package app.ludrive.server.cdi.core;
 
-import java.util.UUID;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
-import app.ludrive.core.domain.management.Entry;
-import app.ludrive.core.ports.out.CachedEntryServicePortOut;
 import app.ludrive.core.ports.out.DefaultEntryServicePortOut;
 import app.ludrive.core.ports.out.EntryServicePortOut;
+import app.ludrive.core.ports.out.cache.CachedEntryServicePortOut;
+import app.ludrive.core.ports.out.cache.EntryServiceCache;
+import app.ludrive.core.ports.out.cache.MemoryEntryServiceCache;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.EntryRepository;
-import app.ludrive.core.service.cache.Cache;
-import app.ludrive.core.service.cache.MemoryCache;
 import app.ludrive.core.service.logging.Logger;
 import app.ludrive.server.cdi.util.ClassNamed;
 
@@ -33,12 +30,12 @@ public class EntryServicePortOutProducer {
     public EntryServicePortOutProducer() {}
 
     @Produces
-    public Cache<Entry, UUID> entryServiceCache() {
-        return new MemoryCache<>();
+    public EntryServiceCache entryServiceCache() {
+        return new MemoryEntryServiceCache();
     }
 
     @Produces
-    public EntryServicePortOut produce(Cache<Entry, UUID> entryServiceCache) {
+    public EntryServicePortOut produce(EntryServiceCache entryServiceCache) {
 
         EntryServicePortOut entryServicePortOut =
                 new DefaultEntryServicePortOut(logger, migrationHandler, entryRepository);

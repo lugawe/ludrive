@@ -4,15 +4,11 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 
-import app.ludrive.core.domain.vfs.Content;
-import app.ludrive.core.domain.vfs.File;
-import app.ludrive.core.ports.out.CachedFileServicePortOut;
 import app.ludrive.core.ports.out.DefaultFileServicePortOut;
 import app.ludrive.core.ports.out.FileServicePortOut;
+import app.ludrive.core.ports.out.cache.*;
 import app.ludrive.core.ports.out.migration.MigrationHandler;
 import app.ludrive.core.ports.out.repository.FileRepository;
-import app.ludrive.core.service.cache.Cache;
-import app.ludrive.core.service.cache.MemoryCache;
 import app.ludrive.core.service.logging.Logger;
 import app.ludrive.core.service.vfs.VirtualFileSystemService;
 import app.ludrive.server.cdi.util.ClassNamed;
@@ -36,18 +32,18 @@ public class FileServicePortOutProducer {
     public FileServicePortOutProducer() {}
 
     @Produces
-    public Cache<File, String> fileServiceFileCache() {
-        return new MemoryCache<>();
+    public FileServiceFileCache fileServiceFileCache() {
+        return new MemoryFileServiceFileCache();
     }
 
     @Produces
-    public Cache<Content, String> fileServiceContentCache() {
-        return new MemoryCache<>();
+    public FileServiceContentCache fileServiceContentCache() {
+        return new MemoryFileServiceContentCache();
     }
 
     @Produces
     public FileServicePortOut produce(
-            Cache<File, String> fileServiceFileCache, Cache<Content, String> fileServiceContentCache) {
+            FileServiceFileCache fileServiceFileCache, FileServiceContentCache fileServiceContentCache) {
 
         FileServicePortOut fileServicePortOut =
                 new DefaultFileServicePortOut(logger, migrationHandler, fileRepository, virtualFileSystemService);
