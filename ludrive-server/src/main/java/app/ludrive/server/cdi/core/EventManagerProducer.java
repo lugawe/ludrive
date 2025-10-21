@@ -38,7 +38,7 @@ public class EventManagerProducer {
 
     public EventManagerProducer() {}
 
-    private List<? extends EventListener> createEventListeners() {
+    private List<EventListener> createEventListeners() {
 
         List<EventListener> result = new ArrayList<>();
 
