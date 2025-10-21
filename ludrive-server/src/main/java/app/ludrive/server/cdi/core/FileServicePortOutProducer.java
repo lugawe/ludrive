@@ -42,7 +42,7 @@ public class FileServicePortOutProducer {
     }
 
     @Produces
-    public FileServicePortOut produce(
+    public CachedFileServicePortOut produce(
             FileServiceFileCache fileServiceFileCache, FileServiceContentCache fileServiceContentCache) {
 
         FileServicePortOut fileServicePortOut =

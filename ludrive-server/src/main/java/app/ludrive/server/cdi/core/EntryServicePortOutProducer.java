@@ -35,7 +35,7 @@ public class EntryServicePortOutProducer {
     }
 
     @Produces
-    public EntryServicePortOut produce(EntryServiceCache entryServiceCache) {
+    public CachedEntryServicePortOut produce(EntryServiceCache entryServiceCache) {
 
         EntryServicePortOut entryServicePortOut =
                 new DefaultEntryServicePortOut(logger, migrationHandler, entryRepository);

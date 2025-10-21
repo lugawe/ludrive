@@ -39,7 +39,7 @@ public class DirectoryServicePortOutProducer {
     }
 
     @Produces
-    public DirectoryServicePortOut produce(DirectoryServiceCache directoryServiceCache) {
+    public CachedDirectoryServicePortOut produce(DirectoryServiceCache directoryServiceCache) {
 
         DirectoryServicePortOut directoryServicePortOut = new DefaultDirectoryServicePortOut(
                 logger, migrationHandler, directoryRepository, virtualFileSystemService);

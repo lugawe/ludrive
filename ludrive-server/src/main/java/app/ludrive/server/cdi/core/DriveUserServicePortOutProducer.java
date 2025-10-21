@@ -35,7 +35,7 @@ public class DriveUserServicePortOutProducer {
     }
 
     @Produces
-    public DriveUserServicePortOut produce(DriveUserServiceCache driveUserServiceCache) {
+    public CachedDriveUserServicePortOut produce(DriveUserServiceCache driveUserServiceCache) {
 
         DriveUserServicePortOut driveUserServicePortOut =
                 new DefaultDriveUserServicePortOut(logger, migrationHandler, driveUserRepository);
