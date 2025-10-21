@@ -2,10 +2,9 @@ package app.ludrive.core.service.cache;
 
 import java.util.*;
 
-import app.ludrive.core.domain.Identifiable;
 import app.ludrive.core.exception.CacheException;
 
-public class MemoryCache<T extends Identifiable, ID> implements Cache<T, ID> {
+public class MemoryCache<T, ID> implements Cache<T, ID> {
 
     protected final Map<ID, T> cache = Collections.synchronizedMap(new LinkedHashMap<>());
 

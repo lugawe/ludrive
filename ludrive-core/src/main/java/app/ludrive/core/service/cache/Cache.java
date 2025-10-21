@@ -5,9 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.SequencedCollection;
 
-import app.ludrive.core.domain.Identifiable;
-
-public interface Cache<T extends Identifiable, ID> {
+public interface Cache<T, ID> {
 
     void setValue(ID id, T value);
 
