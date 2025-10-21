@@ -4,14 +4,15 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 import java.util.SequencedCollection;
+import java.util.function.Supplier;
 
 public interface Cache<T, ID> {
 
     // ---
 
-    void setValue(ID id, T value);
+    void putValue(ID id, T value);
 
-    void setValues(Map<ID, T> values);
+    void putValues(Map<ID, T> values);
 
     Optional<T> getValue(ID id);
 
@@ -24,4 +25,16 @@ public interface Cache<T, ID> {
     void evict(Collection<ID> ids);
 
     void evictAll();
+
+    int size();
+
+    // --- default ---
+
+    default T computeIfAbsent(ID id, Supplier<T> loader) {
+        return getValue(id).orElseGet(() -> {
+            T value = loader.get();
+            putValue(id, value);
+            return value;
+        });
+    }
 }

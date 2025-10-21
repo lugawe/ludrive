@@ -11,7 +11,7 @@ public class MemoryCache<T, ID> implements Cache<T, ID> {
     public MemoryCache() {}
 
     @Override
-    public void setValue(ID id, T value) {
+    public void putValue(ID id, T value) {
 
         if (id == null) {
             throw new CacheException("Id cannot be null");
@@ -21,7 +21,7 @@ public class MemoryCache<T, ID> implements Cache<T, ID> {
     }
 
     @Override
-    public void setValues(Map<ID, T> values) {
+    public void putValues(Map<ID, T> values) {
 
         if (values == null) {
             throw new CacheException("Values cannot be null");
@@ -85,5 +85,10 @@ public class MemoryCache<T, ID> implements Cache<T, ID> {
     @Override
     public void evictAll() {
         cache.clear();
+    }
+
+    @Override
+    public int size() {
+        return cache.size();
     }
 }
