@@ -4,10 +4,10 @@ import java.util.UUID;
 
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.DriveUserServicePortOut;
-import app.ludrive.core.service.event.AbstractEventManager;
+import app.ludrive.core.service.event.AbstractEventListener;
 
 // TODO
-public final class CachedDriveUserServicePortOut implements DriveUserServicePortOut, AbstractEventManager {
+public final class CachedDriveUserServicePortOut implements DriveUserServicePortOut, AbstractEventListener {
 
     private final DriveUserServicePortOut driveUserServicePortOut;
     private final DriveUserServiceCache driveUserServiceCache;
