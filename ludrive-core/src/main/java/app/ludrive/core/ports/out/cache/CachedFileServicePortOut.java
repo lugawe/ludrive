@@ -1,4 +1,4 @@
-package app.ludrive.core.ports.out;
+package app.ludrive.core.ports.out.cache;
 
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -7,21 +7,23 @@ import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Content;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.domain.vfs.FileContent;
-import app.ludrive.core.service.cache.Cache;
+import app.ludrive.core.ports.out.FileServicePortOut;
 import app.ludrive.core.service.event.AbstractEventManager;
 
 // TODO
 public final class CachedFileServicePortOut implements FileServicePortOut, AbstractEventManager {
 
     private final FileServicePortOut fileServicePortOut;
-    private final Cache<File, String> fileCache;
-    private final Cache<Content, String> contentCache;
+    private final FileServiceFileCache fileServiceFileCache;
+    private final FileServiceContentCache fileServiceContentCache;
 
     public CachedFileServicePortOut(
-            FileServicePortOut fileServicePortOut, Cache<File, String> fileCache, Cache<Content, String> contentCache) {
+            FileServicePortOut fileServicePortOut,
+            FileServiceFileCache fileServiceFileCache,
+            FileServiceContentCache fileServiceContentCache) {
         this.fileServicePortOut = fileServicePortOut;
-        this.fileCache = fileCache;
-        this.contentCache = contentCache;
+        this.fileServiceFileCache = fileServiceFileCache;
+        this.fileServiceContentCache = fileServiceContentCache;
     }
 
     @Override

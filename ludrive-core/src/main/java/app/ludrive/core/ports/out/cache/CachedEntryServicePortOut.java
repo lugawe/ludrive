@@ -1,22 +1,22 @@
-package app.ludrive.core.ports.out;
+package app.ludrive.core.ports.out.cache;
 
 import java.util.UUID;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.DriveUser;
-import app.ludrive.core.service.cache.Cache;
+import app.ludrive.core.ports.out.EntryServicePortOut;
 import app.ludrive.core.service.event.AbstractEventManager;
 
 // TODO
 public final class CachedEntryServicePortOut implements EntryServicePortOut, AbstractEventManager {
 
     private final EntryServicePortOut entryServicePortOut;
-    private final Cache<Entry, UUID> cache;
+    private final EntryServiceCache entryServiceCache;
 
-    public CachedEntryServicePortOut(EntryServicePortOut entryServicePortOut, Cache<Entry, UUID> cache) {
+    public CachedEntryServicePortOut(EntryServicePortOut entryServicePortOut, EntryServiceCache entryServiceCache) {
         this.entryServicePortOut = entryServicePortOut;
-        this.cache = cache;
+        this.entryServiceCache = entryServiceCache;
     }
 
     @Override
