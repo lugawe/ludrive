@@ -1,14 +1,16 @@
 package app.ludrive.core.ports.out.cache;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.ports.out.EntryServicePortOut;
 import app.ludrive.core.service.event.AbstractEventListener;
+import app.ludrive.core.service.event.Events;
 
-// TODO
 public final class CachedEntryServicePortOut implements EntryServicePortOut, AbstractEventListener {
 
     private final EntryServicePortOut entryServicePortOut;
@@ -31,7 +33,10 @@ public final class CachedEntryServicePortOut implements EntryServicePortOut, Abs
 
     @Override
     public Entry getEntry(DriveUser driveUser, UUID entryId) {
-        return entryServicePortOut.getEntry(driveUser, entryId);
+
+        Supplier<Entry> loader = () -> entryServicePortOut.getEntry(driveUser, entryId);
+
+        return entryServiceCache.computeIfAbsent(entryId, loader);
     }
 
     @Override
@@ -42,5 +47,25 @@ public final class CachedEntryServicePortOut implements EntryServicePortOut, Abs
     @Override
     public Entry deleteEntry(DriveUser driveUser, UUID entryId) {
         return entryServicePortOut.deleteEntry(driveUser, entryId);
+    }
+
+    @Override
+    public void onEntryUpdated(Events.EntryUpdatedProps props) {
+
+        List<UUID> keys = props.updatedEntries().stream()
+                .flatMap(e -> Stream.of(e.oldValue().getId(), e.newValue().getId()))
+                .distinct()
+                .toList();
+
+        entryServiceCache.evict(keys);
+    }
+
+    @Override
+    public void onEntryDeleted(Events.EntryDeletedProps props) {
+
+        List<UUID> keys =
+                props.deletedEntries().stream().map(e -> e.value().getId()).toList();
+
+        entryServiceCache.evict(keys);
     }
 }
