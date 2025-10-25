@@ -63,13 +63,11 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
     @Transactional
     public Stream<Entry> getEntries(DriveUser driveUser) {
 
-        JpaDriveUser jpaDriveUser = jpaConverter.toJpaDriveUser(driveUser);
-
         EntityManager entityManager = getEntityManager();
 
         Stream<JpaEntry> result = entityManager
                 .createQuery("from JpaEntry where owner.id = :owner_id", JpaEntry.class)
-                .setParameter("owner_id", jpaDriveUser.getId())
+                .setParameter("owner_id", driveUser.getId())
                 .getResultStream();
 
         return result.map(jpaConverter::toEntry).toList().stream();
