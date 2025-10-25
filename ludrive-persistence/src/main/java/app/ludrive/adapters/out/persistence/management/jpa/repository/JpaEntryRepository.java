@@ -15,7 +15,7 @@ import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaDriveUser;
 import app.ludrive.adapters.out.persistence.management.jpa.entity.JpaEntry;
 import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.auth.DriveUser;
-import app.ludrive.core.exception.NotFoundException;
+import app.ludrive.core.exception.DomainExceptions;
 import app.ludrive.core.ports.out.repository.EntryRepository;
 
 @ApplicationScoped
@@ -29,10 +29,6 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
         this.jpaConverter = Objects.requireNonNull(jpaConverter);
     }
 
-    protected NotFoundException createNotFoundException(UUID entryId) {
-        return new NotFoundException(String.format("entry not found: %s", entryId));
-    }
-
     protected JpaEntry getEntryById(DriveUser driveUser, UUID entryId) {
         JpaEntry result = getEntityManager()
                 .createQuery("from JpaEntry where id = :id and owner.id = :owner_id", JpaEntry.class)
@@ -40,7 +36,7 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
                 .setParameter("owner_id", driveUser.getId())
                 .getSingleResultOrNull();
         if (result == null) {
-            throw createNotFoundException(entryId);
+            throw DomainExceptions.createEntryNotFound(entryId);
         }
         return result;
     }

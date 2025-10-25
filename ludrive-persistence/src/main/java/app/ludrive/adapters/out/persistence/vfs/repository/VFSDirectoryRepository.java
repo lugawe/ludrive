@@ -8,7 +8,7 @@ import jakarta.inject.Inject;
 
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Directory;
-import app.ludrive.core.exception.NotFoundException;
+import app.ludrive.core.exception.DomainExceptions;
 import app.ludrive.core.ports.out.repository.DirectoryRepository;
 import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
@@ -22,10 +22,6 @@ public class VFSDirectoryRepository implements DirectoryRepository {
         this.tree = Objects.requireNonNull(tree);
     }
 
-    protected NotFoundException createNotFoundException() {
-        return new NotFoundException("Entry item not found");
-    }
-
     @Override
     public Directory createDirectory(DriveUser driveUser, Directory directory) {
 
@@ -33,7 +29,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
 
         tree.put(path, directory);
 
-        return tree.getDirectory(path).orElseThrow(this::createNotFoundException);
+        return tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
     }
 
     @Override
@@ -45,7 +41,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     @Override
     public Directory getDirectory(DriveUser driveUser, String path) {
 
-        return tree.getDirectory(path).orElseThrow(this::createNotFoundException);
+        return tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
     }
 
     @Override
@@ -53,13 +49,13 @@ public class VFSDirectoryRepository implements DirectoryRepository {
 
         tree.put(path, updatedDirectory);
 
-        return tree.getDirectory(path).orElseThrow(this::createNotFoundException);
+        return tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
     }
 
     @Override
     public Directory deleteDirectory(DriveUser driveUser, String path) {
 
-        Directory directory = tree.getDirectory(path).orElseThrow(this::createNotFoundException);
+        Directory directory = tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
 
         tree.remove(path);
 

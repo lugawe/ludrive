@@ -8,7 +8,7 @@ import jakarta.inject.Inject;
 
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.File;
-import app.ludrive.core.exception.NotFoundException;
+import app.ludrive.core.exception.DomainExceptions;
 import app.ludrive.core.ports.out.repository.FileRepository;
 import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
@@ -22,10 +22,6 @@ public class VFSFileRepository implements FileRepository {
         this.tree = Objects.requireNonNull(tree);
     }
 
-    protected NotFoundException createNotFoundException() {
-        return new NotFoundException("Entry item not found");
-    }
-
     @Override
     public File createFile(DriveUser driveUser, File file) {
 
@@ -33,7 +29,7 @@ public class VFSFileRepository implements FileRepository {
 
         tree.put(path, file);
 
-        return tree.getFile(path).orElseThrow(this::createNotFoundException);
+        return tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
     }
 
     @Override
@@ -45,7 +41,7 @@ public class VFSFileRepository implements FileRepository {
     @Override
     public File getFile(DriveUser driveUser, String path) {
 
-        return tree.getFile(path).orElseThrow(this::createNotFoundException);
+        return tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
     }
 
     @Override
@@ -53,13 +49,13 @@ public class VFSFileRepository implements FileRepository {
 
         tree.put(path, file);
 
-        return tree.getFile(path).orElseThrow(this::createNotFoundException);
+        return tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
     }
 
     @Override
     public File deleteFile(DriveUser driveUser, String path) {
 
-        File file = tree.getFile(path).orElseThrow(this::createNotFoundException);
+        File file = tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
 
         tree.remove(path);
 
