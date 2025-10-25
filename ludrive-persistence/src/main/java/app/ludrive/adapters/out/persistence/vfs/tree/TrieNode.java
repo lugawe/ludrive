@@ -1,20 +1,32 @@
 package app.ludrive.adapters.out.persistence.vfs.tree;
 
-public class TrieNode<T> {
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
-    private String key;
-    private T content;
+public final class TrieNode<T> {
 
-    private TrieNode<T>[] children;
+    private final Map<String, TrieNode<T>> children = new ConcurrentHashMap<>();
+
+    private volatile T content;
+
+    public TrieNode(T content) {
+        this.content = Objects.requireNonNull(content);
+    }
 
     public TrieNode() {}
 
-    public String getKey() {
-        return key;
+    public TrieNode<T> getChild(String segment) {
+        return children.get(segment);
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public TrieNode<T> getOrCreateChild(String segment) {
+        return children.computeIfAbsent(segment, (s) -> new TrieNode<>());
+    }
+
+    public Collection<TrieNode<T>> getChildren() {
+        return children.values();
     }
 
     public T getContent() {
@@ -23,13 +35,5 @@ public class TrieNode<T> {
 
     public void setContent(T content) {
         this.content = content;
-    }
-
-    public TrieNode<T>[] getChildren() {
-        return children;
-    }
-
-    public void setChildren(TrieNode<T>[] children) {
-        this.children = children;
     }
 }
