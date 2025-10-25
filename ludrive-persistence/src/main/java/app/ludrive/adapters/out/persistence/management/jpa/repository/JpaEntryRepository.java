@@ -34,18 +34,15 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
     }
 
     protected JpaEntry getEntryById(DriveUser driveUser, UUID entryId) {
-
-        JpaDriveUser jpaDriveUser = jpaConverter.toJpaDriveUser(driveUser);
-
-        Object result = getEntityManager()
-                .createQuery("from JpaEntry where id = :id and owner.id = :owner_id")
+        JpaEntry result = getEntityManager()
+                .createQuery("from JpaEntry where id = :id and owner.id = :owner_id", JpaEntry.class)
                 .setParameter("id", entryId)
-                .setParameter("owner_id", jpaDriveUser.getId())
+                .setParameter("owner_id", driveUser.getId())
                 .getSingleResultOrNull();
-        if (!(result instanceof JpaEntry jpaEntry)) {
+        if (result == null) {
             throw createNotFoundException(entryId);
         }
-        return jpaEntry;
+        return result;
     }
 
     @Override
@@ -70,12 +67,12 @@ public class JpaEntryRepository extends JpaRepository<JpaEntry, UUID> implements
 
         EntityManager entityManager = getEntityManager();
 
-        Stream<?> result = entityManager
-                .createQuery("from JpaEntry where owner.id = :owner_id")
+        Stream<JpaEntry> result = entityManager
+                .createQuery("from JpaEntry where owner.id = :owner_id", JpaEntry.class)
                 .setParameter("owner_id", jpaDriveUser.getId())
                 .getResultStream();
 
-        return result.map(o -> (JpaEntry) o).map(jpaConverter::toEntry).toList().stream();
+        return result.map(jpaConverter::toEntry).toList().stream();
     }
 
     @Override

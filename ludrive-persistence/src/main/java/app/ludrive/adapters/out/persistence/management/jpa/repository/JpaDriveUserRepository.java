@@ -30,14 +30,14 @@ public class JpaDriveUserRepository extends JpaRepository<JpaDriveUser, UUID> im
     }
 
     protected JpaDriveUser getDriveUserById(UUID driveUserId) {
-        Object result = getEntityManager()
-                .createQuery("from JpaDriveUser where id = :id")
+        JpaDriveUser result = getEntityManager()
+                .createQuery("from JpaDriveUser where id = :id", JpaDriveUser.class)
                 .setParameter("id", driveUserId)
                 .getSingleResultOrNull();
-        if (!(result instanceof JpaDriveUser jpaDriveUser)) {
+        if (result == null) {
             throw createNotFoundException(driveUserId);
         }
-        return jpaDriveUser;
+        return result;
     }
 
     @Override
