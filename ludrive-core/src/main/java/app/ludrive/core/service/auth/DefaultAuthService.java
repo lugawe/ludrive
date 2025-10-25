@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import app.ludrive.core.domain.management.auth.AuthIdentity;
 import app.ludrive.core.exception.AccessDeniedException;
+import app.ludrive.core.exception.AuthExceptions;
 
 public class DefaultAuthService implements AuthService {
 
@@ -12,7 +13,7 @@ public class DefaultAuthService implements AuthService {
     @Override
     public void checkAccess(AuthIdentity identity) throws AccessDeniedException {
         if (identity == null) {
-            throw new AccessDeniedException("no auth identity provided");
+            throw AuthExceptions.createNoAuthIdentityProvided();
         }
     }
 
@@ -20,7 +21,7 @@ public class DefaultAuthService implements AuthService {
     public void checkDriveUserAccess(AuthIdentity identity, UUID driveUserId) throws AccessDeniedException {
         checkAccess(identity);
         if (!identity.getId().equals(driveUserId)) {
-            throw new AccessDeniedException("cannot access drive user");
+            throw AuthExceptions.createNoAccess(identity);
         }
     }
 
