@@ -21,11 +21,11 @@
         <!-- ludrive -->
         <ludrive.version>0.1</ludrive.version>
         <!-- dependency versions -->
-        <quarkus.version>3.28.4</quarkus.version>
-        <google-tink.version>1.18.0</google-tink.version>
+        <quarkus.version>3.29.0</quarkus.version>
+        <google-tink.version>1.19.0</google-tink.version>
         <apache-commons-vfs2.version>2.10.0</apache-commons-vfs2.version>
         <!-- plugin versions -->
-        <exec-maven-plugin.version>3.6.0</exec-maven-plugin.version>
+        <exec-maven-plugin.version>3.6.2</exec-maven-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
