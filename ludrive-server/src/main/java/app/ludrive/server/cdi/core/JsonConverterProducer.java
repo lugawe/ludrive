@@ -6,7 +6,6 @@ import jakarta.enterprise.inject.Produces;
 import app.ludrive.core.exception.ConvertException;
 import app.ludrive.core.service.converter.JsonConverter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ApplicationScoped
@@ -24,7 +23,7 @@ public class JsonConverterProducer {
         public <T> String toJson(T value) throws ConvertException {
             try {
                 return objectMapper.writeValueAsString(value);
-            } catch (JsonProcessingException e) {
+            } catch (Exception e) {
                 throw new ConvertException(e);
             }
         }
@@ -33,7 +32,7 @@ public class JsonConverterProducer {
         public <T> T fromJson(String json, Class<T> tClass) throws ConvertException {
             try {
                 return objectMapper.readValue(json, tClass);
-            } catch (JsonProcessingException e) {
+            } catch (Exception e) {
                 throw new ConvertException(e);
             }
         }
