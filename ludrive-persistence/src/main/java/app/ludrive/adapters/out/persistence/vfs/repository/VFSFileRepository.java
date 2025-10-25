@@ -22,6 +22,10 @@ public class VFSFileRepository implements FileRepository {
         this.tree = Objects.requireNonNull(tree);
     }
 
+    protected File getFile(String path) {
+        return tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
+    }
+
     @Override
     public File createFile(DriveUser driveUser, File file) {
 
@@ -29,7 +33,7 @@ public class VFSFileRepository implements FileRepository {
 
         tree.put(path, file);
 
-        return tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
+        return getFile(path);
     }
 
     @Override
@@ -41,7 +45,7 @@ public class VFSFileRepository implements FileRepository {
     @Override
     public File getFile(DriveUser driveUser, String path) {
 
-        return tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
+        return getFile(path);
     }
 
     @Override
@@ -49,13 +53,13 @@ public class VFSFileRepository implements FileRepository {
 
         tree.put(path, file);
 
-        return tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
+        return getFile(path);
     }
 
     @Override
     public File deleteFile(DriveUser driveUser, String path) {
 
-        File file = tree.getFile(path).orElseThrow(() -> DomainExceptions.createFileNotFound(path));
+        File file = getFile(path);
 
         tree.remove(path);
 

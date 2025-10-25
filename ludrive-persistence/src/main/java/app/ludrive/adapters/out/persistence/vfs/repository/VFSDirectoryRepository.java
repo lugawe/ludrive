@@ -22,6 +22,10 @@ public class VFSDirectoryRepository implements DirectoryRepository {
         this.tree = Objects.requireNonNull(tree);
     }
 
+    protected Directory getDirectory(String path) {
+        return tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
+    }
+
     @Override
     public Directory createDirectory(DriveUser driveUser, Directory directory) {
 
@@ -29,7 +33,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
 
         tree.put(path, directory);
 
-        return tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
+        return getDirectory(path);
     }
 
     @Override
@@ -41,7 +45,7 @@ public class VFSDirectoryRepository implements DirectoryRepository {
     @Override
     public Directory getDirectory(DriveUser driveUser, String path) {
 
-        return tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
+        return getDirectory(path);
     }
 
     @Override
@@ -49,13 +53,13 @@ public class VFSDirectoryRepository implements DirectoryRepository {
 
         tree.put(path, updatedDirectory);
 
-        return tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
+        return getDirectory(path);
     }
 
     @Override
     public Directory deleteDirectory(DriveUser driveUser, String path) {
 
-        Directory directory = tree.getDirectory(path).orElseThrow(() -> DomainExceptions.createDirectoryNotFound(path));
+        Directory directory = getDirectory(path);
 
         tree.remove(path);
 
