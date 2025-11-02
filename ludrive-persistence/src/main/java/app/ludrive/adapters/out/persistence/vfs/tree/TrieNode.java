@@ -9,10 +9,10 @@ public final class TrieNode<T> {
 
     private final Map<String, TrieNode<T>> children = new ConcurrentHashMap<>();
 
-    private volatile T content;
+    private volatile T value;
 
-    public TrieNode(T content) {
-        this.content = Objects.requireNonNull(content);
+    public TrieNode(T value) {
+        this.value = Objects.requireNonNull(value);
     }
 
     public TrieNode() {}
@@ -29,17 +29,17 @@ public final class TrieNode<T> {
         return children.values();
     }
 
-    public T getContent() {
-        return content;
+    public T getValue() {
+        return value;
     }
 
-    public void setContent(T content) {
-        this.content = content;
+    public void setValue(T value) {
+        this.value = value;
     }
 
     public void clear() {
         children.forEach((k, v) -> v.clear());
         children.clear();
-        content = null;
+        value = null;
     }
 }
