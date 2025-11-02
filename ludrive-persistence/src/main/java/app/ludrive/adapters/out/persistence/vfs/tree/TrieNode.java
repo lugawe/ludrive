@@ -36,4 +36,10 @@ public final class TrieNode<T> {
     public void setContent(T content) {
         this.content = content;
     }
+
+    public void clear() {
+        children.forEach((k, v) -> v.clear());
+        children.clear();
+        content = null;
+    }
 }
