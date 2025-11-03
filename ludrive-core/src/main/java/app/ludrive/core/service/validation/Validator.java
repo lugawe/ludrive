@@ -20,4 +20,8 @@ public interface Validator {
     void validateFile(File file) throws ValidationException;
 
     void validateFile(File file, Content content) throws ValidationException;
+
+    // ---
+
+    String normalizePath(String path) throws ValidationException;
 }

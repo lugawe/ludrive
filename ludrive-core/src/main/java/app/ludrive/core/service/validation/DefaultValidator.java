@@ -66,4 +66,27 @@ public class DefaultValidator implements Validator {
     public void validateFile(File file, Content content) throws ValidationException {
         validatePath(file.getPath());
     }
+
+    @Override
+    public String normalizePath(String path) {
+
+        if (path == null) {
+            throw new NullPointerException("Parameter path cannot be null");
+        }
+
+        if (!isValidPath(path)) {
+            throw new ValidationException("Invalid path");
+        }
+
+        String normalized = path.trim();
+        if (normalized.charAt(0) != '/') {
+            normalized = "/" + normalized;
+        }
+
+        if (normalized.length() > 1 && normalized.endsWith("/")) {
+            normalized = normalized.substring(0, normalized.length() - 1);
+        }
+
+        return normalized;
+    }
 }
