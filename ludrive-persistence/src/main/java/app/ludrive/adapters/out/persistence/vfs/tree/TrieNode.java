@@ -1,6 +1,5 @@
 package app.ludrive.adapters.out.persistence.vfs.tree;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -40,8 +39,8 @@ public final class TrieNode<T> {
         return children.get(segment);
     }
 
-    public Collection<TrieNode<T>> getChildren() {
-        return Collections.unmodifiableCollection(children.values());
+    public Map<String, TrieNode<T>> getChildren() {
+        return Collections.unmodifiableMap(children);
     }
 
     public String getSegment() {
