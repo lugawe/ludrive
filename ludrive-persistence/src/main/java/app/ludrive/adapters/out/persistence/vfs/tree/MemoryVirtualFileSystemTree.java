@@ -1,109 +1,86 @@
 package app.ludrive.adapters.out.persistence.vfs.tree;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.SequencedCollection;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Predicate;
 
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.EntryItem;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
-// TODO
 public class MemoryVirtualFileSystemTree implements VirtualFileSystemTree {
 
-    private final Map<String, EntryItem> map = new ConcurrentHashMap<>();
+    protected final Trie<EntryItem> trie;
 
-    public MemoryVirtualFileSystemTree() {}
-
-    private Predicate<EntryItem> matches(String path) {
-        return (v) -> v.getPath().startsWith(path);
+    public MemoryVirtualFileSystemTree() {
+        this.trie = new Trie<>("/");
     }
 
     @Override
     public void put(String path, EntryItem entryItem) {
 
         if (path == null) {
-            throw new NullPointerException("path");
+            throw new NullPointerException("Parameter path cannot be null");
         }
+
         if (entryItem == null) {
-            throw new NullPointerException("entryItem");
+            throw new NullPointerException("Parameter entryItem cannot be null");
         }
 
         if (!path.equals(entryItem.getPath())) {
-            throw new IllegalArgumentException("path and entry item path must match");
+            throw new IllegalArgumentException("Path and entry item path must match");
         }
 
-        map.put(path, entryItem);
+        trie.put(path, entryItem);
     }
 
     @Override
     public Optional<? extends EntryItem> get(String path) {
 
         if (path == null) {
-            throw new NullPointerException("path");
+            throw new NullPointerException("Parameter path cannot be null");
         }
 
-        return Optional.ofNullable(map.get(path));
+        return trie.get(path);
     }
 
     @Override
     public Optional<Directory> getDirectory(String path) {
 
-        if (path == null) {
-            throw new NullPointerException("path");
-        }
-
-        return get(path).filter(v -> v instanceof Directory).map(v -> (Directory) v);
+        return get(path).filter(i -> i instanceof Directory).map(i -> (Directory) i);
     }
 
     @Override
     public Optional<File> getFile(String path) {
 
-        if (path == null) {
-            throw new NullPointerException("path");
-        }
-
-        return get(path).filter(v -> v instanceof File).map(v -> (File) v);
+        return get(path).filter(i -> i instanceof File).map(i -> (File) i);
     }
 
     @Override
     public SequencedCollection<? extends EntryItem> list(String path) {
 
         if (path == null) {
-            throw new NullPointerException("path");
+            throw new NullPointerException("Parameter path cannot be null");
         }
 
-        return map.values().stream().filter(matches(path)).toList();
+        return trie.listDirectChildren(path);
     }
 
     @Override
     public SequencedCollection<Directory> listDirectories(String path) {
 
-        if (path == null) {
-            throw new NullPointerException("path");
-        }
-
-        return map.values().stream()
-                .filter(matches(path))
-                .filter(v -> v instanceof Directory)
-                .map(v -> (Directory) v)
+        return list(path).stream()
+                .filter(i -> i instanceof Directory)
+                .map(i -> (Directory) i)
                 .toList();
     }
 
     @Override
     public SequencedCollection<File> listFiles(String path) {
 
-        if (path == null) {
-            throw new NullPointerException("path");
-        }
-
-        return map.values().stream()
-                .filter(matches(path))
-                .filter(v -> v instanceof File)
-                .map(v -> (File) v)
+        return list(path).stream()
+                .filter(i -> i instanceof File)
+                .map(i -> (File) i)
                 .toList();
     }
 
@@ -111,9 +88,9 @@ public class MemoryVirtualFileSystemTree implements VirtualFileSystemTree {
     public void remove(String path) {
 
         if (path == null) {
-            throw new NullPointerException("path");
+            throw new NullPointerException("Parameter path cannot be null");
         }
 
-        map.remove(path);
+        trie.remove(path);
     }
 }
