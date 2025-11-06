@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import app.ludrive.core.exception.Exceptions;
+
 public final class TrieNode<T> {
 
     private final Map<String, TrieNode<T>> children = new ConcurrentHashMap<>();
@@ -20,11 +22,11 @@ public final class TrieNode<T> {
     public TrieNode(String segment, T value) {
 
         if (segment == null) {
-            throw new NullPointerException("Parameter segment is null");
+            throw Exceptions.createNullPointer("segment");
         }
 
         if (value == null) {
-            throw new NullPointerException("Parameter value is null");
+            throw Exceptions.createNullPointer("value");
         }
 
         this.segment = segment;
@@ -34,7 +36,11 @@ public final class TrieNode<T> {
     public TrieNode<T> putChild(String segment, T value) {
 
         if (segment == null) {
-            throw new NullPointerException("Parameter segment is null");
+            throw Exceptions.createNullPointer("segment");
+        }
+
+        if (value == null) {
+            throw Exceptions.createNullPointer("value");
         }
 
         TrieNode<T> node = new TrieNode<>(segment, value);
@@ -45,7 +51,7 @@ public final class TrieNode<T> {
     public TrieNode<T> getChild(String segment) {
 
         if (segment == null) {
-            throw new NullPointerException("Parameter segment is null");
+            throw Exceptions.createNullPointer("segment");
         }
 
         return children.get(segment);

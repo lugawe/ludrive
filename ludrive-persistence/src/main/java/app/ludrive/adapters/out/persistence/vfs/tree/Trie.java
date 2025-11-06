@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import app.ludrive.core.exception.Exceptions;
+
 public final class Trie<T> {
 
     private final Map<String, String[]> cache = new ConcurrentHashMap<>();
@@ -72,7 +74,7 @@ public final class Trie<T> {
     public List<T> listDirectChildren(String key) {
 
         if (key == null) {
-            throw new NullPointerException("Parameter 'key' cannot be null");
+            throw Exceptions.createNullPointer("key");
         }
 
         TrieNode<T> node = findNode(key);
@@ -86,7 +88,7 @@ public final class Trie<T> {
     public Optional<T> get(String key) {
 
         if (key == null) {
-            throw new NullPointerException("Parameter 'key' cannot be null");
+            throw Exceptions.createNullPointer("key");
         }
 
         TrieNode<T> node = findNode(key);
@@ -96,11 +98,11 @@ public final class Trie<T> {
     public void put(String key, T value) {
 
         if (key == null) {
-            throw new NullPointerException("Parameter 'key' cannot be null");
+            throw Exceptions.createNullPointer("key");
         }
 
         if (value == null) {
-            throw new NullPointerException("Parameter 'value' cannot be null");
+            throw Exceptions.createNullPointer("value");
         }
 
         String[] segments = segments(key);
@@ -127,7 +129,7 @@ public final class Trie<T> {
     public void remove(String key) {
 
         if (key == null) {
-            throw new NullPointerException("Parameter 'key' cannot be null");
+            throw Exceptions.createNullPointer("key");
         }
 
         TrieNode<T> node = findNode(key);
