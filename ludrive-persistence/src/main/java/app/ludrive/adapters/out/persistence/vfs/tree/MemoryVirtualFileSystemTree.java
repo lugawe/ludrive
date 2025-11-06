@@ -6,6 +6,7 @@ import java.util.SequencedCollection;
 import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.EntryItem;
 import app.ludrive.core.domain.vfs.File;
+import app.ludrive.core.exception.Exceptions;
 import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
 public class MemoryVirtualFileSystemTree implements VirtualFileSystemTree {
@@ -20,25 +21,35 @@ public class MemoryVirtualFileSystemTree implements VirtualFileSystemTree {
     public void put(String path, EntryItem entryItem) {
 
         if (path == null) {
-            throw new NullPointerException("Parameter path cannot be null");
+            throw Exceptions.createNullPointer("path");
         }
 
         if (entryItem == null) {
-            throw new NullPointerException("Parameter entryItem cannot be null");
+            throw Exceptions.createNullPointer("entryItem");
         }
 
         if (!path.equals(entryItem.getPath())) {
-            throw new IllegalArgumentException("Path and entry item path must match");
+            throw new IllegalStateException("Path and entry item path must match");
         }
 
         trie.put(path, entryItem);
     }
 
     @Override
+    public void put(EntryItem entryItem) {
+
+        if (entryItem == null) {
+            throw Exceptions.createNullPointer("entryItem");
+        }
+
+        put(entryItem.getPath(), entryItem);
+    }
+
+    @Override
     public Optional<? extends EntryItem> get(String path) {
 
         if (path == null) {
-            throw new NullPointerException("Parameter path cannot be null");
+            throw Exceptions.createNullPointer("path");
         }
 
         return trie.get(path);
@@ -60,7 +71,7 @@ public class MemoryVirtualFileSystemTree implements VirtualFileSystemTree {
     public SequencedCollection<? extends EntryItem> list(String path) {
 
         if (path == null) {
-            throw new NullPointerException("Parameter path cannot be null");
+            throw Exceptions.createNullPointer("path");
         }
 
         return trie.listDirectChildren(path);
@@ -88,9 +99,14 @@ public class MemoryVirtualFileSystemTree implements VirtualFileSystemTree {
     public void remove(String path) {
 
         if (path == null) {
-            throw new NullPointerException("Parameter path cannot be null");
+            throw Exceptions.createNullPointer("path");
         }
 
         trie.remove(path);
+    }
+
+    @Override
+    public long size() {
+        return trie.size();
     }
 }

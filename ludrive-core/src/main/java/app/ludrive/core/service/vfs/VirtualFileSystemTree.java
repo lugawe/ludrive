@@ -11,6 +11,8 @@ public interface VirtualFileSystemTree {
 
     void put(String path, EntryItem entryItem);
 
+    void put(EntryItem entryItem);
+
     Optional<? extends EntryItem> get(String path);
 
     Optional<Directory> getDirectory(String path);
@@ -24,4 +26,6 @@ public interface VirtualFileSystemTree {
     SequencedCollection<File> listFiles(String path);
 
     void remove(String path);
+
+    long size();
 }
