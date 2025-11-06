@@ -1,7 +1,7 @@
 package app.ludrive.adapters.out.persistence.vfs.tree;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import app.ludrive.core.exception.Exceptions;
 
@@ -10,12 +10,12 @@ public final class Trie<T> {
     private final Map<String, String[]> cache = new HashMap<>();
 
     private final String separator;
-    private final AtomicInteger size; // TODO
+    private final AtomicLong size;
     private final TrieNode<T> root;
 
     public Trie(String separator) {
         this.separator = Objects.requireNonNull(separator);
-        this.size = new AtomicInteger(0);
+        this.size = new AtomicLong(0);
         this.root = TrieNode.createEmptyTreeNode();
     }
 
@@ -124,6 +124,7 @@ public final class Trie<T> {
 
         if (existing == null) {
             parent.putChild(lastSegment, value);
+            size.incrementAndGet();
         } else {
             existing.setValue(value);
         }
@@ -140,14 +141,14 @@ public final class Trie<T> {
             throw Exceptions.createNotFound(TrieNode.class, key);
         }
 
-        node.clear();
+        size.addAndGet(-node.clear());
     }
 
     public boolean contains(String key) {
         return findNode(key) != null;
     }
 
-    public int size() {
+    public long size() {
         return size.get();
     }
 
