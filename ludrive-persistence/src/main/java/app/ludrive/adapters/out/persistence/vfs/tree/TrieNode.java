@@ -2,7 +2,6 @@ package app.ludrive.adapters.out.persistence.vfs.tree;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class TrieNode<T> {
@@ -19,11 +18,24 @@ public final class TrieNode<T> {
     }
 
     public TrieNode(String segment, T value) {
-        this.segment = Objects.requireNonNull(segment);
-        this.value = Objects.requireNonNull(value);
+
+        if (segment == null) {
+            throw new NullPointerException("Parameter segment is null");
+        }
+
+        if (value == null) {
+            throw new NullPointerException("Parameter value is null");
+        }
+
+        this.segment = segment;
+        this.value = value;
     }
 
     public TrieNode<T> putChild(String segment, T value) {
+
+        if (segment == null) {
+            throw new NullPointerException("Parameter segment is null");
+        }
 
         TrieNode<T> node = new TrieNode<>(segment, value);
 
@@ -33,7 +45,7 @@ public final class TrieNode<T> {
     public TrieNode<T> getChild(String segment) {
 
         if (segment == null) {
-            throw new NullPointerException("segment");
+            throw new NullPointerException("Parameter segment is null");
         }
 
         return children.get(segment);
@@ -55,10 +67,12 @@ public final class TrieNode<T> {
         this.value = value;
     }
 
-    public void clear() {
-        children.forEach((k, v) -> v.clear());
+    public long clear() {
+        long result = 1
+                + children.values().parallelStream().mapToLong(TrieNode::clear).sum();
         children.clear();
         value = null;
+        return result;
     }
 
     public static <T> TrieNode<T> createEmptyTreeNode() {
