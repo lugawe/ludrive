@@ -1,14 +1,13 @@
 package app.ludrive.adapters.out.persistence.vfs.tree;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import app.ludrive.core.exception.Exceptions;
 
 public final class Trie<T> {
 
-    private final Map<String, String[]> cache = new ConcurrentHashMap<>();
+    private final Map<String, String[]> cache = new HashMap<>();
 
     private final String separator;
     private final AtomicInteger size; // TODO
@@ -38,6 +37,10 @@ public final class Trie<T> {
     private TrieNode<T> findParentNode(String key) {
 
         String[] segments = segments(key);
+
+        if (segments == null || segments.length == 0) {
+            return root;
+        }
 
         TrieNode<T> current = root;
 
@@ -79,7 +82,7 @@ public final class Trie<T> {
 
         TrieNode<T> node = findNode(key);
         if (node == null) {
-            throw new IllegalArgumentException("Node '" + key + "' not found");
+            throw Exceptions.createNotFound(TrieNode.class, key);
         }
 
         return node.getChildren().values().stream().map(TrieNode::getValue).toList();
@@ -108,12 +111,12 @@ public final class Trie<T> {
         String[] segments = segments(key);
 
         if (segments == null || segments.length == 0) {
-            throw new IllegalArgumentException("Root node is not allowed");
+            throw Exceptions.createNotAllowed(key);
         }
 
         TrieNode<T> parent = findParentNode(key);
         if (parent == null) {
-            throw new IllegalArgumentException("Parent node '" + key + "' not found");
+            throw Exceptions.createNotFound(TrieNode.class, key);
         }
 
         String lastSegment = segments[segments.length - 1];
@@ -134,7 +137,7 @@ public final class Trie<T> {
 
         TrieNode<T> node = findNode(key);
         if (node == null) {
-            throw new IllegalArgumentException("Node '" + key + "' not found");
+            throw Exceptions.createNotFound(TrieNode.class, key);
         }
 
         node.clear();
