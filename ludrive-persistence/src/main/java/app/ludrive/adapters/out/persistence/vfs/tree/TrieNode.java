@@ -10,16 +10,23 @@ public final class TrieNode<T> {
 
     private final Map<String, TrieNode<T>> children = new ConcurrentHashMap<>();
 
+    private final TrieNode<T> parent;
+
     private final String segment;
 
     private volatile T value;
 
     private TrieNode() {
+        this.parent = null;
         this.segment = null;
         this.value = null;
     }
 
-    public TrieNode(String segment, T value) {
+    public TrieNode(TrieNode<T> parent, String segment, T value) {
+
+        if (parent == null) {
+            throw Exceptions.createNullPointer("parent");
+        }
 
         if (segment == null) {
             throw Exceptions.createNullPointer("segment");
@@ -29,21 +36,14 @@ public final class TrieNode<T> {
             throw Exceptions.createNullPointer("value");
         }
 
+        this.parent = parent;
         this.segment = segment;
         this.value = value;
     }
 
     public TrieNode<T> putChild(String segment, T value) {
 
-        if (segment == null) {
-            throw Exceptions.createNullPointer("segment");
-        }
-
-        if (value == null) {
-            throw Exceptions.createNullPointer("value");
-        }
-
-        TrieNode<T> node = new TrieNode<>(segment, value);
+        TrieNode<T> node = new TrieNode<>(this, segment, value);
 
         return children.put(segment, node);
     }
@@ -59,6 +59,10 @@ public final class TrieNode<T> {
 
     public Map<String, TrieNode<T>> getChildren() {
         return Collections.unmodifiableMap(children);
+    }
+
+    public TrieNode<T> getParent() {
+        return parent;
     }
 
     public String getSegment() {
