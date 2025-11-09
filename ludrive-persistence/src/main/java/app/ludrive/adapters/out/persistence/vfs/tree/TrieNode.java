@@ -57,6 +57,15 @@ public final class TrieNode<T> {
         return children.get(segment);
     }
 
+    public TrieNode<T> removeChild(String segment) {
+
+        if (segment == null) {
+            throw Exceptions.createNullPointer("segment");
+        }
+
+        return children.remove(segment);
+    }
+
     public Map<String, TrieNode<T>> getChildren() {
         return Collections.unmodifiableMap(children);
     }
