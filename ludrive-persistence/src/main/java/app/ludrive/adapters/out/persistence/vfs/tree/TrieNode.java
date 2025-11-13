@@ -87,8 +87,7 @@ public final class TrieNode<T> {
     }
 
     public long clear() {
-        long result = 1
-                + children.values().parallelStream().mapToLong(TrieNode::clear).sum();
+        long result = 1 + children.values().stream().mapToLong(TrieNode::clear).sum();
         children.clear();
         value = null;
         if (parent != null && segment != null) {
