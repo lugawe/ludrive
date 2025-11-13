@@ -9,6 +9,7 @@ import jakarta.enterprise.inject.Produces;
 import app.ludrive.adapters.out.persistence.vfs.tree.MemoryVirtualFileSystemTree;
 import app.ludrive.core.service.context.AuthIdentityEntryKey;
 import app.ludrive.core.service.context.ContextService;
+import app.ludrive.core.service.validation.Validator;
 import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
 @RequestScoped
@@ -19,10 +20,10 @@ public class VirtualFileSystemTreeProducer {
     public VirtualFileSystemTreeProducer() {}
 
     @Produces
-    public VirtualFileSystemTree produce(ContextService contextService) {
+    public VirtualFileSystemTree produce(ContextService contextService, Validator validator) {
 
         AuthIdentityEntryKey key = contextService.getKey();
 
-        return cache.computeIfAbsent(key, (k) -> new MemoryVirtualFileSystemTree());
+        return cache.computeIfAbsent(key, (k) -> new MemoryVirtualFileSystemTree(validator));
     }
 }

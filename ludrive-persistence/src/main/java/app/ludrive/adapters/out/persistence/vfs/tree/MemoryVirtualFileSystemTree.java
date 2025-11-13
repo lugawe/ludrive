@@ -7,14 +7,17 @@ import app.ludrive.core.domain.vfs.Directory;
 import app.ludrive.core.domain.vfs.EntryItem;
 import app.ludrive.core.domain.vfs.File;
 import app.ludrive.core.exception.Exceptions;
+import app.ludrive.core.service.validation.Validator;
 import app.ludrive.core.service.vfs.VirtualFileSystemTree;
 
 public class MemoryVirtualFileSystemTree implements VirtualFileSystemTree {
 
     protected final Trie<EntryItem> trie;
+    protected final Validator validator;
 
-    public MemoryVirtualFileSystemTree() {
+    public MemoryVirtualFileSystemTree(Validator validator) {
         this.trie = new Trie<>("/");
+        this.validator = validator;
     }
 
     @Override
