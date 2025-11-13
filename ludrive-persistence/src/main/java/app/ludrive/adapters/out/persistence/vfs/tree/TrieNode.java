@@ -96,7 +96,7 @@ public final class TrieNode<T> {
         return result;
     }
 
-    public static <T> TrieNode<T> createEmptyTreeNode() {
+    public static <T> TrieNode<T> createRoot() {
         return new TrieNode<>();
     }
 }

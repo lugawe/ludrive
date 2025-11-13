@@ -16,7 +16,7 @@ public final class Trie<T> {
     public Trie(String separator) {
         this.separator = Objects.requireNonNull(separator);
         this.size = new AtomicLong(0);
-        this.root = TrieNode.createEmptyTreeNode();
+        this.root = TrieNode.createRoot();
     }
 
     private String[] split(String key) {
