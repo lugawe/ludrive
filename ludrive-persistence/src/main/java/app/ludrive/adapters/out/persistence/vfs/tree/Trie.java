@@ -21,7 +21,9 @@ public final class Trie<T> {
 
     private String[] split(String key) {
 
-        if (key.equals(separator)) {
+        if (key.isEmpty()) {
+            return null;
+        } else if (key.equals(separator)) {
             return null;
         } else if (key.startsWith(separator)) {
             key = key.substring(separator.length());
@@ -59,7 +61,7 @@ public final class Trie<T> {
         String[] segments = segments(key);
 
         if (segments == null || segments.length == 0) {
-            return root;
+            return null;
         }
 
         TrieNode<T> current = root;
