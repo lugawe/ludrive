@@ -21,9 +21,7 @@ public final class Trie<T> {
 
     private String[] split(String key) {
 
-        if (key.isEmpty()) {
-            return null;
-        } else if (key.equals(separator)) {
+        if (key == null || key.isEmpty() || key.equals(separator)) {
             return null;
         } else if (key.startsWith(separator)) {
             key = key.substring(separator.length());
@@ -37,6 +35,10 @@ public final class Trie<T> {
     }
 
     private TrieNode<T> findParentNode(String key) {
+
+        if (separator.equals(key)) {
+            return root;
+        }
 
         String[] segments = segments(key);
 
@@ -57,6 +59,10 @@ public final class Trie<T> {
     }
 
     private TrieNode<T> findNode(String key) {
+
+        if (separator.equals(key)) {
+            return root;
+        }
 
         String[] segments = segments(key);
 
