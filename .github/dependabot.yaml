@@ -6,8 +6,3 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
-  - package-ecosystem: "maven"
-    directory: "/ludrive-bom"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 10
