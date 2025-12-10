@@ -22,7 +22,7 @@
         <ludrive.version>0.1</ludrive.version>
         <!-- dependency versions -->
         <quarkus.version>3.30.2</quarkus.version>
-        <google-tink.version>1.19.0</google-tink.version>
+        <google-tink.version>1.20.0</google-tink.version>
         <apache-commons-vfs2.version>2.10.0</apache-commons-vfs2.version>
         <!-- plugin versions -->
         <exec-maven-plugin.version>3.6.2</exec-maven-plugin.version>
