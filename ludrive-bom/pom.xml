@@ -20,7 +20,7 @@
         <!-- ludrive -->
         <ludrive.version>0.1</ludrive.version>
         <!-- dependency versions -->
-        <quarkus.version>3.30.5</quarkus.version>
+        <quarkus.version>3.30.6</quarkus.version>
         <google-tink.version>1.20.0</google-tink.version>
         <apache-commons-vfs2.version>2.10.0</apache-commons-vfs2.version>
         <!-- plugin versions -->
