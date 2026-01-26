@@ -31,6 +31,10 @@
         <!-- code style -->
         <spotless-maven-plugin.version>3.2.0</spotless-maven-plugin.version>
         <checkstyle-maven-plugin.version>3.6.0</checkstyle-maven-plugin.version>
+        <!-- maven -->
+        <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
     <build>
