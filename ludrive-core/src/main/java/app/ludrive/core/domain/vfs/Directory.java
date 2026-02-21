@@ -6,12 +6,8 @@ public final class Directory extends EntryItem implements Serializable {
 
     public static final String ROOT = "/";
 
-    public Directory(EntryItemId entryItemId) {
-        super(entryItemId);
-    }
-
     public Directory(String path) {
-        this(new EntryItemId(path));
+        super(path);
     }
 
     @Override

@@ -16,27 +16,25 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 })
 public abstract class JsonEntryItem {
 
-    @NotNull(message = "This id cannot be null")
-    @JsonProperty("id")
-    private JsonEntryItemId id;
+    @NotNull(message = "This path cannot be null")
+    @JsonProperty("path")
+    private String path;
 
     @NotEmpty(message = "This type cannot be empty")
     @JsonProperty("type")
     private String type;
 
     public JsonEntryItem(String path, String type) {
-        if (path != null) {
-            this.id = new JsonEntryItemId(path);
-        }
+        this.path = path;
         this.type = type;
     }
 
-    public JsonEntryItemId getId() {
-        return id;
+    public String getPath() {
+        return path;
     }
 
-    public void setId(JsonEntryItemId id) {
-        this.id = id;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getType() {

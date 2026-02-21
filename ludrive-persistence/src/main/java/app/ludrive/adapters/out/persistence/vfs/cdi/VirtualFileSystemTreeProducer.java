@@ -24,6 +24,6 @@ public class VirtualFileSystemTreeProducer {
 
         AuthIdentityEntryKey key = contextService.getKey();
 
-        return cache.computeIfAbsent(key, (k) -> new MemoryVirtualFileSystemTree(validator));
+        return cache.computeIfAbsent(key, _ -> new MemoryVirtualFileSystemTree(validator));
     }
 }

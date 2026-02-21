@@ -9,35 +9,31 @@ public abstract sealed class EntryItem implements Identifiable permits Directory
     public static final String TYPE_DIRECTORY = "DIRECTORY";
     public static final String TYPE_FILE = "FILE";
 
-    private EntryItemId id;
+    private final String path;
 
-    public EntryItem(EntryItemId id) {
-        this.id = Objects.requireNonNull(id);
+    public EntryItem(String path) {
+        this.path = Objects.requireNonNull(path, "path");
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof EntryItem entryItem)) return false;
-        return Objects.equals(id, entryItem.id);
+        return Objects.equals(path, entryItem.path);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(path);
     }
-
-    public abstract String getType();
 
     @Override
-    public EntryItemId getId() {
-        return id;
-    }
-
-    public void setId(EntryItemId id) {
-        this.id = id;
+    public String getId() {
+        return path;
     }
 
     public String getPath() {
-        return id.path();
+        return path;
     }
+
+    public abstract String getType();
 }

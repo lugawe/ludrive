@@ -11,7 +11,6 @@ import app.ludrive.core.domain.management.Entry;
 import app.ludrive.core.domain.management.EntryConfiguration;
 import app.ludrive.core.domain.management.auth.DriveUser;
 import app.ludrive.core.domain.vfs.Directory;
-import app.ludrive.core.domain.vfs.EntryItemId;
 import app.ludrive.core.domain.vfs.File;
 
 @ApplicationScoped
@@ -38,22 +37,6 @@ public class JsonConverter {
         result.setName(driveUser.getName());
 
         return result;
-    }
-
-    public JsonEntryItemId toJsonEntryItemId(EntryItemId entryItemId) {
-
-        JsonEntryItemId result = new JsonEntryItemId();
-
-        result.setPath(entryItemId.path());
-
-        return result;
-    }
-
-    public EntryItemId toEntryItemId(JsonEntryItemId entryItemId) {
-
-        String path = entryItemId.getPath();
-
-        return new EntryItemId(path);
     }
 
     public JsonEntry toJsonEntry(Entry entry) {
@@ -124,31 +107,31 @@ public class JsonConverter {
 
         JsonDirectory result = new JsonDirectory();
 
-        result.setId(toJsonEntryItemId(directory.getId()));
+        result.setPath(directory.getPath());
 
         return result;
     }
 
     public Directory toDirectory(JsonDirectory directory) {
 
-        EntryItemId entryItemId = toEntryItemId(directory.getId());
+        String path = directory.getPath();
 
-        return new Directory(entryItemId);
+        return new Directory(path);
     }
 
     public JsonFile toJsonFile(File file) {
 
         JsonFile result = new JsonFile();
 
-        result.setId(toJsonEntryItemId(file.getId()));
+        result.setPath(file.getPath());
 
         return result;
     }
 
     public File toFile(JsonFile file) {
 
-        EntryItemId entryItemId = toEntryItemId(file.getId());
+        String path = file.getPath();
 
-        return new File(entryItemId);
+        return new File(path);
     }
 }

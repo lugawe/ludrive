@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public record Content(ReadableByteChannel content) implements Closeable {
 
-    public static final int BUFFER_SIZE = 8192;
+    private static final int BUFFER_SIZE = 8192;
 
     public Content(ReadableByteChannel content) {
         this.content = Objects.requireNonNull(content);

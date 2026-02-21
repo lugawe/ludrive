@@ -4,12 +4,8 @@ import java.io.Serializable;
 
 public final class File extends EntryItem implements Serializable {
 
-    public File(EntryItemId entryItemId) {
-        super(entryItemId);
-    }
-
     public File(String path) {
-        this(new EntryItemId(path));
+        super(path);
     }
 
     @Override
